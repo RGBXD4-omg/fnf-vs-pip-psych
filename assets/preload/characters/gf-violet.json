@@ -1,0 +1,122 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				-9
+			],
+			"fps": 24,
+			"anim": "danceLeft",
+			"indices": [
+				30,
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14
+			],
+			"name": "GF Dancing Beat"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				-9
+			],
+			"fps": 24,
+			"anim": "danceRight",
+			"indices": [
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29
+			],
+			"name": "GF Dancing Beat"
+		},
+		{
+			"offsets": [
+				-34,
+				-20
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "Fist",
+			"loop": false,
+			"name": "A"
+		},
+		{
+			"offsets": [
+				90,
+				-19
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "Snap",
+			"loop": false,
+			"name": "B"
+		},
+		{
+			"offsets": [
+				60,
+				-20
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "Peace",
+			"loop": false,
+			"name": "C"
+		},
+		{
+			"offsets": [
+				38,
+				-21
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "GetDown",
+			"loop": false,
+			"name": "D"
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/VIOLET_GF_ass_sets",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "gf",
+	"flip_x": false,
+	"healthbar_colors": [
+		165,
+		0,
+		77
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 4,
+	"scale": 1
+}
