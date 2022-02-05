@@ -1,0 +1,100 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				-62,
+				56
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "B"
+		},
+		{
+			"offsets": [
+				34,
+				199
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "F"
+		},
+		{
+			"offsets": [
+				-29,
+				65
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "D"
+		},
+		{
+			"offsets": [
+				-1,
+				15
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "E"
+		},
+		{
+			"offsets": [
+				46,
+				41
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "C"
+		},
+		{
+			"offsets": [
+				28,
+				254
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "Sus",
+			"indices": [],
+			"name": "G"
+		},
+		{
+			"offsets": [
+				-17,
+				193
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "VentJump",
+			"indices": [],
+			"name": "A"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/NewPussyAssets",
+	"position": [
+		-130,
+		100
+	],
+	"healthicon": "pimposter",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		205,
+		101
+	],
+	"camera_position": [
+		160,
+		140
+	],
+	"sing_duration": 6.1,
+	"scale": 0.6
+}

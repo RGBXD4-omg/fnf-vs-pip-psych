@@ -96,31 +96,31 @@ class Character extends FlxSprite
 		{
 			//case 'your character name in case you want to hardcode them instead':
 
-			case 'pimposter':
-				var tex = Paths.getSparrowAtlas('sus/NewPussyAssets', 'main');
-				frames = tex;
-				animation.addByPrefix('idle', "B-ImpostorIdle", 24);
-				animation.addByPrefix('singUP', 'F-ImpostorUp', 24, false);
-				animation.addByPrefix('singDOWN', 'E-ImpostorDown', 24, false);
-				animation.addByPrefix('singLEFT', 'D-ImpostorLeft', 24, false);
-				animation.addByPrefix('singRIGHT', 'C-ImpostorRight', 24, false);
-				animation.addByPrefix('SUS', 'G-ImpostorSus', 24, false);
-				animation.addByIndices('SUSHOLD', 'G-ImpostorSus', [21,22, 23, 24, 25, 26, 27, 28, 29, 30, 31], '', 24, false);
+			// case 'pimposter':
+			// 	var tex = Paths.getSparrowAtlas('sus/NewPussyAssets', 'main');
+			// 	frames = tex;
+			// 	animation.addByPrefix('idle', "B-ImpostorIdle", 24);
+			// 	animation.addByPrefix('singUP', 'F-ImpostorUp', 24, false);
+			// 	animation.addByPrefix('singDOWN', 'E-ImpostorDown', 24, false);
+			// 	animation.addByPrefix('singLEFT', 'D-ImpostorLeft', 24, false);
+			// 	animation.addByPrefix('singRIGHT', 'C-ImpostorRight', 24, false);
+			// 	animation.addByPrefix('SUS', 'G-ImpostorSus', 24, false);
+			// 	animation.addByIndices('SUSHOLD', 'G-ImpostorSus', [21,22, 23, 24, 25, 26, 27, 28, 29, 30, 31], '', 24, false);
 
-				animation.addByPrefix('VentJump', 'A-VentJump', 24, false);
+			// 	animation.addByPrefix('VentJump', 'A-VentJump', 24, false);
 
-				addOffset('idle');
-				addOffset("singUP", 93, 129);
-				addOffset("singRIGHT", 85, -9);
-				addOffset("singLEFT", 62, 16);
-				addOffset("singDOWN", 71, -34);
-				addOffset("SUS", 98, 170);
-				addOffset("SUSHOLD", 98, 170);
+			// 	addOffset('idle');
+			// 	addOffset("singUP", 93, 129);
+			// 	addOffset("singRIGHT", 85, -9);
+			// 	addOffset("singLEFT", 62, 16);
+			// 	addOffset("singDOWN", 71, -34);
+			// 	addOffset("SUS", 98, 170);
+			// 	addOffset("SUSHOLD", 98, 170);
 
-				addOffset("VentJump", 50, 119);
+			// 	addOffset("VentJump", 50, 119);
 
 	
-				playAnim('idle');
+			// 	playAnim('idle');
 
 
 			default:

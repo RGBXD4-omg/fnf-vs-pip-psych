@@ -111,6 +111,8 @@ class PlayState extends MusicBeatState
 	public var GF_Y:Float = 130;
 
 	var amongusDrip:FlxSprite;
+	var exDad:Bool = false;
+	public static var dad2:Character;
 
 	public var songSpeedTween:FlxTween;
 	public var songSpeed(default, set):Float = 1;
@@ -275,6 +277,8 @@ class PlayState extends MusicBeatState
 	
 	// Less laggy controls
 	private var keysArray:Array<Dynamic>;
+
+	var vCutsce:FlxSprite;
 
 	override public function create()
 	{
@@ -938,6 +942,16 @@ class PlayState extends MusicBeatState
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
 
+									
+
+		vCutsce = new FlxSprite(0,0);
+		vCutsce.setGraphicSize(1820, 1080);
+		vCutsce.frames = Paths.getSparrowAtlas('old/smallCutscene','main');
+		vCutsce.animation.addByPrefix('idle', 'video', 24, false);
+		vCutsce.antialiasing = true;	
+		vCutsce.updateHitbox();
+
+
 		// startCountdown();
 
 		generateSong(SONG.song);
@@ -1114,6 +1128,7 @@ class PlayState extends MusicBeatState
 		#end
 		
 		var daSong:String = Paths.formatToSongPath(curSong);
+
 		if (!seenCutscene)
 		{
 			switch (daSong)
@@ -1695,11 +1710,21 @@ class PlayState extends MusicBeatState
 					{
 						dad.dance();
 					}
+					if (exDad == true)
+						{
+							dad2.dance();
+						}
 				}
 				else if(dad.danceIdle && dad.animation.curAnim != null && !dad.stunned && !dad.curCharacter.startsWith('gf') && !dad.animation.curAnim.name.startsWith("sing"))
 				{
 					dad.dance();
+					
 				}
+
+				if (exDad == true)
+					{
+						dad2.dance();
+					}
 
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 				introAssets.set('default', ['ready', 'set', 'go']);
@@ -3137,6 +3162,62 @@ class PlayState extends MusicBeatState
 						}
 					});
 				}
+			case 'Add ExDad':
+				/*
+				TO DO: Fix violet's idle
+				*/
+				exDad = true;
+				dad2 = new Character(70, 230, "violet");
+				add(dad2);
+
+			case 'Play The Cutscene': 
+				/*
+				TO DO: Fix this event
+				*/
+				add(vCutsce);
+				vCutsce.visible = true;
+				vCutsce.animation.play('idle');
+
+				strumLineNotes.visible = false;
+				grpNoteSplashes.visible = false;
+				notes.visible = false;
+				healthBar.visible = false;
+				healthBarBG.visible = false;
+				iconP1.visible = false;
+				iconP2.visible = false;
+				scoreTxt.visible = false;
+				timeBar.visible = false;
+				timeBarBG.visible = false;
+				timeTxt.visible = false;
+
+	
+				new FlxTimer().start(2.3, function(tmr:FlxTimer)
+					{
+						remove(vCutsce);
+
+
+						exDad = true;
+						dad2 = new Character(100, 110, "violet");
+						dad2.setGraphicSize(380, 490);
+						dad2.updateHitbox();
+						add(dad2);
+
+						gf.visible = true;
+
+						strumLineNotes.visible = true;
+						grpNoteSplashes.visible = true;
+						notes.visible = true;
+						healthBar.visible = true;
+						healthBarBG.visible = true;
+						iconP1.visible = true;
+						iconP2.visible = true;
+						scoreTxt.visible = true;
+						timeBar.visible = true;
+						timeBarBG.visible = true;
+						timeTxt.visible = true;
+					});
+
+							
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
@@ -3906,7 +3987,19 @@ class PlayState extends MusicBeatState
 			dad.playAnim('hey', true);
 			dad.specialAnim = true;
 			dad.heyTimer = 0.6;
-		} else if(!note.noAnimation) {
+		
+		} 
+		else if(note.noteType == 'ExDad Anim') {
+			var char:Character = dad2;
+			var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
+			if(note.gfNote) {
+				char = gf;
+			}
+
+			char.playAnim(animToPlay, true);
+			char.holdTimer = 0;
+		}
+		else if(!note.noAnimation) {
 			var altAnim:String = "";
 
 			var curSection:Int = Math.floor(curStep / 16);
