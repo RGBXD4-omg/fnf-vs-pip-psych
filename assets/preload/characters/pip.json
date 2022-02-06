@@ -1,143 +1,143 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
-				-62,
-				56
+				-50,
+				74
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 24,
-			"name": "A",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-60,
-				80
-			],
 			"anim": "singUP",
-			"fps": 24,
-			"name": "B",
-			"indices": []
+			"indices": [],
+			"name": "B"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				9,
 				45
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "E",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "E"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				-14
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "C",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "C"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-26,
 				26
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "D",
-			"indices": []
+			"indices": [],
+			"name": "D"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-57,
-				53
+				-50,
+				61
 			],
-			"anim": "Death",
+			"loop": false,
 			"fps": 24,
-			"name": "F",
-			"indices": []
+			"anim": "Death",
+			"indices": [],
+			"name": "F"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-25,
 				58
 			],
-			"anim": "VoltzEntrance",
+			"loop": false,
 			"fps": 24,
-			"name": "G",
-			"indices": []
+			"anim": "VoltzEntrance",
+			"indices": [],
+			"name": "G"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-5,
 				76
 			],
-			"anim": "GarcelloEntrance",
+			"loop": false,
 			"fps": 24,
-			"name": "H",
-			"indices": []
+			"anim": "GarcelloEntrance",
+			"indices": [],
+			"name": "H"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-47,
 				71
 			],
-			"anim": "FlashEntrance",
+			"loop": false,
 			"fps": 24,
-			"name": "I-FlashEntrance",
-			"indices": []
+			"anim": "FlashEntrance",
+			"indices": [],
+			"name": "I-FlashEntrance"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				167,
 				85
 			],
-			"anim": "RonEntrance",
+			"loop": false,
 			"fps": 24,
-			"name": "J",
-			"indices": []
+			"anim": "RonEntrance",
+			"indices": [],
+			"name": "J"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-25,
 				56
 			],
-			"anim": "Cutscene",
+			"loop": false,
 			"fps": 24,
-			"name": "K",
-			"indices": []
+			"anim": "Cutscene",
+			"indices": [],
+			"name": "K"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				67,
 				56
 			],
-			"anim": "ComeOn",
+			"loop": false,
 			"fps": 24,
-			"name": "L",
-			"indices": []
+			"anim": "ComeOn",
+			"indices": [],
+			"name": "L"
+		},
+		{
+			"offsets": [
+				-62,
+				56
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": true,
+			"name": "A"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/Definitive_Pip_Assets",
 	"position": [
 		-130,
-		100
+		80
 	],
 	"healthicon": "pip",
 	"flip_x": false,
