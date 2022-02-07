@@ -1218,6 +1218,16 @@ class PlayState extends MusicBeatState
 					if(daSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
 					schoolIntro(doof);
 
+				case 'pip':
+					if (isStoryMode){
+							startVideo('intro');
+						}
+				
+				case 'cray-cray':
+					if (isStoryMode){
+							startVideo('cray-cray');
+						}					
+
 				default:
 					startCountdown();
 			}
@@ -1231,6 +1241,7 @@ class PlayState extends MusicBeatState
 		CoolUtil.precacheSound('missnote1');
 		CoolUtil.precacheSound('missnote2');
 		CoolUtil.precacheSound('missnote3');
+
 
 		#if desktop
 		// Updating Discord Rich Presence.

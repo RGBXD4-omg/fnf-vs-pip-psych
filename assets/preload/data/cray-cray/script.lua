@@ -1,22 +1,14 @@
 
 local xx = 520;
-local yy = 510;
+local yy = 580;
 local xx2 = 820;
-local yy2 = 510;
-local ofs = 30;
+local yy2 = 580;
+local ofs = 20;
 local followchars = true;
 local del = 0;
 local del2 = 0;
 local allowCountdown = false
 
-function onStartCountdown()
-	if not allowCountdown and isStoryMode and not seenCutscene then
-		startVideo('shoot');
-		allowCountdown = true;
-		return Function_Stop;
-	end
-	return Function_Continue;
-end
 
 
 
