@@ -1,88 +1,88 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				-62,
 				56
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "B"
+			"fps": 24,
+			"name": "B",
+			"indices": []
 		},
 		{
-			"offsets": [
-				34,
-				199
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				-56,
+				189
+			],
 			"anim": "singUP",
-			"indices": [],
-			"name": "F"
+			"fps": 24,
+			"name": "C",
+			"indices": []
 		},
 		{
-			"offsets": [
-				-29,
-				65
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				-171,
+				80
+			],
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "D"
+			"fps": 24,
+			"name": "F",
+			"indices": []
 		},
 		{
-			"offsets": [
-				-1,
-				15
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				-54,
+				29
+			],
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "E"
+			"fps": 24,
+			"name": "D",
+			"indices": []
 		},
 		{
-			"offsets": [
-				46,
-				41
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				-185,
+				80
+			],
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "C"
+			"fps": 24,
+			"name": "E",
+			"indices": []
 		},
 		{
-			"offsets": [
-				28,
-				254
-			],
 			"loop": false,
+			"offsets": [
+				-60,
+				78
+			],
+			"anim": "singUP-alt",
 			"fps": 24,
-			"anim": "Sus",
-			"indices": [],
-			"name": "G"
+			"name": "G",
+			"indices": []
 		},
 		{
-			"offsets": [
-				-17,
-				193
-			],
 			"loop": false,
+			"offsets": [
+				-37,
+				213
+			],
+			"anim": "Vent",
 			"fps": 24,
-			"anim": "VentJump",
-			"indices": [],
-			"name": "A"
+			"name": "A",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/NewPussyAssets",
+	"image": "characters/Definitive_Pussy_Assets",
 	"position": [
 		-130,
-		100
+		70
 	],
 	"healthicon": "pimposter",
 	"flip_x": false,
@@ -92,8 +92,8 @@
 		101
 	],
 	"camera_position": [
-		160,
-		140
+		250,
+		90
 	],
 	"sing_duration": 6.1,
 	"scale": 0.6

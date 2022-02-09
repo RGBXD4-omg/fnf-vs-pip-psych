@@ -101,7 +101,7 @@ class Note extends FlxSprite
 					hitCausesMiss = true;
 				case 'Sus Note':
 					ignoreNote = mustPress;
-					reloadNote('Pip');
+					reloadNote('SUS');
 					noteSplashTexture = 'HURTnoteSplashes';
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
