@@ -250,16 +250,22 @@ class TitleState extends MusicBeatState
 			}
 		}
 
-		Conductor.changeBPM(titleJSON.bpm);
+		Conductor.changeBPM(115);
 		persistentUpdate = true;
 
 		var bg:FlxSprite = new FlxSprite();
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('PipLoadImage'));
+		bg.antialiasing = true;
+		bg.setGraphicSize(1286, 730);
+		bg.x += 30;
+		bg.y += 2;
+		bg.updateHitbox();
 		
-		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
-			bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
-		}else{
-			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		}
+		// if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
+		// 	bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
+		// }else{
+		// 	bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		// }
 		
 		// bg.antialiasing = ClientPrefs.globalAntialiasing;
 		// bg.setGraphicSize(Std.int(bg.width * 0.6));
@@ -289,9 +295,10 @@ class TitleState extends MusicBeatState
 		
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		#end
-		
-		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
+		logoBl = new FlxSprite(-20, -10);
+		logoBl.frames = Paths.getSparrowAtlas('PIP_Start_Screen_Assets'); //KadeEngineLogoBumpin
+		logoBl.antialiasing = true;
+		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 		logoBl.animation.play('bump');
 		logoBl.updateHitbox();
 		// logoBl.screenCenter();
@@ -320,6 +327,7 @@ class TitleState extends MusicBeatState
 			gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 	
 		gfDance.antialiasing = ClientPrefs.globalAntialiasing;
+		gfDance.visible = false;
 		add(gfDance);
 		gfDance.shader = swagShader.shader;
 		add(logoBl);
@@ -372,13 +380,14 @@ class TitleState extends MusicBeatState
 
 		credTextShit.visible = false;
 
-		ngSpr = new FlxSprite(0, FlxG.height * 0.52).loadGraphic(Paths.image('newgrounds_logo'));
-		add(ngSpr);
+		ngSpr = new FlxSprite(0, 0);
+		//newGrounds.graphic.
+		ngSpr.frames = Paths.getSparrowAtlas('extra/Pip_Newgrounds_Animation', 'preload');
 		ngSpr.visible = false;
-		ngSpr.setGraphicSize(Std.int(ngSpr.width * 0.8));
+		ngSpr.screenCenter();
+		ngSpr.animation.addByPrefix("idle","A-Newgrounds Logo",24, false);
+		ngSpr.antialiasing = true;
 		ngSpr.updateHitbox();
-		ngSpr.screenCenter(X);
-		ngSpr.antialiasing = ClientPrefs.globalAntialiasing;
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -561,6 +570,8 @@ class TitleState extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
+		FlxTween.tween(FlxG.camera, {zoom:1.05}, 0.5, {ease: FlxEase.quadOut, type: BACKWARD});
+
 
 		if(logoBl != null) 
 			logoBl.animation.play('bump', true);
@@ -608,7 +619,8 @@ class TitleState extends MusicBeatState
 					#end
 				case 7:
 					addMoreText('newgrounds', -40);
-					ngSpr.visible = true;
+					add(ngSpr);
+					ngSpr.animation.play('idle', true);
 				// credTextShit.text += '\nNewgrounds';
 				case 8:
 					deleteCoolText();

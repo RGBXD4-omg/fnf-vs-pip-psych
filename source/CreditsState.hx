@@ -41,6 +41,7 @@ class CreditsState extends MusicBeatState
 		#end
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg.setGraphicSize(1286, 730);
 		add(bg);
 		bg.screenCenter();
 		
@@ -80,6 +81,13 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+			['Mod Team'],
+			['Crae',		'crae',		'Da Very Swag Artist',						'https://twitter.com/Crae_YT',	'5b5b5b'],
+			['The Pickled One',			'charile',		'Very cool Charter',					'https://twitter.com/pickled_bastard',		'8fce00'],
+			['Kalpy',			'kalpy',			'Composer of very cool beats',				'https://twitter.com/Kalpy19',			'6fa8dc'],
+			['Carlitosmorecom',			'carlitosmorecom',			'da Programmer',				'https://twitter.com/carlitosmorecom',			'f1c232'],
+			['Vidz',			'vidz',			'Cool Programmer',				'https://twitter.com/ItsVidz3',			'16537e'],
+			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',						'https://twitter.com/Shadow_Mario_',	'444444'],
 			['RiverOaken',			'riveroaken',		'Main Artist/Animator of Psych Engine',					'https://twitter.com/river_oaken',		'C30085'],

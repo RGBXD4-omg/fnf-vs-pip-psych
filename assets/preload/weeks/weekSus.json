@@ -1,0 +1,28 @@
+{
+	"songs": [
+		[
+			"Pussy",
+			"pimposter",
+			[
+				255,119,21
+
+			]
+		]
+	],
+	"hideFreeplay": false,
+	"weekBackground": "stage",
+	"difficulties": "",
+	"weekCharacters": [
+		"dad",
+		"bf",
+		"gf"
+	],
+	"storyName": "Pussy",
+	"weekName": "Pussy_69",
+	"freeplayColor": [
+		255,119,21
+	],
+	"hideStoryMode": false,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

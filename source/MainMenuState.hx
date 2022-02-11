@@ -47,6 +47,10 @@ class MainMenuState extends MusicBeatState
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
 
+	var amongusTro:FlxSprite;
+	var pipdied:FlxSprite;
+	var blackBar:FlxSprite;
+
 	override function create()
 	{
 		#if desktop
@@ -71,7 +75,8 @@ class MainMenuState extends MusicBeatState
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
 		bg.scrollFactor.set(0, yScroll);
-		bg.setGraphicSize(Std.int(bg.width * 1.175));
+		bg.setGraphicSize(1286, 730);
+	//	bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -82,9 +87,38 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
+		pipdied = new FlxSprite(0, -9.95);
+		pipdied.frames = Paths.getSparrowAtlas('MenuShitAssets');
+		pipdied.setGraphicSize(203, 360);
+		pipdied.setPosition(1024.45, 339.1);
+		pipdied.y -= 300;
+		pipdied.x -= 180;
+		pipdied.animation.addByPrefix('idleGold', 'C-goldpip', 24, true);
+		pipdied.animation.addByPrefix('idleStone', 'StonePip', 24, true);
+		pipdied.animation.addByPrefix('idle', 'A-lockedtrophy', 24, true);
+		pipdied.scrollFactor.set();
+
+
+		amongusTro = new FlxSprite(0, -9.95);
+		amongusTro.frames = Paths.getSparrowAtlas('MenuShitAssets');
+		amongusTro.setGraphicSize(203, 360);
+		amongusTro.setPosition(1024.45, 339.1);
+		amongusTro.y -= 190;
+		amongusTro.x -= 500;
+		amongusTro.animation.addByPrefix('idle', 'StonePussy', 24, true);
+		amongusTro.animation.addByPrefix('Gold', 'D-goldpussy', 24, true);
+		amongusTro.visible = false;
+		amongusTro.scrollFactor.set();
+
+		blackBar = new FlxSprite(0,0).loadGraphic(Paths.image('frame'));
+		blackBar.setGraphicSize(1286,830);
+		blackBar.screenCenter();
+		blackBar.scrollFactor.set();
+
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scrollFactor.set(0, yScroll);
-		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
+		magenta.setGraphicSize(1286, 730);
+		//magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
 		magenta.screenCenter();
 		magenta.visible = false;
@@ -122,6 +156,30 @@ class MainMenuState extends MusicBeatState
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 		}
+
+		add(blackBar);
+		add(amongusTro);
+		add(pipdied);
+
+		if (FlxG.save.data.PipModWeekCompleted == true)
+			pipdied.animation.play('idleStone');
+		else
+		pipdied.animation.play('idle');
+
+
+		// if (Highscore.getCombo('Pip', 2) == 'FC')
+		// 	if (Highscore.getCombo('Fuck', 2) == 'FC')
+		// 		if (Highscore.getCombo('Cray-Crae', 2) == 'FC')
+		// 			pipdied.animation.play('idleGold', true); // cool thing
+
+
+		if (FlxG.save.data.PussyModWeekCompleted == true){
+			amongusTro.visible = true;
+			amongusTro.animation.play('idle', true);
+		}
+		// if (Highscore.getCombo('Pussy', 2) == 'FC')
+		// 	amongusTro.animation.play('Gold', true);
+
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 

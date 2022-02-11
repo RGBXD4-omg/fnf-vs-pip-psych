@@ -1,13 +1,14 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				-9
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "danceLeft",
+			"fps": 24,
+			"name": "GF Dancing Beat",
 			"indices": [
 				30,
 				0,
@@ -25,17 +26,17 @@
 				12,
 				13,
 				14
-			],
-			"name": "GF Dancing Beat"
+			]
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				-9
 			],
-			"fps": 24,
+			"loop": false,
 			"anim": "danceRight",
+			"fps": 24,
+			"name": "GF Dancing Beat",
 			"indices": [
 				15,
 				16,
@@ -52,55 +53,54 @@
 				27,
 				28,
 				29
-			],
-			"name": "GF Dancing Beat"
+			]
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-34,
 				-20
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "Fist",
-			"loop": false,
-			"name": "A"
+			"fps": 24,
+			"name": "A",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				90,
 				-19
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "Snap",
-			"loop": false,
-			"name": "B"
+			"fps": 24,
+			"name": "B",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				60,
 				-20
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "Peace",
-			"loop": false,
-			"name": "C"
+			"fps": 24,
+			"name": "C",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				38,
 				-21
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "GetDown",
-			"loop": false,
-			"name": "D"
+			"fps": 24,
+			"name": "D",
+			"indices": []
 		}
 	],
-	"no_antialiasing": true,
+	"no_antialiasing": false,
 	"image": "characters/VIOLET_GF_ass_sets",
 	"position": [
 		0,

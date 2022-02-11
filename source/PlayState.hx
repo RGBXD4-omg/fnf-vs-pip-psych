@@ -3461,6 +3461,12 @@ class PlayState extends MusicBeatState
 
 				if (storyPlaylist.length <= 0)
 				{
+					if (SONG.song.toLowerCase() == 'cray-cray')
+						FlxG.save.data.PipModWeekCompleted = true;
+
+					if (SONG.song.toLowerCase() == 'pussy')
+						FlxG.save.data.PussyModWeekCompleted = true;
+
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 
 					cancelMusicFadeTween();
