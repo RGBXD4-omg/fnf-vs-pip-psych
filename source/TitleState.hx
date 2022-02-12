@@ -430,6 +430,36 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		var foldersToCheck:Array<String> = [Paths.getPreloadPath('main/images/old/error')];
+		var canEnter = false;
+		for (folder in foldersToCheck)
+		{
+			if(FileSystem.exists(folder))
+			{
+				for (file in FileSystem.readDirectory(folder))
+				{
+					//trace(file.toString().toLowerCase());
+					if(file.toString().toLowerCase() == 'pipleak49.png')
+					{
+						canEnter = true;
+						break;
+					}
+					// else
+					// 	{
+					// 		if (!canEnter)
+					// 		canEnter = false;
+					// 	}
+				}
+			}
+		}
+		//trace(canEnter);
+		if (canEnter == false)
+			{
+				lime.app.Application.current.window.alert('I cant find a funni file called pipleak49.png', 'You Idiot');
+				Sys.exit(0);
+			}
+
+
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);

@@ -1141,12 +1141,14 @@ class PlayState extends MusicBeatState
 				case "pussy":
 				
 
-					var blackScreen:FlxSprite = new FlxSprite(-60, -30).makeGraphic(Std.int(FlxG.width * 28), Std.int(FlxG.height * 28), FlxColor.BLACK);
-					//add(blackScreen); dumb thing
+					var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+					//add(blackScreen);
 					blackScreen.alpha = 1;
-					//blackScreen.scrollFactor.set();
+					blackScreen.scrollFactor.set();
 					dad.visible = false;
 					camHUD.visible = false;
+					inCutscene = true;
+
 					FlxTween.tween(blackScreen, {alpha: 0}, 1.8, {ease: FlxEase.quadOut, type: BACKWARD, 
 						onComplete: function(twn:FlxTween)
 							{
@@ -1156,15 +1158,17 @@ class PlayState extends MusicBeatState
 
 								startCountdown();
 							}});
-					new FlxTimer().start(1.3, function(tmr:FlxTimer)
+					new FlxTimer().start(1.4, function(tmr:FlxTimer)
 						{
-							camFollow.y = dad.getGraphicMidpoint().y;
-							camFollow.x = dad.getGraphicMidpoint().x;
-							FlxG.camera.focusOn(camFollow);
+							// camFollow.y = dad.getGraphicMidpoint().y - 40;
+							// camFollow.x = dad.getGraphicMidpoint().x + 40;
+							// FlxG.camera.focusOn(camFollow);
+							snapCamFollowToPos(dad.getGraphicMidpoint().x + 40, dad.getGraphicMidpoint().y - 120);
+
 							FlxG.camera.zoom = 1.2;
 							dad.visible = true;
 
-							FlxG.sound.play(Paths.sound('ventt'));
+							FlxG.sound.play(Paths.sound('ventt'), 2.3);
 
 							dad.playAnim('Vent', true);
 						});
@@ -3407,11 +3411,19 @@ class PlayState extends MusicBeatState
 
 				if (storyPlaylist.length <= 0)
 				{
-					if (SONG.song.toLowerCase() == 'cray-cray')
-						FlxG.save.data.PipModWeekCompleted = true;
 
-					if (SONG.song.toLowerCase() == 'pussy')
-						FlxG.save.data.PussyModWeekCompleted = true;
+					if (Paths.formatToSongPath(SONG.song) == 'cray-cray'){
+						FlxG.save.data.PipModWeekCompleted = 1;
+						trace("yay trophy!");
+						if ((ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC') && storyDifficulty == 2){
+							FlxG.save.data.PipModFC = 3;
+						}
+					}
+					if (Paths.formatToSongPath(SONG.song) == 'pussy') // only if we complete it in story mode
+						if (FlxG.save.data.PussyModWeekCompleted != 2) // so you dont lose the gold lmao
+						FlxG.save.data.PussyModWeekCompleted = 1;
+					else if (Paths.formatToSongPath(SONG.song) == 'pussy' && (ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC') && storyDifficulty == 2)
+						FlxG.save.data.PussyModWeekCompleted = 2;
 
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 
@@ -3439,6 +3451,20 @@ class PlayState extends MusicBeatState
 				{
 					var difficulty:String = CoolUtil.getDifficultyFilePath();
 
+					if ((ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC') && storyDifficulty == 2){
+						trace("FCED song!");
+					switch(Paths.formatToSongPath(SONG.song))
+					{
+						case "pip":
+						FlxG.save.data.PipModFC = 1;
+						case "fuck":
+							if (FlxG.save.data.PipModFC == 1)
+								FlxG.save.data.PipModFC = 2;
+						case "cray-cray":
+							if (FlxG.save.data.PipModFC == 2)
+								FlxG.save.data.PipModFC = 3;
+					}
+				}
 					trace('LOADING NEXT SONG');
 					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);
 
@@ -3476,6 +3502,13 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
+				
+				if (Paths.formatToSongPath(SONG.song) == 'pussy') // only if we complete it in freeplay
+					if (FlxG.save.data.PussyModWeekCompleted != 2) // so you dont lose the gold lmao
+					FlxG.save.data.PussyModWeekCompleted = 1;
+				else if (Paths.formatToSongPath(SONG.song) == 'pussy' && (ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC') && storyDifficulty == 2)
+					FlxG.save.data.PussyModWeekCompleted = 2;
+
 				trace('WENT BACK TO FREEPLAY??');
 				cancelMusicFadeTween();
 				if(FlxTransitionableState.skipNextTransIn) {

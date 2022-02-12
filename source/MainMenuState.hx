@@ -103,8 +103,9 @@ class MainMenuState extends MusicBeatState
 		amongusTro.frames = Paths.getSparrowAtlas('MenuShitAssets');
 		amongusTro.setGraphicSize(203, 360);
 		amongusTro.setPosition(1024.45, 339.1);
-		amongusTro.y -= 190;
-		amongusTro.x -= 500;
+		amongusTro.y -= 205;
+		amongusTro.x -= 1150;
+		amongusTro.flipX = true;
 		amongusTro.animation.addByPrefix('idle', 'StonePussy', 24, true);
 		amongusTro.animation.addByPrefix('Gold', 'D-goldpussy', 24, true);
 		amongusTro.visible = false;
@@ -160,27 +161,25 @@ class MainMenuState extends MusicBeatState
 		add(blackBar);
 		add(amongusTro);
 		add(pipdied);
-
-		if (FlxG.save.data.PipModWeekCompleted == true)
+		
+		if (FlxG.save.data.PipModWeekCompleted == 1)
 			pipdied.animation.play('idleStone');
 		else
-		pipdied.animation.play('idle');
+			pipdied.animation.play('idle');
+		
+		if (FlxG.save.data.PipModWeekCompleted == 1 && FlxG.save.data.PipModFC == 3)
+			pipdied.animation.play('idleGold', true);
 
-
-		// if (Highscore.getCombo('Pip', 2) == 'FC')
-		// 	if (Highscore.getCombo('Fuck', 2) == 'FC')
-		// 		if (Highscore.getCombo('Cray-Crae', 2) == 'FC')
-		// 			pipdied.animation.play('idleGold', true); // cool thing
-
-
-		if (FlxG.save.data.PussyModWeekCompleted == true){
+		if (FlxG.save.data.PussyModWeekCompleted == 1){
 			amongusTro.visible = true;
 			amongusTro.animation.play('idle', true);
 		}
-		// if (Highscore.getCombo('Pussy', 2) == 'FC')
-		// 	amongusTro.animation.play('Gold', true);
 
-
+		if (FlxG.save.data.PussyModWeekCompleted == 2){
+			amongusTro.visible = true;
+			amongusTro.animation.play('Gold', true);
+		}
+		
 		FlxG.camera.follow(camFollowPos, null, 1);
 
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
