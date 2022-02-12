@@ -1,136 +1,136 @@
 {
 	"animations": [
 		{
-			"offsets": [
-				-50,
-				74
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				-32,
+				88
+			],
 			"anim": "singUP",
-			"indices": [],
-			"name": "B"
+			"fps": 24,
+			"name": "B",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
-				9,
+				29,
 				45
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "E"
+			"fps": 24,
+			"name": "E",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
-				-14
+				-13
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "C"
+			"fps": 24,
+			"name": "C",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-26,
 				26
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "D"
+			"fps": 24,
+			"name": "D",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
-				-50,
+				-43,
 				61
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "Death",
-			"indices": [],
-			"name": "F"
+			"fps": 24,
+			"name": "F",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
-				-25,
+				-15,
 				58
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "VoltzEntrance",
-			"indices": [],
-			"name": "G"
+			"fps": 24,
+			"name": "G",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
-				-5,
+				8,
 				76
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "GarcelloEntrance",
-			"indices": [],
-			"name": "H"
+			"fps": 24,
+			"name": "H",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
-				-47,
+				-43,
 				71
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "FlashEntrance",
-			"indices": [],
-			"name": "I-FlashEntrance"
+			"fps": 24,
+			"name": "I-FlashEntrance",
+			"indices": []
 		},
 		{
-			"offsets": [
-				167,
-				85
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				215,
+				89
+			],
 			"anim": "RonEntrance",
-			"indices": [],
-			"name": "J"
+			"fps": 24,
+			"name": "J",
+			"indices": []
 		},
 		{
-			"offsets": [
-				-25,
-				56
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				-17,
+				57
+			],
 			"anim": "Cutscene",
-			"indices": [],
-			"name": "K"
+			"fps": 24,
+			"name": "K",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
-				67,
+				92,
 				56
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "ComeOn",
-			"indices": [],
-			"name": "L"
+			"fps": 24,
+			"name": "L",
+			"indices": []
 		},
 		{
+			"loop": true,
 			"offsets": [
 				-62,
 				56
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "idle",
-			"loop": true,
-			"name": "A"
+			"fps": 24,
+			"name": "A",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -151,5 +151,5 @@
 		140
 	],
 	"sing_duration": 6.1,
-	"scale": 0.5
+	"scale": 0.6
 }

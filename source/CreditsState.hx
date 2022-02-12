@@ -12,6 +12,8 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 #if MODS_ALLOWED
 import sys.FileSystem;
 import sys.io.File;
@@ -29,6 +31,7 @@ class CreditsState extends MusicBeatState
 	private var creditsStuff:Array<Array<String>> = [];
 
 	var bg:FlxSprite;
+	var blackBar:FlxSprite;
 	var descText:FlxText;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
@@ -44,9 +47,17 @@ class CreditsState extends MusicBeatState
 		bg.setGraphicSize(1286, 730);
 		add(bg);
 		bg.screenCenter();
+
+		blackBar = new FlxSprite(0,0).loadGraphic(Paths.image('frame'));
+		blackBar.setGraphicSize(1286,830);
+		blackBar.screenCenter();
+		blackBar.scrollFactor.set();
+		
 		
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
+
+		
 
 		#if MODS_ALLOWED
 		//trace("finding mod shit");
@@ -81,12 +92,12 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
-			['Mod Team'],
-			['Crae',		'crae',		'Da Very Swag Artist',						'https://twitter.com/Crae_YT',	'5b5b5b'],
-			['The Pickled One',			'charile',		'Very cool Charter',					'https://twitter.com/pickled_bastard',		'8fce00'],
-			['Kalpy',			'kalpy',			'Composer of very cool beats',				'https://twitter.com/Kalpy19',			'6fa8dc'],
-			['Carlitosmorecom',			'carlitosmorecom',			'da Programmer',				'https://twitter.com/carlitosmorecom',			'f1c232'],
-			['Vidz',			'vidz',			'Cool Programmer',				'https://twitter.com/ItsVidz3',			'16537e'],
+			['Vs Pip Team'],
+			['Crae',		'crae',		'Main Artist of Vs Pip',						'https://twitter.com/Crae_YT',	'5b5b5b'],
+			['Charlie',			'charlie',		'Main Charter of Vs Pip',					'https://twitter.com/pickled_bastard',		'8fce00'],
+			['Kalpy',			'kalpy',			'Main Composer of Vs Pip',				'https://twitter.com/Kalpy19',			'6fa8dc'],
+			['Carlitosmorecom',			'carlitos',			'Main Coder of Vs Pip',				'https://twitter.com/carlitosmorecom',			'f1c232'],
+			['Vidz',			'vidz',			'Coder of Vs Pip',				'https://twitter.com/ItsVidz3',			'16537e'],
 			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',						'https://twitter.com/Shadow_Mario_',	'444444'],
@@ -146,12 +157,15 @@ class CreditsState extends MusicBeatState
 				if(curSelected == -1) curSelected = i;
 			}
 		}
-
+		add(blackBar);
+	
 		descText = new FlxText(50, 600, 1180, "", 32);
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		descText.borderSize = 2.4;
 		add(descText);
+
+		
 
 		bg.color = getCurrentBGColor();
 		intendedColor = bg.color;
@@ -183,6 +197,12 @@ class CreditsState extends MusicBeatState
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
+			FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+					//	FlxTween.tween(pisspoop, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(bg, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
+						//FlxTween.tween(pisspoop, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
+
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
 		}

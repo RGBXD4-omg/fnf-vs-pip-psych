@@ -34,6 +34,8 @@ class OptionsState extends MusicBeatState
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
 
+	var bg:FlxSprite;
+
 	function openSelectedSubstate(label:String) {
 		switch(label) {
 			case 'Note Colors':
@@ -55,21 +57,29 @@ class OptionsState extends MusicBeatState
 	var selectorRight:Alphabet;
 
 	override function create() {
+
+		var blackBar:FlxSprite;
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+	    bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
-
+		bg.setGraphicSize(1286, 730);
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
+		blackBar = new FlxSprite(0,0).loadGraphic(Paths.image('frame'));
+		blackBar.setGraphicSize(1286,830);
+		blackBar.screenCenter();
+		blackBar.scrollFactor.set();
+
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
+		
 		for (i in 0...options.length)
 		{
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true, false);
@@ -82,6 +92,8 @@ class OptionsState extends MusicBeatState
 		add(selectorLeft);
 		selectorRight = new Alphabet(0, 0, '<', true, false);
 		add(selectorRight);
+
+		add(blackBar);
 
 		changeSelection();
 		ClientPrefs.saveSettings();
@@ -105,6 +117,11 @@ class OptionsState extends MusicBeatState
 		}
 
 		if (controls.BACK) {
+			FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
+			FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+			//FlxTween.tween(magenta, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+			FlxTween.tween(bg, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
+			//FlxTween.tween(magenta, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
 		}

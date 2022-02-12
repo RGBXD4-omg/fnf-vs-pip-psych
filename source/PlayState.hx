@@ -442,35 +442,7 @@ class PlayState extends MusicBeatState
 				}
 			case 'alleyways': // pip week
 
-			#if PRELOAD_ALL			
-				var images = [];
-				var xml = [];
-				trace("caching images...");
-	
-				for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/images/characters/")))
-				{
-					if (!i.endsWith(".png"))
-						continue;
-					images.push(i);
-	
-					if (!i.endsWith(".xml"))
-						continue;
-					xml.push(i);
-				}
-				for (i in images)
-				{
-					var replaced = i.replace(".png","");
-					FlxG.bitmap.add(Paths.image("characters/" + replaced,"shared"));
-					trace("this is " + replaced);
-				}
-			
-			for (i in xml)
-				{
-					var replaced = i.replace(".xml","");
-					FlxG.bitmap.add(Paths.image("characters/" + replaced,"shared"));
-					trace("this is " + replaced);
-				}
-			#end
+
 
 				var bg:BGSprite = new BGSprite('bgs/sky', -287.6, -91.95, 0.9, 0.9);
 				add(bg);
@@ -755,6 +727,8 @@ class PlayState extends MusicBeatState
 		if(curStage == 'spooky') {
 			add(halloweenWhite);
 		}
+
+		
 
 		#if LUA_ALLOWED
 		luaDebugGroup = new FlxTypedGroup<DebugLuaText>();
@@ -1165,35 +1139,7 @@ class PlayState extends MusicBeatState
 			switch (daSong)
 			{
 				case "pussy":
-					#if PRELOAD_ALL			
-				var images = [];
-				var xml = [];
-				trace("caching images...");
-	
-				for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/images/characters/")))
-				{
-					if (!i.endsWith(".png"))
-						continue;
-					images.push(i);
-	
-					if (!i.endsWith(".xml"))
-						continue;
-					xml.push(i);
-				}
-				for (i in images)
-				{
-					var replaced = i.replace(".png","");
-					FlxG.bitmap.add(Paths.image("characters/" + replaced,"shared"));
-					trace("this is " + replaced);
-				}
-			
-			for (i in xml)
-				{
-					var replaced = i.replace(".xml","");
-					FlxG.bitmap.add(Paths.image("characters/" + replaced,"shared"));
-					trace("this is " + replaced);
-				}
-			#end
+				
 
 					var blackScreen:FlxSprite = new FlxSprite(-60, -30).makeGraphic(Std.int(FlxG.width * 28), Std.int(FlxG.height * 28), FlxColor.BLACK);
 					//add(blackScreen); dumb thing

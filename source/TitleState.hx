@@ -7,6 +7,7 @@ import sys.thread.Thread;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.FlxCamera;
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
@@ -57,11 +58,15 @@ class TitleState extends MusicBeatState
 
 	public static var initialized:Bool = false;
 
+	var bg:FlxSprite;
+	var ezXD:FlxSprite;
 	var blackScreen:FlxSprite;
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
 	var ngSpr:FlxSprite;
+
+	
 
 	var curWacky:Array<String> = [];
 
@@ -253,13 +258,19 @@ class TitleState extends MusicBeatState
 		Conductor.changeBPM(115);
 		persistentUpdate = true;
 
-		var bg:FlxSprite = new FlxSprite();
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('PipLoadImage'));
+		bg = new FlxSprite().loadGraphic(Paths.image('PipLoadImage', 'preload'));
 		bg.antialiasing = true;
 		bg.setGraphicSize(1286, 730);
 		bg.x += 30;
 		bg.y += 2;
 		bg.updateHitbox();
+
+		ezXD = new FlxSprite().loadGraphic(Paths.image('BGforTheShit', 'preload')); 
+		ezXD.antialiasing = true;
+		ezXD.setGraphicSize(1300, 730);
+		ezXD.x += 25;
+		ezXD.y += 2;
+		ezXD.updateHitbox();
 		
 		// if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
 		// 	bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
@@ -273,8 +284,9 @@ class TitleState extends MusicBeatState
 		
 		
 		
-		
+		add(ezXD);
 		add(bg);
+		
 
 		logoBl = new FlxSprite(titleJSON.titlex, titleJSON.titley);
 		
@@ -370,8 +382,8 @@ class TitleState extends MusicBeatState
 		add(credGroup);
 		textGroup = new FlxGroup();
 
-		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		credGroup.add(blackScreen);
+		//blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		credGroup.add(ezXD);
 
 		credTextShit = new Alphabet(0, 0, "", true);
 		credTextShit.screenCenter();
@@ -590,6 +602,7 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1:
+					FlxG.camera.flash(FlxColor.WHITE, 1);
 					#if PSYCH_WATERMARKS
 					createCoolText(['Psych Engine by'], 15);
 					#else
@@ -661,6 +674,7 @@ class TitleState extends MusicBeatState
 		if (!skippedIntro)
 		{
 			remove(ngSpr);
+			//remove(ezXD);
 
 			FlxG.camera.flash(FlxColor.WHITE, 4);
 			remove(credGroup);

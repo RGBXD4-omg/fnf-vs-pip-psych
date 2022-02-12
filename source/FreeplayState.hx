@@ -16,6 +16,8 @@ import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import openfl.utils.Assets as OpenFlAssets;
 import WeekData;
 #if MODS_ALLOWED
@@ -47,6 +49,7 @@ class FreeplayState extends MusicBeatState
 	private var iconArray:Array<HealthIcon> = [];
 
 	var bg:FlxSprite;
+	var blackBar:FlxSprite;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
@@ -104,8 +107,15 @@ class FreeplayState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
+		blackBar = new FlxSprite(0,0).loadGraphic(Paths.image('frame'));
+		blackBar.setGraphicSize(1286,830);
+		blackBar.screenCenter();
+		blackBar.scrollFactor.set();
+
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
+
+		
 
 		for (i in 0...songs.length)
 		{
@@ -128,7 +138,7 @@ class FreeplayState extends MusicBeatState
 		}
 
 	
-
+		add(blackBar);
 
 		WeekData.setDirectoryFromWeek();
 
@@ -299,6 +309,9 @@ class FreeplayState extends MusicBeatState
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
+			FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
+			FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+			FlxTween.tween(bg, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
 		}
