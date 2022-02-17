@@ -912,25 +912,6 @@ class PlayState extends MusicBeatState
 		doof.nextDialogueThing = startNextDialogue;
 		doof.skipDialogueThing = skipDialogue;
 
-		spaceStatic = new FlxSprite(455, 50);
-		spaceStatic.frames = Paths.getSparrowAtlas('SPACEBAR_NOTE_assets', 'preload');
-		spaceStatic.animation.addByPrefix('static',"ABC-spacebar static", 24);
-		spaceStatic.animation.addByPrefix('press', "AB-spacebar press", 24);
-		spaceStatic.animation.addByPrefix('confirm', "A-spacebar confirm", 24);
-		spaceStatic.scrollFactor.set();
-		spaceStatic.animation.play('static');
-		spaceStatic.setGraphicSize(Std.int(spaceStatic.width * 0.18));
-		spaceStatic.updateHitbox();
-		//trace("SIZE:  "+ spaceStatic.width + "HEIGHT:  "+ spaceStatic.height);
-
-		//spaceStatic.animation.
-
-		spaceNote = new FlxSprite();
-		spaceNote.frames = Paths.getSparrowAtlas('SPACEBAR_NOTE_assets', 'preload');
-		spaceNote.animation.addByPrefix('arrow', "ABCD-spacebar arrow", 24);
-		spaceNote.animation.play('arrow', true);
-		spaceNote.setGraphicSize(Std.int(spaceNote.width * 0.3));
-
 
 
 		Conductor.songPosition = -5000;
@@ -2267,11 +2248,7 @@ class PlayState extends MusicBeatState
 		if (paused)
 		{
 			
-			// spaceNotes.forEach(function(daNote:FlxSprite)
-			// 	{
-			// 		FlxTween.cancelTweensOf(daNote);
-					
-			// 	});
+
 
 			if (FlxG.sound.music != null)
 			{
@@ -2317,39 +2294,7 @@ class PlayState extends MusicBeatState
 		{
 
 			
-			// spaceNotes.forEach(function(daNote:FlxSprite) // i wanna cri
-			// 	{
-			// 	var seconds:Float = 0.5;
 
-			// 	if (daNote.y <= -500)
-			// 		seconds = 0.33;
-
-			// 	FlxTween.tween(daNote, {y:spaceStatic.y - 270}, seconds, // me when me when
-			// 		{
-			// 			ease: FlxEase.linear,
-			// 			onComplete: function(twn:FlxTween)
-			// 			{
-							
-			// 				health -= 0.2;
-			// 				combo = 0;
-			
-			// 				vocals.volume = 0;
-						
-					
-			// 				//For testing purposes
-			// 				//trace(daNote.missHealth);
-			// 				songMisses++;
-			// 				vocals.volume = 0;
-			// 				if(!practiceMode) songScore -= 10;
-			
-			// 				daNote.kill();
-			// 				spaceNotes.remove(daNote, true);
-			// 				daNote.destroy();
-			// 				remove(daNote);
-			// 			}
-			// 		});
-
-			// 	});
 
 			if (FlxG.sound.music != null && !startingSong)
 			{
@@ -2458,48 +2403,7 @@ class PlayState extends MusicBeatState
 
 		callOnLuas('onUpdate', [elapsed]);
 
-		// if (FlxG.keys.justPressed.Q) 
-		// 	{
-		// 		trace(FlxG.mouse.getPosition());
-		// 	}
-		// if (FlxG.keys.justPressed.SPACE) // very cool input system : D
-		// 	{
-		// 		spaceStatic.animation.play('press');
-		// 		spaceStatic.centerOffsets();
-		// 		spaceStatic.centerOrigin();
-
-
-				
-		// 		trace('funni space bar press');
-
-
-
-		// 		spaceNotes.forEach(function(daNote:FlxSprite)
-		// 			{
-					
-		// 				trace('funni space bar search');
-		// 					if (daNote.y <= spaceStatic.y-50){
-		// 						trace(daNote.y + " Was hit!");
-		// 						DaSpaceNote(daNote, true);
-
-		// 						spaceStatic.animation.play('confirm');
-		// 						spaceStatic.centerOffsets();
-		// 						spaceStatic.centerOrigin();
-
-		// 						trace('found the idiot');
-		// 						//break;
-		// 					}
-		// 			});
-					
-		// 		//if ()
-		// 	}
-		// if (FlxG.keys.justReleased.SPACE)
-		// 	{
-		// 		spaceStatic.animation.play('static');
-		// 		spaceStatic.centerOffsets();
-		// 		spaceStatic.centerOrigin();
-
-		// 	}
+	
 
 		switch (curStage)
 		{
