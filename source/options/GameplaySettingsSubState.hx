@@ -33,13 +33,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 	{
 		title = 'Gameplay Settings';
 		rpcTitle = 'Gameplay Settings Menu'; //for Discord Rich Presence
-		
-		var option:Option = new Option('Controller Mode',
-			'Check this if you want to play with\na controller instead of using your Keyboard.',
-			'controllerMode',
-			'bool',
-			false);
-		addOption(option);
 
 		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('Downscroll', //Name
@@ -61,6 +54,22 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'ghostTapping',
 			'bool',
 			true);
+		addOption(option);
+
+		var option:Option = new Option('No Antimash',	//even tho only one person asked, it here
+			"If checked, Antimash will be disabled.",
+			'noAntimash',
+			'bool',
+			false);
+		addOption(option); //now shut up before i put you in my basement
+		// PD: i dont have a basement
+
+		var option:Option = new Option('Input System', 
+			"The input system you wish to use.",
+			'inputSystem',
+			'string',
+			"Native",
+			["Native", "Kade Engine"]);
 		addOption(option);
 
 		var option:Option = new Option('Disable Reset Button',

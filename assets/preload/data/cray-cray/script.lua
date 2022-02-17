@@ -8,6 +8,9 @@ local followchars = true;
 local del = 0;
 local del2 = 0;
 local allowCountdown = false
+
+local usedSpace = false
+
 function onStartCountdown()
 	if not allowCountdown and isStoryMode and not seenCutscene then
 		startVideo('shoot');
@@ -17,6 +20,15 @@ function onStartCountdown()
 	return Function_Continue;
 end
 
+
+-- Gameplay/Song interactions
+function onBeatHit()
+	-- triggered 4 times per section
+end
+
+function onStepHit()
+	-- triggered 16 times per section
+end
 
 
 function onUpdate()

@@ -1,0 +1,30 @@
+{
+	"song": {
+		"speed": 2.7,
+		"stage": "alleyways",
+		"player1": "bf",
+		"player2": "pip",
+		"player3": null,
+		"events": [
+			[
+				62213.1147540984,
+				[
+					[
+						"Change Mania",
+						"4",
+						""
+					]
+				]
+			]
+		],
+		"notes": [],
+		"splashSkin": null,
+		"validScore": false,
+		"gfVersion": "gf-ded",
+		"bpm": 122,
+		"mania": 4,
+		"arrowSkin": null,
+		"needsVoices": true,
+		"song": "Cray Cray"
+	}
+}

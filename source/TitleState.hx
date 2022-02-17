@@ -87,6 +87,8 @@ class TitleState extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
+		ClientPrefs.controllerMode = false;
+
 		#if MODS_ALLOWED
 		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
 		if (FileSystem.exists("modsList.txt")){
@@ -438,21 +440,14 @@ class TitleState extends MusicBeatState
 			{
 				for (file in FileSystem.readDirectory(folder))
 				{
-					//trace(file.toString().toLowerCase());
 					if(file.toString().toLowerCase() == 'pipleak49.png')
 					{
 						canEnter = true;
 						break;
 					}
-					// else
-					// 	{
-					// 		if (!canEnter)
-					// 		canEnter = false;
-					// 	}
 				}
 			}
 		}
-		//trace(canEnter);
 		if (canEnter == false)
 			{
 				lime.app.Application.current.window.alert('I cant find a funni file called pipleak49.png', 'You Idiot');

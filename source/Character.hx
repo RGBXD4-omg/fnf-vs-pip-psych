@@ -96,6 +96,26 @@ class Character extends FlxSprite
 		{
 			//case 'your character name in case you want to hardcode them instead':
 
+			case 'bf-extra':
+				frames =  Paths.getSparrowAtlas('old/BFextraAssets', 'main');
+				animation.addByPrefix('idle', "A-BoyfriendScared", 24);
+				animation.addByPrefix('singUP', 'C-BoyfriendUpDodge instance', 24, false);
+				animation.addByPrefix('singDOWN', 'B-BoyfriendDownDodge', 24, false);
+				animation.addByPrefix('singLEFT', 'D-BoyfriendSideDodge instance', 24, false);
+				animation.addByPrefix('singRIGHT', 'D-BoyfriendSideDodge instance', 24, false);
+		
+				animation.addByPrefix('shot', 'E-BoyfriendShot instance', 24, false); //E-BoyfriendShot
+				addOffset('idle');
+
+				addOffset("singUP", -12, -5);
+				addOffset("shot", -21, -7);
+				addOffset("singLEFT", -4, -2);
+				addOffset("singRIGHT", -4, -2);
+				addOffset("singDOWN", -37, -66);
+
+				playAnim('idle');
+
+
 			// case 'pimposter':
 			// 	var tex = Paths.getSparrowAtlas('sus/NewPussyAssets', 'main');
 			// 	frames = tex;
