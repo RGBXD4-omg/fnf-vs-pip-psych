@@ -59,6 +59,7 @@ class ChartingState extends MusicBeatState
 	[
 		'',
 		'Sus Note',
+		'ExDad Anim',
 		'Hey!',
 		'Alt Animation',
 		'Hurt Note',
@@ -85,9 +86,9 @@ class ChartingState extends MusicBeatState
 		['Screen Shake', "Value 1: Camera shake\nValue 2: HUD shake\n\nEvery value works as the following example: \"1, 0.05\".\nThe first number (1) is the duration.\nThe second number (0.05) is the intensity."],
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
 		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."],
-		['Change Mania', "Value 1: The new mania value (min: 0; max: 9)"],
 		['Play The Cutscene', "play epic pip cutscene"],
-		['Add ExDad', "add violet a"]
+		['Add ExDad', "add violet a"],
+		['Show Space', "Show the spacebar (Works if 4 mania!)"]
 	];
 	
 
@@ -583,7 +584,7 @@ class ChartingState extends MusicBeatState
 		noteSkinInputText = new FlxUIInputText(player2DropDown.x, player2DropDown.y + 50, 150, skin, 8);
 		blockPressWhileTypingOn.push(noteSkinInputText);
 
-		var stepperMania:FlxUINumericStepper = new FlxUINumericStepper(100, stepperSpeed.y, 3, 3, Note.minMania, 4, 1);
+		var stepperMania:FlxUINumericStepper = new FlxUINumericStepper(100, stepperSpeed.y, 3, 1, Note.minMania, 4, 1);
 		stepperMania.value = _song.mania;
 	
 

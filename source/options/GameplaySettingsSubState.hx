@@ -56,21 +56,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
-		var option:Option = new Option('No Antimash',	//even tho only one person asked, it here
+		var option:Option = new Option('No Antimash',	
 			"If checked, Antimash will be disabled.",
 			'noAntimash',
 			'bool',
 			false);
-		addOption(option); //now shut up before i put you in my basement
-		// PD: i dont have a basement
+		addOption(option); 
 
-		var option:Option = new Option('Input System', 
-			"The input system you wish to use.",
-			'inputSystem',
-			'string',
-			"Native",
-			["Native", "Kade Engine"]);
-		addOption(option);
 
 		var option:Option = new Option('Disable Reset Button',
 			"If checked, pressing Reset won't do anything.",

@@ -29,7 +29,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	public static function resetVariables() {
 		characterName = 'bf';
 		deathSoundName = 'fnf_loss_sfx';
-		loopSoundName = 'gameOver';
+		loopSoundName = 'death_by_the_swag';
 		endSoundName = 'gameOverEnd';
 	}
 
@@ -46,6 +46,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		super();
 
 		PlayState.instance.setOnLuas('inGameOver', true);
+		if (PlayState.SONG.song.toLowerCase() == 'cray cray') loopSoundName = "cheeseballs-death_dance";
 
 		Conductor.songPosition = 0;
 
@@ -137,7 +138,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	function coolStartDeath(?volume:Float = 1):Void
 	{
-		FlxG.sound.playMusic(Paths.music(loopSoundName), volume);
+		FlxG.sound.playMusic(Paths.music(loopSoundName, 'main'), volume);
 	}
 
 	function endBullshit():Void

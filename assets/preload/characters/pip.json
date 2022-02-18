@@ -45,7 +45,7 @@
 			"indices": []
 		},
 		{
-			"loop": false,
+			"loop": true,
 			"offsets": [
 				-43,
 				61

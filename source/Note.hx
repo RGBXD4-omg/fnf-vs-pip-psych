@@ -27,7 +27,7 @@ class Note extends FlxSprite
 	public static var lessX:Array<Int> = [0, 0, 0, 0, 0, 8, 7, 8, 8, 7, 6];
 	public static var separator:Array<Int> = [0, 0, 1, 1, 2, 2, 2, 3, 3, 4, 4];
 	public static var xtra:Array<Int> = [150, 89, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	public static var posRest:Array<Int> = [0, 0, 0, 0, 25, 32, 46, 52, 60, 40, 30];
+	public static var posRest:Array<Int> = [0, 0, 0, 0, 0, 25, 32, 46, 52, 60, 40, 30];
 	public static var gridSizes:Array<Int> = [40, 40, 40, 40, 40, 40, 40, 40, 40, 35, 30];
 	public static var offsets:Array<Dynamic> = [
 		[20, 10],
@@ -185,7 +185,7 @@ class Note extends FlxSprite
 					hitCausesMiss = true;
 			case 'Sus Note':
 				ignoreNote = mustPress;
-				reloadNote('SUS');
+				reloadNote('PIP');
 				noteSplashTexture = 'HURTnoteSplashes';
 				colorSwap.hue = 0;
 				colorSwap.saturation = 0;
