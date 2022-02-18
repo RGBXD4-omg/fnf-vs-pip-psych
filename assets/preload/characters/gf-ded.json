@@ -2,13 +2,12 @@
 	"animations": [
 		{
 			"offsets": [
-				0,
-				-9
+				-91,
+				-107
 			],
 			"loop": false,
-			"anim": "danceLeft",
 			"fps": 24,
-			"name": "GF Dancing Beat",
+			"anim": "danceLeft",
 			"indices": [
 				30,
 				0,
@@ -26,17 +25,17 @@
 				12,
 				13,
 				14
-			]
+			],
+			"name": "C-GFDead"
 		},
 		{
 			"offsets": [
-				0,
-				-9
+				-90,
+				-107
 			],
 			"loop": false,
-			"anim": "danceRight",
 			"fps": 24,
-			"name": "GF Dancing Beat",
+			"anim": "danceRight",
 			"indices": [
 				15,
 				16,
@@ -53,11 +52,12 @@
 				27,
 				28,
 				29
-			]
+			],
+			"name": "C-GFDead"
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/PIP_DEAD_GF_ass_sets",
+	"image": "characters/VIOLET_GF_ass_sets_FIXED3",
 	"position": [
 		0,
 		0

@@ -1204,6 +1204,37 @@ class PlayState extends MusicBeatState
 
 							dad.playAnim('Vent', true);
 						});
+				case "pip" | "fuck":
+				
+
+					var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+					//add(blackScreen);
+					blackScreen.alpha = 1;
+					blackScreen.scrollFactor.set();
+					dad.visible = true;
+					camHUD.visible = false;
+					inCutscene = true;
+
+					FlxTween.tween(blackScreen, {alpha: 0}, 1.8, {ease: FlxEase.quadOut, type: BACKWARD, 
+						onComplete: function(twn:FlxTween)
+							{
+								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, .6, {ease: FlxEase.quadInOut});
+								camHUD.visible = true;
+								remove(blackScreen);
+
+								startCountdown();
+							}});
+					new FlxTimer().start(4.1, function(tmr:FlxTimer)
+						{
+							// camFollow.y = dad.getGraphicMidpoint().y - 40;
+							// camFollow.x = dad.getGraphicMidpoint().x + 40;
+							// FlxG.camera.focusOn(camFollow);
+							snapCamFollowToPos(dad.getGraphicMidpoint().x + 40, dad.getGraphicMidpoint().y - 120);
+
+							FlxG.sound.play(Paths.sound('Pip_Cutscene_Audio-1'));
+
+							dad.playAnim('Cutscene', true);
+						});
 				case "monster":
 					var whiteScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
 					add(whiteScreen);

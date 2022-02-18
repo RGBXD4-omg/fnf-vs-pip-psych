@@ -4,7 +4,7 @@
 			"loop": false,
 			"offsets": [
 				-32,
-				88
+				103
 			],
 			"anim": "singUP",
 			"fps": 24,
@@ -137,7 +137,7 @@
 	"image": "characters/Definitive_Pip_Assets",
 	"position": [
 		-130,
-		80
+		50
 	],
 	"healthicon": "pip",
 	"flip_x": false,

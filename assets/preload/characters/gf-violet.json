@@ -1,14 +1,14 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				-9
 			],
-			"loop": false,
 			"anim": "danceLeft",
 			"fps": 24,
-			"name": "GF Dancing Beat",
+			"name": "A-VioletSpeakerDance",
 			"indices": [
 				30,
 				0,
@@ -29,14 +29,14 @@
 			]
 		},
 		{
+			"loop": false,
 			"offsets": [
 				0,
 				-9
 			],
-			"loop": false,
 			"anim": "danceRight",
 			"fps": 24,
-			"name": "GF Dancing Beat",
+			"name": "A-VioletSpeakerDance",
 			"indices": [
 				15,
 				16,
@@ -58,50 +58,28 @@
 		{
 			"loop": false,
 			"offsets": [
-				-34,
-				-20
-			],
-			"anim": "Fist",
-			"fps": 24,
-			"name": "A",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				90,
-				-19
-			],
-			"anim": "Snap",
-			"fps": 24,
-			"name": "B",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
 				60,
-				-20
+				-10
 			],
-			"anim": "Peace",
+			"anim": "cutscene",
 			"fps": 24,
-			"name": "C",
+			"name": "B-VioletCutsceneAnim",
 			"indices": []
 		},
 		{
 			"loop": false,
 			"offsets": [
-				38,
-				-21
+				-80,
+				-111
 			],
-			"anim": "GetDown",
+			"anim": "dead",
 			"fps": 24,
-			"name": "D",
+			"name": "C-GFDead",
 			"indices": []
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/VIOLET_GF_ass_sets",
+	"image": "characters/VIOLET_GF_ass_sets_FIXED3",
 	"position": [
 		0,
 		0
