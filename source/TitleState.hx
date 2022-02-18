@@ -263,14 +263,14 @@ class TitleState extends MusicBeatState
 		bg = new FlxSprite().loadGraphic(Paths.image('PipLoadImage', 'preload'));
 		bg.antialiasing = true;
 		bg.setGraphicSize(1286, 730);
-		bg.x += 30;
+		//bg.x += 30;
 		bg.y += 2;
 		bg.updateHitbox();
 
 		ezXD = new FlxSprite().loadGraphic(Paths.image('BGforTheShit', 'preload')); 
 		ezXD.antialiasing = true;
 		ezXD.setGraphicSize(1300, 730);
-		ezXD.x += 25;
+		//ezXD.x += 25;
 		ezXD.y += 2;
 		ezXD.updateHitbox();
 		
