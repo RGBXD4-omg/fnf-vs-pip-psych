@@ -3339,7 +3339,7 @@ class PlayState extends MusicBeatState
 
 				exDad = true;
 				dad.x -= 80;
-				dad.y += 40;
+				dad.y += 300;
 				dad.visible = false;
 				dad2.visible = true;
 				dad.visible = true;
