@@ -139,6 +139,8 @@ class PlayState extends MusicBeatState
 	public var boyfriend:Boyfriend;
 	public var boyfriend_extra:Character;
 
+	static var playedAnim:Int = 0;
+
 
 	public var notes:FlxTypedGroup<Note>;
 	//public var spaceNotes:FlxTypedGroup<FlxSprite>;
@@ -475,6 +477,13 @@ class PlayState extends MusicBeatState
 				add(stageLights);
 
 				
+				vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation');
+				vCutsce.animation.addByPrefix('idle', 'Cutscene', 24, false);
+				//vCutsce.setGraphicSize(Std.int(vCutsce.width * 1));
+				vCutsce.updateHitbox();
+				vCutsce.visible = false;
+
+				
 			if (PlayState.SONG.song.toLowerCase() == 'cray cray') 
 				{
 					trace("Funni");
@@ -757,6 +766,10 @@ class PlayState extends MusicBeatState
 		if(curStage == 'spooky') {
 			add(halloweenWhite);
 		}
+//	if(curStage == 'alleyways') {
+	//		add(vCutsce);
+	//	}
+		
 
 
 
@@ -997,12 +1010,7 @@ class PlayState extends MusicBeatState
 
 									
 
-		vCutsce = new FlxSprite(0,0);
-		vCutsce.setGraphicSize(1820, 1080);
-		vCutsce.frames = Paths.getSparrowAtlas('old/smallCutscene','main');
-		vCutsce.animation.addByPrefix('idle', 'video', 24, false);
-		vCutsce.antialiasing = true;	
-		vCutsce.updateHitbox();
+
 
 
 
@@ -1224,37 +1232,6 @@ class PlayState extends MusicBeatState
 							FlxG.sound.play(Paths.sound('ventt'), 2.3);
 
 							dad.playAnim('Vent', true);
-						});
-				case "pip" | "fuck":
-				
-
-					var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
-					//add(blackScreen);
-					blackScreen.alpha = 1;
-					blackScreen.scrollFactor.set();
-					dad.visible = true;
-					camHUD.visible = false;
-					inCutscene = true;
-
-					FlxTween.tween(blackScreen, {alpha: 0}, 1.8, {ease: FlxEase.quadOut, type: BACKWARD, 
-						onComplete: function(twn:FlxTween)
-							{
-								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, .6, {ease: FlxEase.quadInOut});
-								camHUD.visible = true;
-								remove(blackScreen);
-
-								startCountdown();
-							}});
-					new FlxTimer().start(4.1, function(tmr:FlxTimer)
-						{
-							// camFollow.y = dad.getGraphicMidpoint().y - 40;
-							// camFollow.x = dad.getGraphicMidpoint().x + 40;
-							// FlxG.camera.focusOn(camFollow);
-							snapCamFollowToPos(dad.getGraphicMidpoint().x + 40, dad.getGraphicMidpoint().y - 120);
-
-							FlxG.sound.play(Paths.sound('Pip_Cutscene_Audio-1'));
-
-							dad.playAnim('Cutscene', true);
 						});
 				case "monster":
 					var whiteScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
