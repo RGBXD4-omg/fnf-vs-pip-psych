@@ -22,11 +22,11 @@ class Keybinds
 				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
 			],
 			[
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_five1')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_five2')),
+				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),	
+				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
 				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_five3')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_five4')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_five5'))
+				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
+				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
 			],
 			[
 				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_six1')),
