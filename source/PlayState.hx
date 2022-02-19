@@ -1199,6 +1199,103 @@ class PlayState extends MusicBeatState
 		{
 			switch (daSong)
 			{
+
+				case "pip": // gf-vcutscene carlito was here
+					var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+					blackScreen.alpha = 0;
+					blackScreen.screenCenter();
+					inCutscene = true;
+					camHUD.visible = false;
+				//	snapCamFollowToPos(dad.getGraphicMidpoint().x + 40, dad.getGraphicMidpoint().y - 120);
+
+					if(!dadMap.exists("pip-intro")) {
+						addCharacterToList("pip-intro", 1);
+					}
+	
+					var lastAlpha:Float = dad.alpha;
+					dad.alpha = 0.00001;
+					dad = dadMap.get("pip-intro");
+					dad.alpha = lastAlpha;
+
+					if(!gfMap.exists("gf-vcutscene")) {
+						addCharacterToList("gf-vcutscene", 2);
+					}
+
+					var lastAlpha:Float = gf.alpha;
+					gf.alpha = 0.00001;
+					gf = gfMap.get("gf-vcutscene");
+					gf.alpha = lastAlpha;
+					gf.x += 125;
+
+					dad.playAnim('OkBud', true, false, 0);
+					FlxG.sound.play(Paths.sound('Pip_Cutscene_Audio', 'main'));
+
+					
+					new FlxTimer().start(2.3, function(tmr:FlxTimer)
+						{
+								FlxTween.tween(FlxG.camera, {zoom: .8}, 1.2, {ease: FlxEase.quadInOut});
+								camHUD.visible = false;
+								remove(blackScreen);
+								dad.playAnim('OkBud');
+
+							});
+
+					new FlxTimer().start(4.3, function(tmr:FlxTimer)
+					{
+						gf.playAnim('OkBud');
+
+					});
+
+					
+					new FlxTimer().start(6.4, function(tmr:FlxTimer)
+						{
+							add(blackScreen);
+							dad.playAnim('Start');
+	
+						});
+
+						new FlxTimer().start(7.2, function(tmr:FlxTimer)
+							{
+								FlxTween.tween(blackScreen, {alpha: 1}, .9, {ease: FlxEase.quadInOut});
+
+							});
+
+						new FlxTimer().start(9, function(tmr:FlxTimer)
+							{
+								FlxTween.tween(blackScreen, {alpha: 0}, .9, {ease: FlxEase.quadInOut});
+
+								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 1.2, {ease: FlxEase.quadInOut});
+
+								if(!dadMap.exists("pip")) {
+									addCharacterToList("pip", 1);
+								}
+				
+								var lastAlpha:Float = dad.alpha;
+								dad.alpha = 0.00001;
+								dad = dadMap.get("pip");
+								dad.alpha = lastAlpha;
+								dad.setGraphicSize(320, 490);
+
+								if(!gfMap.exists("gf-violet")) {
+									addCharacterToList("gf-violet", 2);
+								}
+			
+								var lastAlpha:Float = gf.alpha;
+								gf.alpha = 0.00001;
+								gf = gfMap.get("gf-violet");
+								gf.alpha = lastAlpha;
+							});
+					new FlxTimer().start(10, function(tmr:FlxTimer)
+						{
+							camHUD.visible = true;
+							camHUD.alpha = 0;
+							startCountdown();
+							FlxTween.tween(camHUD, {alpha: 1}, 1);
+
+
+
+						});
+
 				case "pussy":
 				
 
@@ -3356,6 +3453,7 @@ class PlayState extends MusicBeatState
 				dad.setGraphicSize(320, 490);
 				dad.x -= 140;
 				dad.y += 80;
+				iconP2.changeIcon("both"); // carlito was here
 
 			case "Show Space":
 				playerStrums.forEach(function(spr:StrumNote)
@@ -4196,6 +4294,10 @@ class PlayState extends MusicBeatState
 			if(daNote.noteType == 'Alt Animation') daAlt = '-alt';
 
 			var animToPlay:String = 'sing' + Note.keysShit.get(mania).get('anims')[daNote.noteData] + 'miss' + daAlt;
+
+			if (mania == 4 && daNote.noteData == 2) // carlito was here
+				animToPlay = "hurt";
+
 			char.playAnim(animToPlay, true);
 		}
 
@@ -4241,7 +4343,10 @@ class PlayState extends MusicBeatState
 			});*/
 
 			if(boyfriend.hasMissAnimations) {
-				boyfriend.playAnim('sing' + Note.keysShit.get(mania).get('anims')[direction] + 'miss', true);
+				if (mania == 4 && direction == 2) // carlito was here
+					boyfriend.playAnim('hurt', true);
+					else
+					boyfriend.playAnim('sing' + Note.keysShit.get(mania).get('anims')[direction] + 'miss', true);
 			}
 			vocals.volume = 0;
 		}
