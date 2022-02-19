@@ -7,32 +7,22 @@
 		"player3": null,
 		"events": [
 			[
-				62090.1639344263,
+				60983.6065573771,
 				[
 					[
-						"Show Space",
+						"Play The Cutscene",
 						"",
 						""
 					]
 				]
 			],
 			[
-				62459.0163934426,
+				62213.1147540984,
 				[
 					[
-						"Add ExDad",
-						"",
+						"Change Mania",
+						"4",
 						""
-					]
-				]
-			],
-			[
-				63319.6721311476,
-				[
-					[
-						"Play Animation",
-						"ComeOn",
-						"Dad"
 					]
 				]
 			]

@@ -101,7 +101,7 @@ class FreeplayState extends MusicBeatState
 		// 	}
 		// }
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menuFreeplay'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.setGraphicSize(1286, 730);
 		add(bg);

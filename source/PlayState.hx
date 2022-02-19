@@ -477,9 +477,9 @@ class PlayState extends MusicBeatState
 				add(stageLights);
 
 				
-				vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation');
+				vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation', -305, -160, 0.0, 0.0, ['Cutscene']);
 				vCutsce.animation.addByPrefix('idle', 'Cutscene', 24, false);
-				//vCutsce.setGraphicSize(Std.int(vCutsce.width * 1));
+				vCutsce.setGraphicSize(Std.int(vCutsce.width * 0.90));
 				vCutsce.updateHitbox();
 				vCutsce.visible = false;
 
@@ -3926,6 +3926,7 @@ class PlayState extends MusicBeatState
 			case "sick": // sick
 				totalNotesHit += 1;
 				sicks++;
+				
 		}
 
 

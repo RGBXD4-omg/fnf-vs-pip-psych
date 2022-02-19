@@ -116,7 +116,7 @@ class MainMenuState extends MusicBeatState
 		blackBar.screenCenter();
 		blackBar.scrollFactor.set();
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuBGMagenta'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(1286, 730);
 		//magenta.setGraphicSize(Std.int(magenta.width * 1.175));
@@ -269,13 +269,14 @@ class MainMenuState extends MusicBeatState
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
 						if (curSelected != spr.ID)
 						{
 						//	FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
+						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 						FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
 						FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
 						FlxTween.tween(magenta, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
