@@ -113,7 +113,6 @@ class PlayState extends MusicBeatState
 
 	var amongusDrip:FlxSprite;
 	var exDad:Bool = false;
-	public static var dad2:Character;
 
 	public var songSpeedTween:FlxTween;
 	public var songSpeed(default, set):Float = 1;
@@ -138,6 +137,7 @@ class PlayState extends MusicBeatState
 	public var gf:Character;
 	public var boyfriend:Boyfriend;
 	public var boyfriend_extra:Character;
+	public var dad2:Character;
 
 	static var playedAnim:Int = 0;
 
@@ -462,10 +462,7 @@ class PlayState extends MusicBeatState
 					add(stageCurtains);
 				}
 			case 'alleyways': // pip week
-
-
-
-				var bg:BGSprite = new BGSprite('bgs/sky', -287.6, -91.95, 0.9, 0.9);
+				var bg:BGSprite = new BGSprite('bgs/Sky', -287.6, -91.95, 0.9, 0.9);
 				add(bg);
 				var city:BGSprite = new BGSprite('bgs/City', -275.05, -37.45, 0.9, 0.9);
 				add(city);
@@ -476,25 +473,17 @@ class PlayState extends MusicBeatState
 				var stageLights:BGSprite = new BGSprite('bgs/stageLights', -307.55, -0.4, 1, 1); // fixed these ddamn lights!
 				add(stageLights);
 
-				
-				vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation', -305, -160, 0.0, 0.0, ['Cutscene']);
-				vCutsce.animation.addByPrefix('idle', 'Cutscene', 24, false);
-				vCutsce.setGraphicSize(Std.int(vCutsce.width * 0.90));
+				vCutsce = new BGSprite('old/smallCutscene', -240, -140, 0.0, 0.0, ['Cutscene']);
+				vCutsce.animation.addByPrefix('idle', 'video', 24, false);
+			//vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation', -240, -140, 0.0, 0.0, ['Cutscene']);
+			//	vCutsce.animation.addByPrefix('idle', 'Cutscene', 14, false);
+			//	vCutsce.setGraphicSize(Std.int(vCutsce.width * 0.87));
+				vCutsce.setGraphicSize(1920, 1080);
+			//	trace(vCutsce.width + " " + vCutsce.height);
 				vCutsce.updateHitbox();
 				vCutsce.visible = false;
 
-				
-			if (PlayState.SONG.song.toLowerCase() == 'cray cray') 
-				{
-					trace("Funni");
-					boyfriend_extra = new Character( 100, 100, 'bf-extra');
-					boyfriend_extra.setGraphicSize(420,430);
-					boyfriend_extra.visible = true;
-					boyfriend_extra.antialiasing = true;
-					boyfriend_extra.x -= 232;
-					boyfriend_extra.y -= 263;
 
-				}
 				blackScreenOfPip = new BGSprite('bgs/meWhen', -287.6, -51.95, 1, 1);
 				blackScreenOfPip.alpha = 0;
 				add(blackScreenOfPip);
@@ -883,9 +872,10 @@ class PlayState extends MusicBeatState
 		if (SONG.song.toLowerCase() == 'cray cray') exDad = true;
 
 		if (exDad){
-			dad2 = new Character(140, 230, "violet");
-			dad2.setGraphicSize(Std.int(dad2.width * 1.07));
-			add(dad2);
+			dad2 = new Character(202.9, 395.55, "violet");
+			dad2.setGraphicSize(326, 463);
+			//dad2.setGraphicSize(Std.int(dad2.width * 1.07));
+			dadGroup.add(dad2);
 			dad2.visible = false;
 		}
 
@@ -1200,7 +1190,7 @@ class PlayState extends MusicBeatState
 			switch (daSong)
 			{
 
-				case "pip": // gf-vcutscene carlito was here
+				case "fuck": // gf-vcutscene carlito was here
 					var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 					blackScreen.alpha = 0;
 					blackScreen.screenCenter();
@@ -2275,6 +2265,48 @@ class PlayState extends MusicBeatState
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1[0], Obj2[0]);
 	}
 
+	function fixArrowsPos(babyArrow:StrumNote, player:Int)
+		{
+			if (player == 1 && mania == 4) // crae wants the space bar in the middle AAAAAAAAAA 
+				{
+			switch(babyArrow.ID)
+			{
+			case 0:
+				babyArrow.x	= 732;
+			case 1:
+				babyArrow.x = 844;
+			case 3:
+				babyArrow.x = 956;
+			case 2:
+				babyArrow.x = 582;
+				babyArrow.setGraphicSize(Std.int(babyArrow.width * 1.54));
+			case 4:
+				babyArrow.x = 1068;
+			}
+		}
+		else if (player == 0 && mania == 4) 
+			{
+			switch(babyArrow.ID)
+			{
+			case 0:
+				babyArrow.x	= 92;
+			case 1:
+				babyArrow.x = 204;
+			case 3:
+				babyArrow.x = 316;
+			case 2:
+				babyArrow.x = -300; // hide it lmao
+			case 4:
+				babyArrow.x = 428;
+			}	
+			}
+			// debug moment
+			//trace(babyArrow.ID + ": X = " + babyArrow.x);
+			//trace(babyArrow.ID + ": Y = " + babyArrow.y);
+
+		}
+		
+
 	private function generateStaticArrows(player:Int):Void
 		{
 			for (i in 0...Note.ammo[mania])
@@ -2303,10 +2335,7 @@ class PlayState extends MusicBeatState
 	
 				if (player == 1)
 				{
-					trace(babyArrow.ID);
 					playerStrums.add(babyArrow);
-
-		
 				}
 				else
 				{
@@ -2328,43 +2357,7 @@ class PlayState extends MusicBeatState
 				strumLineNotes.add(babyArrow);
 				babyArrow.postAddedToGroup();
 
-				if (player == 1 && mania == 4) // crae wants the space bar in the middle AAAAAAAAAA 
-					{
-				switch(babyArrow.ID)
-				{
-				case 0:
-					babyArrow.x	= 732;
-				case 1:
-					babyArrow.x = 844;
-				case 3:
-					babyArrow.x = 956;
-				case 2:
-					babyArrow.x = 582;
-					babyArrow.setGraphicSize(Std.int(babyArrow.width * 1.54));
-				case 4:
-					babyArrow.x = 1068;
-				}
-			}
-			else if (player == 0 && mania == 4) 
-				{
-				switch(babyArrow.ID)
-				{
-				case 0:
-					babyArrow.x	= 92;
-				case 1:
-					babyArrow.x = 204;
-				case 3:
-					babyArrow.x = 316;
-				case 2:
-					babyArrow.x = -300; // hide it lmao
-				case 4:
-					babyArrow.x = 428;
-				}	
-				}
-				// debug moment
-				trace(babyArrow.ID + ": X = " + babyArrow.x);
-				trace(babyArrow.ID + ": Y = " + babyArrow.y);
-
+				fixArrowsPos(babyArrow, player);
 			}
 		}
 	
@@ -3435,25 +3428,28 @@ class PlayState extends MusicBeatState
 			case 'Add ExDad': // fixed
 
 				exDad = true;
-				dad.x -= 80;
-				dad.y += 300;
-				dad.visible = false;
 				dad2.visible = true;
-				dad.visible = true;
-				if(!dadMap.exists("pip")) {
-					addCharacterToList("pip", 1);
-				}
 
-				var wasGf:Bool = dad.curCharacter.startsWith('pip');
-				var lastAlpha:Float = dad.alpha;
-				dad.alpha = 0.00001;
-				dad = dadMap.get("pip");
-	
-				dad.alpha = lastAlpha;
-				dad.setGraphicSize(320, 490);
-				dad.x -= 140;
-				dad.y += 80;
+				if(!dadMap.exists("violet")) {
+					addCharacterToList("violet", 1);
+				}
+				var lastAlpha:Float = dad2.alpha;
+				dad2.alpha = 0.00001;
+				dad2 = dadMap.get("violet");
+				dad2.alpha = lastAlpha;
+
+				//dad.setGraphicSize(320, 490);
+				dad.setPosition(-84.4, 434.05);
+
+				dad2.setPosition(202.9, 395.55);
+				dad2.setGraphicSize(326, 463);
+
+
 				iconP2.changeIcon("both"); // carlito was here
+
+				// fix the bullshit y positions
+				dad2.y -= 150;
+				dad.y -= 150;
 
 			case "Show Space":
 				playerStrums.forEach(function(spr:StrumNote)
@@ -3466,46 +3462,57 @@ class PlayState extends MusicBeatState
 					});
 
 			case 'Play The Cutscene': 
-				/*
-				TO DO: Fix this event
-				*/
+				FlxTween.tween(camHUD, {alpha: 0}, 0.8);
+
+				canPause = false;
 				add(vCutsce);
 				vCutsce.visible = true;
 				vCutsce.animation.play('idle');
 
-				strumLineNotes.visible = false;
-				grpNoteSplashes.visible = false;
-				notes.visible = false;
-				healthBar.visible = false;
-				healthBarBG.visible = false;
-				iconP1.visible = false;
-				iconP2.visible = false;
-				scoreTxt.visible = false;
-				timeBar.visible = false;
-				timeBarBG.visible = false;
-				timeTxt.visible = false;
+				new FlxTimer().start(1.4, function(tmr:FlxTimer)
+					{
+				var dodgeSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pressSpace'));
+				dodgeSpr.setGraphicSize(343, 138);
+				dodgeSpr.cameras = [camHUD];
+				dodgeSpr.screenCenter();
+				dodgeSpr.x = FlxG.width * 0.35;
+				dodgeSpr.acceleration.y = 600;
+				dodgeSpr.velocity.y -= 150;
+				dodgeSpr.visible = !ClientPrefs.hideHud;
+				dodgeSpr.x += ClientPrefs.comboOffset[0];
+				dodgeSpr.y -= ClientPrefs.comboOffset[1];
+				dodgeSpr.setGraphicSize(Std.int(dodgeSpr.width * 0.75));
 
+
+					dodgeSpr.velocity.x += FlxG.random.int(1, 10);
+
+
+					add(dodgeSpr);
+					dodgeSpr.antialiasing = ClientPrefs.globalAntialiasing;
+
+
+					dodgeSpr.updateHitbox();
+
+					FlxTween.tween(dodgeSpr, {alpha: 0}, 0.2, {
+						onComplete: function(tween:FlxTween)
+						{
+							dodgeSpr.destroy();
+
+						},
+						startDelay: Conductor.crochet * 0.001
+					});
+		});
 	
-				new FlxTimer().start(2.3, function(tmr:FlxTimer)
+				new FlxTimer().start(2, function(tmr:FlxTimer)
 					{
 						remove(vCutsce);
+						canPause = true;
+						FlxTween.tween(camHUD, {alpha: 1}, 0.5);
 
 						gf.visible = true;
-
-						strumLineNotes.visible = true;
-						grpNoteSplashes.visible = true;
-						notes.visible = true;
-						healthBar.visible = true;
-						healthBarBG.visible = true;
-						iconP1.visible = true;
-						iconP2.visible = true;
-						scoreTxt.visible = true;
-						timeBar.visible = true;
-						timeBarBG.visible = true;
-						timeTxt.visible = true;
 					});
-			case "Pause":
-				canPause = !canPause;
+			case "StunDad":
+				dad.stunned = !dad.stunned;
 
 
 
@@ -3595,7 +3602,6 @@ class PlayState extends MusicBeatState
 
 	function finishSong():Void
 	{
-		
 
 		var finishCallback:Void->Void = endSong; //In case you want to change it in a specific song.
 
@@ -3650,7 +3656,7 @@ class PlayState extends MusicBeatState
 			if (exDad)
 				dad2.visible = false;
 
-				boyfriend_extra.visible = false;
+				//boyfriend_extra.visible = false;
 				boyfriend.visible = false;
 				gf.visible = false;
 
@@ -3932,6 +3938,9 @@ class PlayState extends MusicBeatState
 
 		if(daRating == 'sick' && !note.noteSplashDisabled)
 		{
+			if (mania == 4 && note.noteData == 2)
+				trace("nothing lmao")
+				else
 			spawnNoteSplashOnNote(note);
 		}
 
@@ -3996,9 +4005,30 @@ class PlayState extends MusicBeatState
 		comboSpr.x += ClientPrefs.comboOffset[0];
 		comboSpr.y -= ClientPrefs.comboOffset[1];
 
+		var dodgeSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Dodge'));
+		dodgeSpr.setGraphicSize(343, 138);
+		dodgeSpr.cameras = [camHUD];
+		dodgeSpr.screenCenter();
+		dodgeSpr.x = coolText.x;
+		dodgeSpr.acceleration.y = 600;
+		dodgeSpr.velocity.y -= 150;
+		dodgeSpr.visible = !ClientPrefs.hideHud;
+		dodgeSpr.x += ClientPrefs.comboOffset[0];
+		dodgeSpr.y -= ClientPrefs.comboOffset[1];
+		//dodgeSpr.setGraphicSize(Std.int(dodgeSpr.width * 0.85));
+
 
 		comboSpr.velocity.x += FlxG.random.int(1, 10);
+		dodgeSpr.velocity.x += FlxG.random.int(1, 10);
+
+		if (mania == 4 && note.noteData != 2)
 		insert(members.indexOf(strumLineNotes), rating);
+		else if (mania != 4)
+		insert(members.indexOf(strumLineNotes), rating);
+
+
+		if (mania == 4 && note.noteData == 2)
+			insert(members.indexOf(strumLineNotes),dodgeSpr);
 
 		if (!PlayState.isPixelStage)
 		{
@@ -4006,14 +4036,18 @@ class PlayState extends MusicBeatState
 			rating.antialiasing = ClientPrefs.globalAntialiasing;
 			comboSpr.setGraphicSize(Std.int(comboSpr.width * 0.7));
 			comboSpr.antialiasing = ClientPrefs.globalAntialiasing;
+			dodgeSpr.setGraphicSize(Std.int(dodgeSpr.width * 0.2));
+			dodgeSpr.antialiasing = ClientPrefs.globalAntialiasing;
 		}
 		else
 		{
 			rating.setGraphicSize(Std.int(rating.width * daPixelZoom * 0.85));
 			comboSpr.setGraphicSize(Std.int(comboSpr.width * daPixelZoom * 0.85));
+			dodgeSpr.setGraphicSize(Std.int(dodgeSpr.width * daPixelZoom * 0.85));
 		}
 
 		comboSpr.updateHitbox();
+		dodgeSpr.updateHitbox();
 		rating.updateHitbox();
 
 		var seperatedScore:Array<Int> = [];
@@ -4077,12 +4111,16 @@ class PlayState extends MusicBeatState
 		FlxTween.tween(rating, {alpha: 0}, 0.2, {
 			startDelay: Conductor.crochet * 0.001
 		});
-
 		FlxTween.tween(comboSpr, {alpha: 0}, 0.2, {
+			startDelay: Conductor.crochet * 0.001
+		});
+
+		FlxTween.tween(dodgeSpr, {alpha: 0}, 0.2, {
 			onComplete: function(tween:FlxTween)
 			{
 				coolText.destroy();
 				comboSpr.destroy();
+				dodgeSpr.destroy();
 
 				rating.destroy();
 			},
@@ -4268,6 +4306,15 @@ class PlayState extends MusicBeatState
 		});
 		combo = 0;
 
+		
+	if (mania == 4 && daNote.noteData == 2)
+		{
+			trace("fuck");
+			vocals.volume = 0;
+			health -= 69;
+			doDeathCheck(true);
+		}
+		
 		health -= daNote.missHealth * healthLoss;
 		if(instakillOnMiss)
 		{
@@ -4275,6 +4322,7 @@ class PlayState extends MusicBeatState
 			doDeathCheck(true);
 		}
 
+	
 		//For testing purposes
 		//trace(daNote.missHealth);
 		songMisses++;
@@ -4424,6 +4472,9 @@ class PlayState extends MusicBeatState
 			if(note.hitCausesMiss) {
 				noteMiss(note);
 				if(!note.noteSplashDisabled && !note.isSustainNote) {
+					if (mania == 4 && note.noteData == 2)
+						trace("nothing lmao")
+						else
 					spawnNoteSplashOnNote(note);
 				}
 
@@ -4520,6 +4571,9 @@ class PlayState extends MusicBeatState
 				{
 					if (Math.abs(note.noteData) == spr.ID)
 					{
+						// if (mania == 4 && spr.ID == 2)
+						// 	spr.setGraphicSize(Std.int(spr.width * 1.05));
+
 						spr.playAnim('confirm', true);
 					}
 				});

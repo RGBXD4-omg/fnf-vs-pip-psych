@@ -356,6 +356,9 @@ class StoryMenuState extends MusicBeatState
 		if (curDifficulty >= CoolUtil.difficulties.length)
 			curDifficulty = 0;
 
+		if (pussyStare.visible)
+			curDifficulty = 2;
+
 		var image:Dynamic = Paths.image('menudifficulties/' + Paths.formatToSongPath(CoolUtil.difficulties[curDifficulty]));
 		var newImagePath:String = '';
 		if(Std.isOfType(image, FlxGraphic))
@@ -483,22 +486,23 @@ class StoryMenuState extends MusicBeatState
 			stringThing.push(leWeek.songs[i][0]);
 		}
 
-	switch(leWeek.weekName)
-	{
-		case "Tutorial":
-			gfStare.visible = true;
-			pussyStare.visible = false;
-			pipStare.visible = false;
-		case "Pi Week":
-			gfStare.visible = false;
-			pussyStare.visible = false;
-			pipStare.visible = true;
-		case "Pussy_69":
-			gfStare.visible = false;
-			pussyStare.visible = true;
-			pipStare.visible = false;
+		switch(leWeek.weekName)
+		{
+			case "Tutorial":
+				gfStare.visible = true;
+				pussyStare.visible = false;
+				pipStare.visible = false;
+			case "Pi Week":
+				gfStare.visible = false;
+				pussyStare.visible = false;
+				pipStare.visible = true;
+			case "Pussy_69":
+				gfStare.visible = false;
+				pussyStare.visible = true;
+				pipStare.visible = false;
+				curDifficulty = 2;
 
-	}
+		}
 
 		txtTracklist.text = '';
 		for (i in 0...stringThing.length)

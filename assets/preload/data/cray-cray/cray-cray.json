@@ -5795,18 +5795,6 @@
 				"mustHitSection": true
 			}
 		],
-		"events": [
-			[
-				62213.1147540984,
-				[
-					[
-						"Change Mania",
-						"4",
-						""
-					]
-				]
-			]
-		],
 		"player3": "gf",
 		"mania": 4,
 		"song": "Cray Cray",

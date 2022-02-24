@@ -1,28 +1,6 @@
 {
 	"song": {
 		"player1": "bf",
-		"events": [
-			[
-				60983.6065573771,
-				[
-					[
-						"Play The Cutscene",
-						"",
-						""
-					]
-				]
-			],
-			[
-				62213.1147540984,
-				[
-					[
-						"Change Mania",
-						"4",
-						""
-					]
-				]
-			]
-		],
 		"notes": [
 			{
 				"sectionNotes": [
