@@ -473,12 +473,12 @@ class PlayState extends MusicBeatState
 				var stageLights:BGSprite = new BGSprite('bgs/stageLights', -307.55, -0.4, 1, 1); // fixed these ddamn lights!
 				add(stageLights);
 
-				vCutsce = new BGSprite('old/smallCutscene', -240, -140, 0.0, 0.0, ['Cutscene']);
+				//vCutsce = new BGSprite('old/smallCutscene', -240, -140, 0.0, 0.0, ['Cutscene']);
 				vCutsce.animation.addByPrefix('idle', 'video', 24, false);
-			//vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation', -240, -140, 0.0, 0.0, ['Cutscene']);
-			//	vCutsce.animation.addByPrefix('idle', 'Cutscene', 14, false);
-			//	vCutsce.setGraphicSize(Std.int(vCutsce.width * 0.87));
-				vCutsce.setGraphicSize(1920, 1080);
+			vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation', -240, -140, 0.0, 0.0, ['Cutscene']);
+				vCutsce.animation.addByPrefix('idle', 'Cutscene', 14, false);
+				vCutsce.setGraphicSize(Std.int(vCutsce.width * 0.87));
+		//		vCutsce.setGraphicSize(1920, 1080);
 			//	trace(vCutsce.width + " " + vCutsce.height);
 				vCutsce.updateHitbox();
 				vCutsce.visible = false;
@@ -2265,8 +2265,9 @@ class PlayState extends MusicBeatState
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1[0], Obj2[0]);
 	}
 
-	function fixArrowsPos(babyArrow:StrumNote, player:Int)
+	function fixArrowsPos(babyArrow:StrumNote, player:Int, ?middleScrollFunni:Bool = false)
 		{
+			if (!middleScrollFunni){
 			if (player == 1 && mania == 4) // crae wants the space bar in the middle AAAAAAAAAA 
 				{
 			switch(babyArrow.ID)
@@ -2300,9 +2301,14 @@ class PlayState extends MusicBeatState
 				babyArrow.x = 428;
 			}	
 			}
+		}
+		else
+			{
+				trace("funni");
+			}
 			// debug moment
-			//trace(babyArrow.ID + ": X = " + babyArrow.x);
-			//trace(babyArrow.ID + ": Y = " + babyArrow.y);
+			trace(babyArrow.ID + ": X = " + babyArrow.x);
+			trace(babyArrow.ID + ": Y = " + babyArrow.y);
 
 		}
 		
@@ -2356,8 +2362,11 @@ class PlayState extends MusicBeatState
 				
 				strumLineNotes.add(babyArrow);
 				babyArrow.postAddedToGroup();
-
+				if(!ClientPrefs.middleScroll)
 				fixArrowsPos(babyArrow, player);
+				else
+				fixArrowsPos(babyArrow, player, true);
+
 			}
 		}
 	
@@ -3457,7 +3466,14 @@ class PlayState extends MusicBeatState
 						if (spr.ID == 2)
 						{
 							spr.y += 60;
+							if (!ClientPrefs.downScroll)
 							FlxTween.tween(spr, {alpha: 1, y: 43}, .3, {ease: FlxEase.circInOut});
+							else
+							FlxTween.tween(spr, {alpha: 1, y: 570}, .3, {ease: FlxEase.circInOut});
+
+							if (ClientPrefs.middleScroll)
+								FlxTween.tween(spr, {alpha: 1, y: 43}, .3, {ease: FlxEase.circInOut});
+
 						}
 					});
 
