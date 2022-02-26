@@ -349,10 +349,10 @@ class MainMenuState extends MusicBeatState
 			if (controls.BACK)
 			{
 				FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
-						//FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
-						//FlxTween.tween(magenta, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
-						//FlxTween.tween(bg, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
-						//FlxTween.tween(magenta, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(magenta, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(bg, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(magenta, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
@@ -375,13 +375,13 @@ class MainMenuState extends MusicBeatState
 					{
 						if (curSelected != spr.ID)
 						{
-						//	FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
-						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
-						FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
-						FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
-						FlxTween.tween(magenta, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
-						FlxTween.tween(bg, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
-						FlxTween.tween(magenta, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
+						//FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
+						//FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+						//FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
+						//FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+						//FlxTween.tween(magenta, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+						//FlxTween.tween(bg, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
+						//FlxTween.tween(magenta, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
 							FlxTween.tween(spr, {alpha: 0}, 0.4, {
 								ease: FlxEase.quadOut,
 								onComplete: function(twn:FlxTween)
@@ -422,23 +422,15 @@ class MainMenuState extends MusicBeatState
 													case 1:
 													FlxTween.tween(spr, {x:168.7, y: 551}, 0.2, {ease: FlxEase.linear});
 													spr.health = 2;
-													//spr.setPosition(-255.65, 205.55);
 												
 													case 2:
 													FlxTween.tween(spr, {x:22.9, y: 281.5}, 0.2, {ease: FlxEase.linear});
 													spr.health = 3;
 										
-												//	spr.setPosition(-558.55, 205.55);
 												
 													case 3:
 													FlxTween.tween(spr, {x:388.55, y:410.15}, 0.2, {ease: FlxEase.linear});
 													spr.health = 1;
-											//		-30.5, 692.15
-										
-													//spr.setPosition(-30.5, 692.15);
-										
-										
-													//spr.setPosition(172.15, 417.05);
 												
 												}
 												finishedFunnyMove = true;
@@ -452,41 +444,19 @@ class MainMenuState extends MusicBeatState
 													case 1:
 														FlxTween.tween(spr, {x:22.9, y: 281.5}, 0.2, {ease: FlxEase.linear});
 														spr.health = 2;
-													//spr.setPosition(-255.65, 205.55);
 												
 													case 2:
 														FlxTween.tween(spr, {x:388.55, y:410.15}, 0.2, {ease: FlxEase.linear});
 														spr.health = 3;
-										
-												//	spr.setPosition(-558.55, 205.55);
 												
 													case 3:
 														FlxTween.tween(spr, {x:168.7, y: 551}, 0.2, {ease: FlxEase.linear});
 														spr.health = 1;
 										
-													//spr.setPosition(-30.5, 692.15);
-												
-										
-													//spr.setPosition(172.15, 417.05);
 												
 												}
 												finishedFunnyMove = true;
 											}
-										
-											
-												// if (spr.x == 172.15){ //2
-												// 	spr.setPosition(-255.65, 205.55);
-												// }
-												// if (spr.x == -255.65){ //3
-												// 	spr.setPosition(-558.55, 205.55);
-												// }
-												// if (spr.x == -558.55){ //4
-												// 	spr.setPosition(-30.5, 692.15);
-												// }
-												
-												// if (spr.x == -30.5){ //1
-												// 	spr.setPosition(172.15, 417.05);
-												// }
 										
 											}
 								}
@@ -542,9 +512,7 @@ class MainMenuState extends MusicBeatState
 					pieChart.angle = 30;
 			}
 	
-				//	camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y);
 				}
-			//spr.screenCenter(X);
 			spr.updateHitbox();
 		});
 	}
