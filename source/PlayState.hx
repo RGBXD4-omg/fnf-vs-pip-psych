@@ -473,13 +473,22 @@ class PlayState extends MusicBeatState
 				var stageLights:BGSprite = new BGSprite('bgs/stageLights', -307.55, -0.4, 1, 1); // fixed these ddamn lights!
 				add(stageLights);
 
+				if (SONG.song.toLowerCase() == 'cray cray') {
+    				GameOverSubstate.deathSoundName = 'bfgetshotanddies';
+					GameOverSubstate.loopSoundName = 'cheeseballs-death_dance';
+					GameOverSubstate.endSoundName = 'gameOverEnd';
+					GameOverSubstate.characterName = 'bf-fucking-dies';
+				}
+				else {
+					GameOverSubstate.deathSoundName = 'fnf_loss_sfx';
+					GameOverSubstate.loopSoundName = 'death_by_the_swag';
+					GameOverSubstate.endSoundName = 'gameOverEnd';
+					GameOverSubstate.characterName = 'bf'; 
+				}
+
 			 vCutsce = new BGSprite('old/smallCutscene', -240, -140, 0.0, 0.0, ['Cutscene']);
                  vCutsce.animation.addByPrefix('idle', 'video', 24, false);
-             //vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation', -240, -140, 0.0, 0.0, ['Cutscene']);
-             //    vCutsce.animation.addByPrefix('idle', 'Cutscene', 14, false);
-             //    vCutsce.setGraphicSize(Std.int(vCutsce.width * 0.87));
                  vCutsce.setGraphicSize(1920, 1080);
-             //    trace(vCutsce.width + " " + vCutsce.height);
 
 
 				blackScreenOfPip = new BGSprite('bgs/meWhen', -287.6, -51.95, 1, 1);

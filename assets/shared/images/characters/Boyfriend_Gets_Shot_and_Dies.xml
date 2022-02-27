@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Boyfriend_Gets_Shot_and_Dies.png">
+	<!-- Created with Adobe Animate version 20.5.1.31044 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="A-BfShot instance 10000" x="0" y="0" width="602" height="596" frameX="0" frameY="-119" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10001" x="0" y="0" width="602" height="596" frameX="0" frameY="-119" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10002" x="602" y="0" width="611" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10003" x="602" y="0" width="611" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10004" x="1213" y="0" width="612" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10005" x="1213" y="0" width="612" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10006" x="1213" y="0" width="612" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10007" x="1213" y="0" width="612" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10008" x="1825" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10009" x="1825" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10010" x="1825" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10011" x="1825" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10012" x="1825" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10013" x="1825" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10014" x="1825" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10015" x="1825" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10016" x="1825" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10017" x="1825" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10018" x="2392" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10019" x="2392" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10020" x="2959" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10021" x="2959" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10022" x="3526" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10023" x="3526" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10024" x="4093" y="0" width="567" height="596" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10025" x="4093" y="0" width="567" height="596" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10026" x="4660" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10027" x="4660" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10028" x="5227" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10029" x="5227" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10030" x="5227" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10031" x="5227" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10032" x="5227" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10033" x="5227" y="0" width="567" height="590" frameX="-2" frameY="-123" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10034" x="5227" y="0" width="567" height="590" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10035" x="5794" y="0" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10036" x="6576" y="0" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10037" x="7358" y="0" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10038" x="0" y="713" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10039" x="782" y="713" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10040" x="1564" y="713" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10041" x="2346" y="713" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10042" x="3128" y="713" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10043" x="3910" y="713" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10044" x="4692" y="713" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10045" x="5474" y="713" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10046" x="6256" y="713" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10047" x="7038" y="713" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10048" x="0" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10049" x="782" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10050" x="1564" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10051" x="2346" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10052" x="2346" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10053" x="2346" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10054" x="2346" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10055" x="2346" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10056" x="2346" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10057" x="2346" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10058" x="2346" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="A-BfShot instance 10059" x="2346" y="1426" width="782" height="713" frameX="-2" frameY="0" frameWidth="784" frameHeight="719"/>
+	<SubTexture name="B-BfLoop instance 10000" x="3128" y="1426" width="777" height="710" frameX="-322" frameY="-32" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10001" x="3905" y="1426" width="785" height="723" frameX="-322" frameY="-19" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10002" x="3905" y="1426" width="785" height="723" frameX="-322" frameY="-19" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10003" x="4690" y="1426" width="783" height="719" frameX="-322" frameY="-23" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10004" x="4690" y="1426" width="783" height="719" frameX="-322" frameY="-23" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10005" x="5473" y="1426" width="781" height="715" frameX="-322" frameY="-27" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10006" x="6254" y="1426" width="1338" height="754"/>
+	<SubTexture name="B-BfLoop instance 10007" x="0" y="2180" width="1338" height="754"/>
+	<SubTexture name="B-BfLoop instance 10008" x="1338" y="2180" width="782" height="712" frameX="-322" frameY="-30" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10009" x="1338" y="2180" width="782" height="712" frameX="-322" frameY="-30" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10010" x="1338" y="2180" width="782" height="712" frameX="-322" frameY="-30" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10011" x="1338" y="2180" width="782" height="712" frameX="-322" frameY="-30" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10012" x="1338" y="2180" width="782" height="712" frameX="-322" frameY="-30" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10013" x="1338" y="2180" width="782" height="712" frameX="-322" frameY="-30" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10014" x="1338" y="2180" width="782" height="712" frameX="-322" frameY="-30" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10015" x="1338" y="2180" width="782" height="712" frameX="-322" frameY="-30" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="B-BfLoop instance 10016" x="1338" y="2180" width="782" height="712" frameX="-322" frameY="-30" frameWidth="1338" frameHeight="754"/>
+	<SubTexture name="C-BfRetrySelect instance 10000" x="2120" y="2180" width="801" height="724" frameX="0" frameY="-9" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10001" x="2921" y="2180" width="801" height="724" frameX="0" frameY="-9" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10002" x="3722" y="2180" width="801" height="724" frameX="0" frameY="-9" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10003" x="4523" y="2180" width="802" height="725" frameX="0" frameY="-8" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10004" x="5325" y="2180" width="803" height="726" frameX="0" frameY="-7" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10005" x="6128" y="2180" width="803" height="726" frameX="0" frameY="-7" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10006" x="6931" y="2180" width="804" height="727" frameX="0" frameY="-6" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10007" x="0" y="2934" width="805" height="728" frameX="0" frameY="-5" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10008" x="805" y="2934" width="805" height="728" frameX="0" frameY="-5" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10009" x="1610" y="2934" width="806" height="729" frameX="0" frameY="-4" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10010" x="2416" y="2934" width="807" height="730" frameX="0" frameY="-3" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10011" x="3223" y="2934" width="807" height="730" frameX="0" frameY="-3" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10012" x="4030" y="2934" width="808" height="731" frameX="0" frameY="-2" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10013" x="4838" y="2934" width="808" height="731" frameX="0" frameY="-2" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10014" x="5646" y="2934" width="809" height="732" frameX="0" frameY="-1" frameWidth="810" frameHeight="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10015" x="6455" y="2934" width="810" height="733"/>
+	<SubTexture name="C-BfRetrySelect instance 10016" x="7265" y="2934" width="810" height="733"/>
+</TextureAtlas>
