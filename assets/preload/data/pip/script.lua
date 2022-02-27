@@ -19,7 +19,7 @@ end
 
 function onStartCountdown()
 	if not allowCountdown and isStoryMode and not seenCutscene then
-		startVideo('shoot');
+		startVideo('intro');
 		allowCountdown = true;
 		return Function_Stop;
 	end
