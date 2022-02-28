@@ -223,14 +223,12 @@ class MainMenuState extends MusicBeatState
 					menuItem.setGraphicSize(400, 85);
 					menuItem.angle -= 4;
 					menuItem.setPosition(292.65, 281.85);
-					menuItem.health = 1; //used for tweening em
 					menuItem.x -= 80;
 					menuItem.y -= 25;
 
 				case 2:
 					menuItem.setGraphicSize(370, 85);
 					menuItem.setPosition(302.2, 414.45);
-					menuItem.health = 2;
 					menuItem.x -= 80;
 					menuItem.y -= 15;
 					menuItem.alpha = 0.5;
@@ -241,7 +239,6 @@ class MainMenuState extends MusicBeatState
 					menuItem.setPosition(315.65,551.15);
 					menuItem.x -= 80;
 					menuItem.y -= 5;
-					menuItem.health = 3;
 					menuItem.alpha = 0.5;
 					finishedFunnyMove = true; 
 					changeItem();
@@ -257,7 +254,7 @@ class MainMenuState extends MusicBeatState
 		add(borders);
 		add(menuItems);
 		add(pipdied);
-		//add(amongusTro);
+		add(amongusTro);
 		//add(blackBar);
 		//add(amongusTro);
 		//add(pipdied);
@@ -486,7 +483,7 @@ class MainMenuState extends MusicBeatState
 				//	spr.setPosition(172.15,417.05);
 			//	pieChart.animation.play('idle', true);
 					camFollow.setPosition(650,370);
-					trace(curSelected);
+//					trace(curSelected);
 	
 					spr.animation.play('selected');
 					spr.alpha = 1;
