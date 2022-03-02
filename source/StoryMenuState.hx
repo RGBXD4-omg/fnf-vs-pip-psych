@@ -61,21 +61,21 @@ class StoryMenuState extends MusicBeatState
 		Paths.clearUnusedMemory();
 
 		pipStare = new FlxSprite().loadGraphic(Paths.image("pip"));
-		pipStare.setGraphicSize(1280, 720);
+		//pipStare.setGraphicSize(1280, 720);
 		pipStare.updateHitbox();
-		pipStare.screenCenter();
+		//pipStare.screenCenter();
 		pipStare.visible = false;
 
 		pussyStare = new FlxSprite().loadGraphic(Paths.image("sus"));
-		pussyStare.setGraphicSize(1280, 720);
+		//pussyStare.setGraphicSize(1280, 720);
 		pussyStare.updateHitbox();
-		pussyStare.screenCenter();
+		//pussyStare.screenCenter();
 		pussyStare.visible = false;
 
 		gfStare = new FlxSprite().loadGraphic(Paths.image("gf"));
-		gfStare.setGraphicSize(1280, 720);
+		//gfStare.setGraphicSize(1280, 720);
 		gfStare.updateHitbox();
-		gfStare.screenCenter();
+		//gfStare.screenCenter();
 		gfStare.visible = false;
 		
 		PlayState.isStoryMode = true;
@@ -96,9 +96,7 @@ class StoryMenuState extends MusicBeatState
 		rankText.size = scoreText.size;
 		rankText.screenCenter(X);
 
-		add(gfStare);
-		add(pipStare);
-		add(pussyStare);
+	
 
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
@@ -155,6 +153,10 @@ class StoryMenuState extends MusicBeatState
 		// 	weekCharacterThing.y += 70;
 		// 	grpWeekCharacters.add(weekCharacterThing);
 		// }
+
+		add(gfStare);
+		add(pipStare);
+		add(pussyStare);
 
 		difficultySelectors = new FlxGroup();
 		add(difficultySelectors);
