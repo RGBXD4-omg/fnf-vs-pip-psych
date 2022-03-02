@@ -79,69 +79,45 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		/*bg = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.scrollFactor.set(0, yScroll);
-		bg.setGraphicSize(1286, 730);
-	//	bg.setGraphicSize(Std.int(bg.width * 1.175));
-		bg.updateHitbox();
-		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		add(bg);*/
 
 		var yellowBg:FlxSprite = new FlxSprite(0, -7.95).loadGraphic(Paths.image('MENU/MainMenuArea'));
-	//	yellowBg.scrollFactor.x = 0;
-	//	yellowBg.scrollFactor.y = 0.10;
 		yellowBg.setGraphicSize(1286, 730);
 		yellowBg.updateHitbox();
-		yellowBg.antialiasing = true;
+		yellowBg.antialiasing = ClientPrefs.globalAntialiasing;
 
 		bg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('MENU/MainMenuSTORYMODEart'));
-	//	bg.scrollFactor.x = 0;
-	//	bg.scrollFactor.y = 0.10;
 		bg.setGraphicSize(1286, 730);
 		bg.updateHitbox();
-		bg.antialiasing = true;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 
 		opitionsBg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('MENU/MainMenuTHEOPTIONSart'));
-		//	bg.scrollFactor.x = 0;
-		//	bg.scrollFactor.y = 0.10;
 		opitionsBg.setGraphicSize(1286, 730);
 		opitionsBg.updateHitbox();
-		opitionsBg.antialiasing = true;
+		opitionsBg.antialiasing = ClientPrefs.globalAntialiasing;
 		opitionsBg.visible = false;
 		
 		freeplayBg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('MENU/MainMenuTHEFREEPLAYart'));
-		//	bg.scrollFactor.x = 0;
-		//	bg.scrollFactor.y = 0.10;
 		freeplayBg.setGraphicSize(1286, 730);
 		freeplayBg.updateHitbox();
-		freeplayBg.antialiasing = true;
+		freeplayBg.antialiasing = ClientPrefs.globalAntialiasing;
 		freeplayBg.visible = false;
 
 		pieChart = new FlxSprite(34.5, 217.95);
 		pieChart.angle = -20;
 		pieChart.frames = Paths.getSparrowAtlas('Piechart');
-		pieChart.setGraphicSize(497, 502);
+		pieChart.setGraphicSize(595, 600);
 		pieChart.animation.addByPrefix('idle', 'pie instance', 24, false);
 		pieChart.animation.addByPrefix('spinDown', 'E-piedown instance', 24, false);
 		pieChart.animation.addByPrefix('spinUp', 'F-pieup instance', 24, false);
-	//	var selectPat:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('MENU/MENUselect'));
-	//	pieChart.scrollFactor.x = 0;
-	//	pieChart.scrollFactor.y = 0.10;
-		//borders.setGraphicSize(Std.int(borders.width * 1.1));
 		pieChart.updateHitbox();
-	//	selectPat.screenCenter();
-		pieChart.antialiasing = true;
-	//	add(selectPat);
+		pieChart.x -= 80;
+		pieChart.y -= 30;
+		pieChart.antialiasing = ClientPrefs.globalAntialiasing;
 
 		var borders:FlxSprite = new FlxSprite(0.05, -7.95).loadGraphic(Paths.image('MENU/MainMenuBorder'));
 		borders.setGraphicSize(1286, 730);
-	//	borders.scrollFactor.x = 0;
-	//	borders.scrollFactor.y = 0.10;
-		//borders.setGraphicSize(Std.int(borders.width * 1.1));
 		borders.updateHitbox();
-	//	borders.screenCenter();
-		borders.antialiasing = true;
+		borders.antialiasing = ClientPrefs.globalAntialiasing;
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
@@ -158,15 +134,16 @@ class MainMenuState extends MusicBeatState
 		pipdied.animation.addByPrefix('idleStone', 'StonePip', 24, true);
 		pipdied.animation.addByPrefix('idle', 'A-lockedtrophy', 24, true);
 		pipdied.scrollFactor.set();
+		pipdied.antialiasing = ClientPrefs.globalAntialiasing;
 
 
 		amongusTro = new FlxSprite(0, -9.95);
 		amongusTro.frames = Paths.getSparrowAtlas('MenuShitAssets');
 		amongusTro.setGraphicSize(203, 360);
 		amongusTro.setPosition(1024.45, 339.1);
-		amongusTro.y -= 205;
-		amongusTro.x -= 1150;
-		amongusTro.flipX = true;
+		amongusTro.y -= 190;
+		amongusTro.x -= 500;
+		amongusTro.antialiasing = ClientPrefs.globalAntialiasing;
 		amongusTro.animation.addByPrefix('idle', 'StonePussy', 24, true);
 		amongusTro.animation.addByPrefix('Gold', 'D-goldpussy', 24, true);
 		amongusTro.visible = false;
@@ -176,6 +153,7 @@ class MainMenuState extends MusicBeatState
 		blackBar.setGraphicSize(1286,830);
 		blackBar.screenCenter();
 		blackBar.scrollFactor.set();
+		blackBar.antialiasing = ClientPrefs.globalAntialiasing;
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuBGMagenta'));
 		magenta.scrollFactor.set(0, yScroll);
@@ -210,7 +188,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
+			//menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
@@ -220,28 +198,27 @@ class MainMenuState extends MusicBeatState
 			switch (menuId)
 			{
 				case 1:
-					menuItem.setGraphicSize(400, 85);
-					menuItem.angle -= 4;
-					menuItem.setPosition(292.65, 281.85);
-					menuItem.x -= 80;
-					menuItem.y -= 25;
+					//menuItem.angle -= 6;
+					menuItem.setPosition(165.9, 355.45);
+					menuItem.setGraphicSize(528, 105);
 
 				case 2:
-					menuItem.setGraphicSize(370, 85);
-					menuItem.setPosition(302.2, 414.45);
-					menuItem.x -= 80;
-					menuItem.y -= 15;
+					menuItem.setPosition(34.7, 555.75);
+					//menuItem.angle += 6;
 					menuItem.alpha = 0.5;
+					menuItem.setGraphicSize(414, 104);
 
 				case 3:
-					menuItem.setGraphicSize(400, 85);
-					menuItem.angle += 4;
-					menuItem.setPosition(315.65,551.15);
-					menuItem.x -= 80;
-					menuItem.y -= 5;
+					//menuItem.angle += 6;
+					menuItem.setGraphicSize(452,104);
+					menuItem.setPosition(-527.8,398.2);
 					menuItem.alpha = 0.5;
 					finishedFunnyMove = true; 
 					changeItem();
+				case 4:
+					menuItem.setPosition(-12.3,170.95);
+					menuItem.alpha = 0.5;
+
 			}
 			menuId += 1;
 		}
@@ -480,10 +457,7 @@ class MainMenuState extends MusicBeatState
 			spr.alpha = 0.5;
 			if (spr.ID == curSelected && finishedFunnyMove)
 				{
-				//	spr.setPosition(172.15,417.05);
-			//	pieChart.animation.play('idle', true);
 					camFollow.setPosition(650,370);
-//					trace(curSelected);
 	
 					spr.animation.play('selected');
 					spr.alpha = 1;

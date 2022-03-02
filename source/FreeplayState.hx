@@ -123,7 +123,9 @@ class FreeplayState extends MusicBeatState
 		var bgArea:FlxSprite = new FlxSprite(0, 0.05).loadGraphic(Paths.image('FREEPLAY/FreeplayArea'));
 		var borders:FlxSprite = new FlxSprite(-6.95, -10.05).loadGraphic(Paths.image('FREEPLAY/FreeplayBorder'));
 		borders.setGraphicSize(1286, 730);
+		borders.antialiasing = ClientPrefs.globalAntialiasing;
 		bgArea.setGraphicSize(1286, 730);
+		bgArea.antialiasing = ClientPrefs.globalAntialiasing;
 		bgArea.updateHitbox();
 		borders.updateHitbox();
 
@@ -131,14 +133,18 @@ class FreeplayState extends MusicBeatState
 		charaPIP = new FlxSprite(-7.05).loadGraphic(Paths.image('characterssillouettes/pip week-freeplay'));
 		charaSus = new FlxSprite(-7.05).loadGraphic(Paths.image('characterssillouettes/question-freeplay'));
 	
-
-		
 		charaPIP.alpha = 0;
 		charaSus.alpha = 0;
 		charaGF.alpha = 0;
+
+		charaGF.antialiasing = ClientPrefs.globalAntialiasing;
+		charaPIP.antialiasing = ClientPrefs.globalAntialiasing;
+		charaSus.antialiasing = ClientPrefs.globalAntialiasing;
+
 		charaGF.setGraphicSize(1286, 730);
 		charaSus.setGraphicSize(1286, 730);
 		charaPIP.setGraphicSize(1286, 730);
+
 		charaPIP.updateHitbox();
 		charaGF.updateHitbox();
 		charaSus.updateHitbox();
@@ -190,6 +196,9 @@ class FreeplayState extends MusicBeatState
 		WeekData.setDirectoryFromWeek();
 
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
+		scoreText.setPosition(594.8, 120.65);
+		scoreText.y -= 80;
+		scoreText.angle -= 7;
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 
 		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
@@ -334,7 +343,7 @@ class FreeplayState extends MusicBeatState
 		}
 
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
-		positionHighscore();
+	//	positionHighscore();
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
@@ -358,12 +367,12 @@ class FreeplayState extends MusicBeatState
 				holdTime = 0;
 			}
 
-			if (controls.UI_RIGHT_P)
+			if (controls.UI_RIGHT)
 				rightarrow.animation.play('press')
 			else
 				rightarrow.animation.play('idle');
 	
-			if (controls.UI_LEFT_P)
+			if (controls.UI_LEFT)
 				leftarrow.animation.play('press');
 			else
 				leftarrow.animation.play('idle');
@@ -510,8 +519,8 @@ class FreeplayState extends MusicBeatState
 		#end
 
 		PlayState.storyDifficulty = curDifficulty;
-		diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
-		positionHighscore();
+		//diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
+	//	positionHighscore();
 
 		
 		switch (curDifficulty)
@@ -691,14 +700,14 @@ class FreeplayState extends MusicBeatState
 
 	}
 
-	private function positionHighscore() {
-		scoreText.x = FlxG.width - scoreText.width - 6;
+	// private function positionHighscore() {
+	// 	scoreText.x = FlxG.width - scoreText.width - 6;
 
-		scoreBG.scale.x = FlxG.width - scoreText.x + 6;
-		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
-		diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
-		diffText.x -= diffText.width / 2;
-	}
+	// 	scoreBG.scale.x = FlxG.width - scoreText.x + 6;
+	// 	scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
+	// 	diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
+	// 	diffText.x -= diffText.width / 2;
+	// }
 }
 
 class SongMetadata

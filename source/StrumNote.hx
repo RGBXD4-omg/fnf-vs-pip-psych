@@ -75,8 +75,11 @@ class StrumNote extends FlxSprite
 				frames = Paths.getSparrowAtlas(texture);
 
 				antialiasing = ClientPrefs.globalAntialiasing;
-
+				if (PlayState.mania != 4)
 				setGraphicSize(Std.int(width * Note.scales[PlayState.mania]));
+				else
+				setGraphicSize(Std.int(width * Note.scales[3]));
+
 		
 				animation.addByPrefix('static', 'arrow' + skinThing[0]);
 				animation.addByPrefix('pressed', skinThing[1] + ' press', 24, false);
