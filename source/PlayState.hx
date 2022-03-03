@@ -5242,9 +5242,9 @@ class PlayState extends MusicBeatState
 
 		if (curBeat == 322 && curSong.toLowerCase() == 'cray cray')
 			{
-			//	FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
-			//	FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
-				//FlxTween.cancelTweensOf(camHUD);
+				FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.cancelTweensOf(camHUD);
 				//FlxG.sound.play(Paths.sound('vine-boom'));
 				FlxTween.tween(camHUD, {alpha: 0}, 0.6);
 			}
