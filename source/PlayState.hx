@@ -1209,14 +1209,13 @@ class PlayState extends MusicBeatState
 				case "pip": //fix werid camclip
 					//snapCamFollowToPos(dad.getMidpoint().x + 370, dad.getMidpoint().y - 20);
 					startVideo('intro');
-
-					new FlxTimer().start(36, function(tmr:FlxTimer)
-						{
 					FlxTween.tween(camFollow, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
 					FlxTween.tween(camFollowPos, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
-
 					FlxTween.tween(FlxG.camera, {zoom: .9}, 0.4, {ease: FlxEase.quadInOut});
 
+					new FlxTimer().start(35.5, function(tmr:FlxTimer)
+						{
+				
 					
 					var arrayAnims:Array<String> = ['VoltzEntrance', 'GarcelloEntrance', 'RonEntrance', 'FlashEntrance'];
 					var random:Int = FlxG.random.int(0, 3);
@@ -1246,7 +1245,7 @@ class PlayState extends MusicBeatState
 					dad.playAnim(arrayAnims[random], true);
 				});
 
-						new FlxTimer().start(36.8, function(tmr:FlxTimer)
+						new FlxTimer().start(37.1, function(tmr:FlxTimer)
 						{
 							startCountdown();
 						});
@@ -1330,7 +1329,7 @@ class PlayState extends MusicBeatState
 			
 						});
 
-						new FlxTimer().start(5.64, function(tmr:FlxTimer)
+						new FlxTimer().start(5.82, function(tmr:FlxTimer)
 							{
 								generateStaticArrows(0);
 								generateStaticArrows(1);
@@ -1343,7 +1342,11 @@ class PlayState extends MusicBeatState
 								opponentStrums.forEach(function(spr:StrumNote)
 									{
 										spr.alpha = 0;
+										if (ClientPrefs.middleScroll)
 										FlxTween.tween(spr, {alpha: 0.6},0.6, {ease: FlxEase.quadInOut});
+										else
+										FlxTween.tween(spr, {alpha: 1},0.6, {ease: FlxEase.quadInOut});
+
 									});
 
 								startSoon = true;
@@ -3616,6 +3619,8 @@ class PlayState extends MusicBeatState
 
 				new FlxTimer().start(1.4, function(tmr:FlxTimer)
 					{
+						if (storyDifficulty != 0){
+
 						var dodgeSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pressSpace', 'shared'));
 						dodgeSpr.setGraphicSize(343, 138);
 						//dodgeSpr.cameras = [camHUD];
@@ -3638,6 +3643,7 @@ class PlayState extends MusicBeatState
 								},
 								startDelay: Conductor.crochet * 0.001
 							});
+						}
 				});
 	
 				new FlxTimer().start(1.7, function(tmr:FlxTimer)
@@ -3648,9 +3654,11 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(camHUD, {alpha: 1}, 0.5);
 
 						gf.visible = true;
-
-						//boyfriend.playAnim('dodge', true);
-
+						new FlxTimer().start(0.3, function(tmr:FlxTimer)
+							{
+						if (storyDifficulty == 0)
+						boyfriend.playAnim('dodge', true);
+					});
 					});
 
 							
@@ -5234,8 +5242,8 @@ class PlayState extends MusicBeatState
 
 		if (curBeat == 322 && curSong.toLowerCase() == 'cray cray')
 			{
-				FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
+			//	FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
+			//	FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
 				//FlxTween.cancelTweensOf(camHUD);
 				//FlxG.sound.play(Paths.sound('vine-boom'));
 				FlxTween.tween(camHUD, {alpha: 0}, 0.6);
