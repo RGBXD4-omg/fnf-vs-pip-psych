@@ -224,6 +224,7 @@ class TitleState extends MusicBeatState
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
 	var swagShader:ColorSwap = null;
+	var fuckbg:FlxSprite;
 
 	function startIntro()
 	{
@@ -267,13 +268,19 @@ class TitleState extends MusicBeatState
 		bg.y += 2;
 		bg.updateHitbox();
 
-		ezXD = new FlxSprite().loadGraphic(Paths.image('BGforTheShit', 'preload')); 
+		fuckbg = new FlxSprite().makeGraphic(FlxG.width*2, FlxG.height*2, FlxColor.BLACK); 
+		fuckbg.setGraphicSize(1280, 720);
+		fuckbg.updateHitbox();
+		fuckbg.y += 2;
+
+		ezXD = new FlxSprite().loadGraphic(Paths.image('swaggy_people', 'preload')); 
 		ezXD.antialiasing = true;
-		ezXD.setGraphicSize(1300, 730);
+		ezXD.setGraphicSize(Std.int(ezXD.width*0.6));
 		//ezXD.x += 25;
-		ezXD.y += 2;
 		ezXD.updateHitbox();
-		
+		ezXD.screenCenter();
+		ezXD.y += 50;
+
 		// if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
 		// 	bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
 		// }else{
@@ -285,7 +292,8 @@ class TitleState extends MusicBeatState
 		// bg.updateHitbox();
 		
 		
-		
+		ezXD.visible = false;
+		add(fuckbg);
 		add(ezXD);
 		add(bg);
 		
@@ -385,6 +393,7 @@ class TitleState extends MusicBeatState
 		textGroup = new FlxGroup();
 
 		//blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		credGroup.add(fuckbg);
 		credGroup.add(ezXD);
 
 		credTextShit = new Alphabet(0, 0, "", true);
@@ -399,6 +408,8 @@ class TitleState extends MusicBeatState
 		sparkStudios.y += 80;
 		sparkStudios.antialiasing = ClientPrefs.globalAntialiasing;
 		sparkStudios.updateHitbox();
+		add(sparkStudios);
+		sparkStudios.visible = false;
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
@@ -624,25 +635,14 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1:
-					FlxG.camera.flash(FlxColor.WHITE, 1);
-					#if PSYCH_WATERMARKS
-					createCoolText(['Psych Engine by'], 15);
-					#else
-					createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
-					#end
+				//	FlxG.camera.flash(FlxColor.WHITE, 1);
+					createCoolText(['Made by this swaggy people'], -40);
+					ezXD.visible = true;
 				// credTextShit.visible = true;
-				case 2:
-					#if PSYCH_WATERMARKS
-					addMoreText('Shadow Mario', 15);
-					addMoreText('RiverOaken', 15);
-					addMoreText('bb-panzu', 15);
-					#else
-					addMoreText('present');
-					#end
-				// credTextShit.text += '\npresent...';
-				// credTextShit.addText();
 				case 4:
 					deleteCoolText();
+					ezXD.visible = false;
+
 				// credTextShit.visible = false;
 				// credTextShit.text = 'In association \nwith';
 				// credTextShit.screenCenter();
@@ -654,7 +654,8 @@ class TitleState extends MusicBeatState
 					#end
 				case 7:
 					addMoreText('spark studios i think', -40);
-					add(sparkStudios);
+					sparkStudios.visible = true;
+
 				// credTextShit.text += '\nNewgrounds';
 				case 9:
 					deleteCoolText();
@@ -669,21 +670,21 @@ class TitleState extends MusicBeatState
 				case 13:
 					addMoreText(curWacky[1]);
 				// credTextShit.text += '\nlmao';
-				case 15:
+				case 14:
 					deleteCoolText();
 				// credTextShit.visible = false;
 				// credTextShit.text = "Friday";
 				// credTextShit.screenCenter();
-				case 16:
+				case 15:
 					addMoreText('Friday Night Funkin');
 				// credTextShit.visible = true;
-				case 17:
+				case 16:
 					addMoreText('VS');
 				// credTextShit.text += '\nNight';
-				case 18:
+				case 17:
 					addMoreText('PIP'); // credTextShit.text += '\nFunkin';
 
-				case 19:
+				case 18:
 					skipIntro();
 			}
 		}
@@ -697,7 +698,7 @@ class TitleState extends MusicBeatState
 			remove(sparkStudios);
 			//remove(ezXD);
 
-			FlxG.camera.flash(FlxColor.WHITE, 4);
+			FlxG.camera.flash(FlxColor.WHITE, 2);
 			remove(credGroup);
 			skippedIntro = true;
 		}

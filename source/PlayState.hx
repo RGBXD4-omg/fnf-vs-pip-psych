@@ -1,5 +1,6 @@
 package;
 
+import flixel.graphics.frames.FlxFrame;
 import haxe.macro.Compiler.IncludePosition;
 import flixel.graphics.FlxGraphic;
 #if desktop
@@ -139,8 +140,9 @@ class PlayState extends MusicBeatState
 	public var boyfriend_extra:Character;
 	public var dad2:Character;
 
-	static var playedAnim:Int = 0;
+	// static var playedAnim:Int = 0;
 	var startSoon = false;
+	var fuckingUhanim = false;
 
 	public var notes:FlxTypedGroup<Note>;
 	//public var spaceNotes:FlxTypedGroup<FlxSprite>;
@@ -890,7 +892,7 @@ class PlayState extends MusicBeatState
 			dad2 = new Character(202.9, 395.55, "violet");
 			dad2.setGraphicSize(326, 463);
 			//dad2.setGraphicSize(Std.int(dad2.width * 1.07));
-			dadGroup.add(dad2);
+			gfGroup.add(dad2);
 			dad2.visible = false;
 		}
 
@@ -1205,9 +1207,49 @@ class PlayState extends MusicBeatState
 			switch (daSong)
 			{
 				case "pip": //fix werid camclip
-					snapCamFollowToPos(dad.getMidpoint().x + 370, dad.getMidpoint().y - 20);
+					//snapCamFollowToPos(dad.getMidpoint().x + 370, dad.getMidpoint().y - 20);
+					startVideo('intro');
+
+					new FlxTimer().start(36, function(tmr:FlxTimer)
+						{
+					FlxTween.tween(camFollow, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
+					FlxTween.tween(camFollowPos, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
+
 					FlxTween.tween(FlxG.camera, {zoom: .9}, 0.4, {ease: FlxEase.quadInOut});
-					startCountdown();
+
+					
+					var arrayAnims:Array<String> = ['VoltzEntrance', 'GarcelloEntrance', 'RonEntrance', 'FlashEntrance'];
+					var random:Int = FlxG.random.int(0, 3);
+
+					// for ( i = 0, arrayAnims.length)
+					// while (i-- > 0) {
+					// 	trace(i);
+					// 	arrayAnims[i];
+					// }
+
+					for (i in 0...arrayAnims.length) {
+						trace(i);
+						trace(arrayAnims[i]);
+					}
+
+					if (random == 3)
+						{
+							dad.y -= 900;
+							dad.x -= 900;
+							fuckingUhanim = true;
+						}
+
+						trace(random);
+
+						
+					startSoon = true;
+					dad.playAnim(arrayAnims[random], true);
+				});
+
+						new FlxTimer().start(36.8, function(tmr:FlxTimer)
+						{
+							startCountdown();
+						});
 
 
 				case "fuck":
@@ -1288,7 +1330,7 @@ class PlayState extends MusicBeatState
 			
 						});
 
-						new FlxTimer().start(5.7, function(tmr:FlxTimer)
+						new FlxTimer().start(5.64, function(tmr:FlxTimer)
 							{
 								generateStaticArrows(0);
 								generateStaticArrows(1);
@@ -1863,10 +1905,16 @@ class PlayState extends MusicBeatState
 		inCutscene = false;
 		var ret:Dynamic = callOnLuas('onStartCountdown', []);
 		if(ret != FunkinLua.Function_Stop) {
-			if (!startSoon && !skipCountdown){
+			if (!skipCountdown){
 			generateStaticArrows(0);
 			generateStaticArrows(1);
 			}
+
+		
+
+			if (seenCutscene && curSong.toLowerCase() == 'pip')
+				FlxG.camera.zoom = .9;
+
 			for (i in 0...playerStrums.length) {
 				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
@@ -1884,7 +1932,7 @@ class PlayState extends MusicBeatState
 			callOnLuas('onCountdownStarted', []);
 
 			var swagCounter:Int = 0;
-			if (startSoon){
+			if (startSoon && skipCountdown){
 				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 1.3, {ease: FlxEase.quadInOut});
 			}
 
@@ -1975,6 +2023,9 @@ class PlayState extends MusicBeatState
 							}
 						});
 						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
+
+						if (fuckingUhanim)
+							FlxTween.tween(dad, {x: dad.x + 900, y:  dad.y + 900}, 1, {startDelay: 0.7, ease: FlxEase.quadInOut});
 					case 2:
 						countdownSet = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
 						countdownSet.scrollFactor.set();
@@ -2017,7 +2068,8 @@ class PlayState extends MusicBeatState
 						});
 						FlxG.sound.play(Paths.sound('introGo' + introSoundsSuffix), 0.6);
 						}
-						if (startSoon)
+
+						if (startSoon && skipCountdown)
 							dad.playAnim('Start', true);
 					case 4:
 				}
@@ -3511,14 +3563,6 @@ class PlayState extends MusicBeatState
 				exDad = true;
 				dad2.visible = true;
 
-				if(!dadMap.exists("violet")) {
-					addCharacterToList("violet", 1);
-				}
-				var lastAlpha:Float = dad2.alpha;
-				dad2.alpha = 0.00001;
-				dad2 = dadMap.get("violet");
-				dad2.alpha = lastAlpha;
-
 				//dad.setGraphicSize(320, 490);
 				dad.setPosition(-84.4, 434.05);
 
@@ -3529,8 +3573,8 @@ class PlayState extends MusicBeatState
 				iconP2.changeIcon("both"); // carlito was here
 
 				// fix the bullshit y positions
-				dad2.y -= 150;
-				dad.y -= 150;
+				dad2.y -= 180;
+				dad.y -= 145;
 
 			case "Show Space":
 				if (ClientPrefs.middleScroll) trace("MOVE ARROWS MOVE");
@@ -3554,7 +3598,7 @@ class PlayState extends MusicBeatState
 						{
 							spr.y += 60;
 							if (!ClientPrefs.downScroll)
-							FlxTween.tween(spr, {alpha: 1, y: 43}, .3, {ease: FlxEase.circInOut});
+							FlxTween.tween(spr, {alpha: 1, y: 50}, .3, {ease: FlxEase.circInOut});
 							else
 							FlxTween.tween(spr, {alpha: 1, y: 570}, .3, {ease: FlxEase.circInOut});
 
@@ -5190,8 +5234,8 @@ class PlayState extends MusicBeatState
 
 		if (curBeat == 322 && curSong.toLowerCase() == 'cray cray')
 			{
-				FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 320, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 320, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
 				//FlxTween.cancelTweensOf(camHUD);
 				//FlxG.sound.play(Paths.sound('vine-boom'));
 				FlxTween.tween(camHUD, {alpha: 0}, 0.6);
