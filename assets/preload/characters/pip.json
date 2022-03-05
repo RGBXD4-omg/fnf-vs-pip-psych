@@ -91,8 +91,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				215,
-				89
+				195,
+				87
 			],
 			"anim": "RonEntrance",
 			"fps": 24,
@@ -149,6 +149,9 @@
 				-17,
 				57
 			],
+			"loop": false,
+			"fps": 24,
+			"anim": "Cutscene",
 			"indices": [
 				0,
 				1,
@@ -197,9 +200,6 @@
 				45,
 				46
 			],
-			"fps": 24,
-			"anim": "Cutscene",
-			"loop": false,
 			"name": "K-Cutscene"
 		}
 	],

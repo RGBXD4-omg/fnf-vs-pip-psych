@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxGradient;
 import flixel.graphics.frames.FlxFrame;
 import haxe.macro.Compiler.IncludePosition;
 import flixel.graphics.FlxGraphic;
@@ -254,6 +255,7 @@ class PlayState extends MusicBeatState
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
 	public static var deathCounter:Int = 0;
+	var completedVideo = false;
 
 	public var defaultCamZoom:Float = 1.05;
 
@@ -493,10 +495,11 @@ class PlayState extends MusicBeatState
 					GameOverSubstate.characterName = 'bf'; 
 				}
 
-				vCutsce = new BGSprite('old/smallCutscene', -240, -140, 0.0, 0.0, ['video']);
-			//	vCutsce.animation.addByPrefix('idle', 'video', 24, false);
+				vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation', -240, -140, 0.0, 0.0, ['Cutscene']);
+				vCutsce.animation.addByPrefix('idle', 'video', 24, false);
 				vCutsce.antialiasing = ClientPrefs.globalAntialiasing;
-				vCutsce.setGraphicSize(1920, 1080);
+				//vCutsce.setGraphicSize(1920, 1080);
+				vCutsce.setGraphicSize(Std.int(vCutsce.width * 0.87));
 				vCutsce.updateHitbox();
 				vCutsce.visible = false;
 
@@ -1231,7 +1234,7 @@ class PlayState extends MusicBeatState
 					var arrayAnims:Array<String> = ['VoltzEntrance', 'GarcelloEntrance', 'RonEntrance', 'FlashEntrance'];
 						
 					startSoon = true;
-					dad.playAnim(arrayAnims[random], true);
+					dad.playAnim(arrayAnims[random]);
 				});
 
 						new FlxTimer().start(37.1, function(tmr:FlxTimer)
@@ -1260,29 +1263,27 @@ class PlayState extends MusicBeatState
 							fuckingUhanim = true;
 						}
 
-						trace(random);
 
 						
 					startSoon = true;
-					dad.playAnim(arrayAnims[random], true);
+					dad.playAnim(arrayAnims[random]);
 
-				new FlxTimer().start(1.1, function(tmr:FlxTimer)
-				{
+			
 					startCountdown();
-				});
+			
 			}
 
 
 
 
 				case "fuck":
-				if (isStoryMode){
-					FlxG.camera.zoom = .9;
+				if (!isStoryMode){
+					FlxG.camera.zoom = defaultCamZoom;
 					camHUD.visible = false;
 					//snapCamFollowToPos(boyfriend.getMidpoint().x - 250, boyfriend.getMidpoint().y - 180);
 
-					FlxTween.tween(camFollow, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
-					FlxTween.tween(camFollowPos, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
+				//	FlxTween.tween(camFollow, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
+				//	FlxTween.tween(camFollowPos, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
 
 
 					inCutscene = true;
@@ -1291,9 +1292,10 @@ class PlayState extends MusicBeatState
 					dad.playAnim('idle');
 					boyfriend.playAnim('idle');
 
-					FlxG.sound.play(Paths.sound('Pip_Cutscene_Audio', 'main'));
+					FlxG.sound.play(Paths.sound('Pip_Cutscene_Audio', 'main'), 3);
 
 					// uhhh, there is uh a lot of timers i know- shut up this will do the trick anyways
+					// i could have done this in lua now that i think about it :bruh:
 					new FlxTimer().start(1.42, function(tmr:FlxTimer)
 						{
 								FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 320, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
@@ -1353,7 +1355,7 @@ class PlayState extends MusicBeatState
 			
 						});
 
-						new FlxTimer().start(5.82, function(tmr:FlxTimer)
+						new FlxTimer().start(5.644, function(tmr:FlxTimer)
 							{
 								generateStaticArrows(0);
 								generateStaticArrows(1);
@@ -1767,6 +1769,7 @@ class PlayState extends MusicBeatState
 
 			(new FlxVideo(fileName)).finishCallback = function() {
 				remove(bg);
+				completedVideo = true;
 				startAndEnd();
 			}
 			return;
@@ -3494,7 +3497,45 @@ class PlayState extends MusicBeatState
 						targetsArray[i].shake(intensity, duration);
 					}
 				}
+				case 'Trolled':
+					var leTween:FlxTween = null;
+					var isTransIn:Bool = true;
+					var transBlack:FlxSprite;
+					var transGradient:FlxSprite;
+					var zoom:Float = CoolUtil.boundTo(FlxG.camera.zoom, 0.05, 1);
+					var width:Int = Std.int(FlxG.width / zoom);
+					var height:Int = Std.int(FlxG.height / zoom);
+					transGradient = FlxGradient.createGradientFlxSprite(width, height, (isTransIn ? [0x0, FlxColor.BLACK] : [FlxColor.BLACK, 0x0]));
+					transGradient.scrollFactor.set();
+					add(transGradient);
+			
+					transBlack = new FlxSprite().makeGraphic(width, height + 400, FlxColor.BLACK);
+					transBlack.scrollFactor.set();
+					add(transBlack);
+			
+					transGradient.x -= (width - FlxG.width) / 2;
+					transBlack.x = transGradient.x;
+			
+					if(isTransIn) {
+						transGradient.y = transBlack.y - transBlack.height;
+						FlxTween.tween(transGradient, {y: transGradient.height + 50}, 0.7, {
+							onComplete: function(twn:FlxTween) {
+								transGradient.destroy();
+								transBlack.destroy();
+							},
+						ease: FlxEase.linear});
+					} else {
+						transGradient.y = -transGradient.height;
+						transBlack.y = transGradient.y - transBlack.height + 50;
+						leTween = FlxTween.tween(transGradient, {y: transGradient.height + 50}, 0.7, {
+							onComplete: function(twn:FlxTween) {
+								transGradient.destroy();
+								transBlack.destroy();
+							},
+						ease: FlxEase.linear});
+				
 
+					}
 			case 'Change Character':
 				var charType:Int = 0;
 				switch(value1) {
@@ -3639,36 +3680,7 @@ class PlayState extends MusicBeatState
 				canPause = false;
 				add(vCutsce);
 				vCutsce.visible = true;
-				vCutsce.animation.play('video');
-
-				new FlxTimer().start(1.4, function(tmr:FlxTimer)
-					{
-						if (storyDifficulty != 0){
-
-						var dodgeSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pressSpace', 'shared'));
-						dodgeSpr.setGraphicSize(343, 138);
-						//dodgeSpr.cameras = [camHUD];
-						dodgeSpr.screenCenter();
-						dodgeSpr.x = FlxG.width * 0.35;
-						dodgeSpr.acceleration.y = 600;
-						dodgeSpr.velocity.y -= 150;
-						dodgeSpr.setGraphicSize(Std.int(dodgeSpr.width * 0.5));
-						add(dodgeSpr);
-						dodgeSpr.antialiasing = ClientPrefs.globalAntialiasing;
-
-
-						dodgeSpr.updateHitbox();
-
-							FlxTween.tween(dodgeSpr, {alpha: 0}, 0.2, {
-								onComplete: function(tween:FlxTween)
-								{
-									dodgeSpr.destroy();
-
-								},
-								startDelay: Conductor.crochet * 0.001
-							});
-						}
-				});
+				vCutsce.animation.play('idle');
 	
 				new FlxTimer().start(1.7, function(tmr:FlxTimer)
 					{
@@ -3678,15 +3690,17 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(camHUD, {alpha: 1}, 0.5);
 
 						gf.visible = true;
+
 						new FlxTimer().start(0.3, function(tmr:FlxTimer)
 							{
-						if (storyDifficulty == 0)
-						boyfriend.playAnim('dodge', true);
-					});
+							if (storyDifficulty == 0)
+								boyfriend.playAnim('dodge', true);
 					});
 
+				});
+			}
 							
-		}
+		
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
 
@@ -3831,7 +3845,8 @@ class PlayState extends MusicBeatState
 		if (curSong.toLowerCase() == 'cray cray'){
 			if (exDad)
 				dad2.visible = false;
-
+				FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 180, y: dad.getMidpoint().y - 20}, 0.5, {ease: FlxEase.quadInOut});
+				FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 180, y: dad.getMidpoint().y - 20}, 0.5, {ease: FlxEase.quadInOut});
 				//boyfriend_extra.visible = false;
 				boyfriend.visible = false;
 				gf.visible = false;
@@ -5266,8 +5281,6 @@ class PlayState extends MusicBeatState
 
 		if (curBeat == 322 && curSong.toLowerCase() == 'cray cray')
 			{
-				FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 280, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
 				FlxTween.cancelTweensOf(camHUD);
 				//FlxG.sound.play(Paths.sound('vine-boom'));
 				FlxTween.tween(camHUD, {alpha: 0}, 0.6);
