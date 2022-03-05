@@ -1208,6 +1208,17 @@ class PlayState extends MusicBeatState
 			{
 				case "pip": //fix werid camclip
 					//snapCamFollowToPos(dad.getMidpoint().x + 370, dad.getMidpoint().y - 20);
+					if (isStoryMode){
+						var random:Int = FlxG.random.int(0, 3);
+
+						if (random == 3)
+							{
+								dad.y -= 900;
+								dad.x -= 900;
+								fuckingUhanim = true;
+							}
+	
+
 					startVideo('intro');
 					FlxTween.tween(camFollow, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
 					FlxTween.tween(camFollowPos, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
@@ -1218,14 +1229,25 @@ class PlayState extends MusicBeatState
 				
 					
 					var arrayAnims:Array<String> = ['VoltzEntrance', 'GarcelloEntrance', 'RonEntrance', 'FlashEntrance'];
+						
+					startSoon = true;
+					dad.playAnim(arrayAnims[random], true);
+				});
+
+						new FlxTimer().start(37.1, function(tmr:FlxTimer)
+						{
+							startCountdown();
+						});
+					}
+				else{
+					FlxTween.tween(camFollow, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
+					FlxTween.tween(camFollowPos, {x: boyfriend.getMidpoint().x - 280, y:  boyfriend.getMidpoint().y - 230}, 1, {ease: FlxEase.quadInOut});
+					FlxTween.tween(FlxG.camera, {zoom: .9}, 0.4, {ease: FlxEase.quadInOut});
+					
+					var arrayAnims:Array<String> = ['VoltzEntrance', 'GarcelloEntrance', 'RonEntrance', 'FlashEntrance'];
 					var random:Int = FlxG.random.int(0, 3);
 
-					// for ( i = 0, arrayAnims.length)
-					// while (i-- > 0) {
-					// 	trace(i);
-					// 	arrayAnims[i];
-					// }
-
+				
 					for (i in 0...arrayAnims.length) {
 						trace(i);
 						trace(arrayAnims[i]);
@@ -1243,12 +1265,14 @@ class PlayState extends MusicBeatState
 						
 					startSoon = true;
 					dad.playAnim(arrayAnims[random], true);
-				});
 
-						new FlxTimer().start(37.1, function(tmr:FlxTimer)
-						{
-							startCountdown();
-						});
+				new FlxTimer().start(37.1, function(tmr:FlxTimer)
+				{
+					startCountdown();
+				});
+			}
+
+
 
 
 				case "fuck":
