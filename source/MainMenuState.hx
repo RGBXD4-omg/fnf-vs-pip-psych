@@ -37,7 +37,7 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		'credits',
+		//'credits',
 		'options'
 	];
 
@@ -105,12 +105,13 @@ class MainMenuState extends MusicBeatState
 		pieChart = new FlxSprite(34.5, 217.95);
 		pieChart.angle = -20;
 		pieChart.frames = Paths.getSparrowAtlas('Piechart');
-		pieChart.setGraphicSize(497, 502);
+		pieChart.setGraphicSize(595, 600);
 		pieChart.animation.addByPrefix('idle', 'pie instance', 24, false);
 		pieChart.animation.addByPrefix('spinDown', 'E-piedown instance', 24, false);
 		pieChart.animation.addByPrefix('spinUp', 'F-pieup instance', 24, false);
 		pieChart.updateHitbox();
-
+		pieChart.x -= 80;
+		pieChart.y -= 30;
 		pieChart.antialiasing = ClientPrefs.globalAntialiasing;
 
 		var borders:FlxSprite = new FlxSprite(0.05, -7.95).loadGraphic(Paths.image('MENU/MainMenuBorder'));
@@ -170,7 +171,7 @@ class MainMenuState extends MusicBeatState
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		
 
-		var scale:Float = 0.7;
+		var scale:Float = 1;
 		/*if(optionShit.length > 6) {
 			scale = 6 / optionShit.length;
 		}*/
@@ -197,31 +198,30 @@ class MainMenuState extends MusicBeatState
 			switch (menuId)
 			{
 				case 1:
-					menuItem.angle -= 4;
-					menuItem.setPosition(292.65, 260.15);
-					menuItem.x -= 80;
+					//menuItem.angle -= 6;
+					menuItem.setPosition(165.9, 355.45);
+					menuItem.setGraphicSize(528, 105);
 
 				case 2:
-					menuItem.setPosition(302.2, 372.6);
-					menuItem.x -= 80;
+					menuItem.setPosition(34.7, 555.75);
+					//menuItem.angle += 6;
 					menuItem.alpha = 0.5;
+					menuItem.setGraphicSize(414, 104);
 
 				case 3:
-					menuItem.angle += 4;
-					menuItem.setPosition(315.65, 484.5);
-					menuItem.x -= 80;
-					menuItem.alpha = 0.5;
-				case 4:
-					menuItem.angle += 6;
-					menuItem.setPosition(315.65, 600.15);
-					menuItem.x -= 80;
+					//menuItem.angle += 6;
+					menuItem.setGraphicSize(452,104);
+					menuItem.setPosition(-527.8,398.2);
 					menuItem.alpha = 0.5;
 					finishedFunnyMove = true; 
 					changeItem();
+				case 4:
+					menuItem.setPosition(-12.3,170.95);
+					menuItem.alpha = 0.5;
+
 			}
 			menuId += 1;
 		}
-
 
 		add(bg);
 		add(opitionsBg);
@@ -480,15 +480,8 @@ class MainMenuState extends MusicBeatState
 					freeplayBg.visible = false;
 					opitionsBg.visible = true;
 	
-					pieChart.angle = 20;
+					pieChart.angle = 30;
 			}
-			else if (curSelected == 3){
-				bg.visible = false;
-				freeplayBg.visible = false;
-				opitionsBg.visible = true;
-
-				pieChart.angle = 35;
-		}
 	
 				}
 			spr.updateHitbox();
