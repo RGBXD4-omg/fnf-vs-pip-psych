@@ -1266,7 +1266,7 @@ class PlayState extends MusicBeatState
 					startSoon = true;
 					dad.playAnim(arrayAnims[random], true);
 
-				new FlxTimer().start(37.1, function(tmr:FlxTimer)
+				new FlxTimer().start(1.1, function(tmr:FlxTimer)
 				{
 					startCountdown();
 				});
