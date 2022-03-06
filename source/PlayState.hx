@@ -496,7 +496,7 @@ class PlayState extends MusicBeatState
 				}
 
 				vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation', -240, -140, 0.0, 0.0, ['Cutscene']);
-				vCutsce.animation.addByPrefix('idle', 'video', 24, false);
+				vCutsce.animation.addByPrefix('idle', 'Cutscene', 24, false);
 				vCutsce.antialiasing = ClientPrefs.globalAntialiasing;
 				//vCutsce.setGraphicSize(1920, 1080);
 				vCutsce.setGraphicSize(Std.int(vCutsce.width * 0.87));
@@ -1298,8 +1298,8 @@ class PlayState extends MusicBeatState
 					// i could have done this in lua now that i think about it :bruh:
 					new FlxTimer().start(1.42, function(tmr:FlxTimer)
 						{
-								FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 320, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
-								FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 320, y: dad.getMidpoint().y - 20}, 1, {ease: FlxEase.quadInOut});
+								FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 320, y: dad.getMidpoint().y + 50}, 1, {ease: FlxEase.quadInOut});
+								FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 320, y: dad.getMidpoint().y + 50}, 1, {ease: FlxEase.quadInOut});
 								FlxTween.tween(FlxG.camera, {zoom: 1.07}, 1, {ease: FlxEase.quadInOut});
 								camHUD.visible = false;
 								dad.playAnim('Cutscene');
@@ -1322,18 +1322,18 @@ class PlayState extends MusicBeatState
 								boyfriend.playAnim('idle');
 
 							});
-					new FlxTimer().start(4, function(tmr:FlxTimer)
+					new FlxTimer().start(3.5, function(tmr:FlxTimer)
 						{
 								//gf.playAnim('danceLeft', true);
 								boyfriend.playAnim('idle');
 
 							});
-					new FlxTimer().start(4.22, function(tmr:FlxTimer)
+					new FlxTimer().start(4, function(tmr:FlxTimer)
 					{
 						FlxTween.tween(camFollow, {x: gf.getMidpoint().x - 80, y: gf.getMidpoint().y - 10}, 1, {ease: FlxEase.quadInOut});
 						FlxTween.tween(camFollowPos, {x: gf.getMidpoint().x - 80, y: gf.getMidpoint().y - 10}, 1, {ease: FlxEase.quadInOut});
 						FlxTween.tween(FlxG.camera, {zoom: 1.13}, 0.8, {ease: FlxEase.quadInOut});
-						boyfriend.playAnim('idle');
+						//boyfriend.playAnim('idle');
 
 						gf.playAnim('cutscene', true);
 
@@ -1355,7 +1355,7 @@ class PlayState extends MusicBeatState
 			
 						});
 
-						new FlxTimer().start(5.644, function(tmr:FlxTimer)
+						new FlxTimer().start(5.57, function(tmr:FlxTimer)
 							{
 								generateStaticArrows(0);
 								generateStaticArrows(1);
@@ -1739,7 +1739,7 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	public function startVideo(name:String):Void {
+	public function startVideo(name:String, ?isCutscene:Bool = true):Void {
 		#if VIDEOS_ALLOWED
 		var foundFile:Bool = false;
 		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
@@ -1761,7 +1761,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if(foundFile) {
-			inCutscene = true;
+			inCutscene = isCutscene;
 			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
 			bg.scrollFactor.set();
 			bg.cameras = [camHUD];
@@ -1770,6 +1770,8 @@ class PlayState extends MusicBeatState
 			(new FlxVideo(fileName)).finishCallback = function() {
 				remove(bg);
 				completedVideo = true;
+
+				if (!isCutscene)
 				startAndEnd();
 			}
 			return;
@@ -1780,6 +1782,7 @@ class PlayState extends MusicBeatState
 			startAndEnd();
 		}
 		#end
+		if (!isCutscene)
 		startAndEnd();
 	}
 

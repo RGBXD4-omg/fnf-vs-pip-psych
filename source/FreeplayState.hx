@@ -112,7 +112,7 @@ class FreeplayState extends MusicBeatState
 		// 		addSong(songArray[0], 0, songArray[1], Std.parseInt(songArray[2]));
 		// 	}
 		// }
-		bg = new FlxSprite().loadGraphic(Paths.image('WEEKPIPart'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menuFreeplay'));
 
 		//bg = new FlxSprite().loadGraphic(Paths.image('menuFreeplay'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -154,15 +154,13 @@ class FreeplayState extends MusicBeatState
 
 
 		add(bg);
-		add(charaSus);
-		add(charaGF);
-		add(charaPIP);
-		add(bgArea);
-
-		// blackBar = new FlxSprite(0,0).loadGraphic(Paths.image('frame'));
-		// blackBar.setGraphicSize(1286,830);
-		// blackBar.screenCenter();
-		// blackBar.scrollFactor.set();
+		// add(charaSus);
+		// add(charaGF);
+		// add(charaPIP);
+		blackBar = new FlxSprite(0,0).loadGraphic(Paths.image('frame'));
+		blackBar.setGraphicSize(1286,830);
+		blackBar.screenCenter();
+		blackBar.scrollFactor.set();
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
@@ -190,15 +188,11 @@ class FreeplayState extends MusicBeatState
 		}
 
 	
-	//	add(blackBar);
-		add(borders);
+		add(blackBar);
 
 		WeekData.setDirectoryFromWeek();
 
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
-		scoreText.setPosition(594.8, 120.65);
-		scoreText.y -= 80;
-		scoreText.angle -= 7;
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
 
 		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
@@ -213,34 +207,9 @@ class FreeplayState extends MusicBeatState
 
 		var ui_tex = Paths.getSparrowAtlas('ui/campaign_menu_UI_assets', 'preload');
 
-		rightarrow = new FlxSprite(1168.2, 508.7);
-		rightarrow.frames = ui_tex;
-		rightarrow.angle -= 10;
-		rightarrow.animation.addByPrefix('idle', "arrow right");
-		rightarrow.animation.addByPrefix('press', "arrow push right");
-		rightarrow.animation.play('idle');
-
-		sprDifficulty = new FlxSprite(861.25, 571.4);
-		sprDifficulty.frames = ui_tex;
-		sprDifficulty.angle -= 10;
-		sprDifficulty.animation.addByPrefix('easy', 'EASY');
-		sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
-		sprDifficulty.animation.addByPrefix('hard', 'HARD');
-		sprDifficulty.animation.play('normal');
-
-		leftarrow = new FlxSprite(792.8, 577);
-		leftarrow.frames = ui_tex;
-		leftarrow.angle -= 10;
-		leftarrow.animation.addByPrefix('idle', "arrow left");
-		leftarrow.animation.addByPrefix('press', "arrow push left");
-		leftarrow.animation.play('idle');
-		add(sprDifficulty);
-		add(leftarrow);
-		add(rightarrow);
-
 		if(curSelected >= songs.length) curSelected = 0;
-		//bg.color = songs[curSelected].color;
-	//	intendedColor = bg.color;
+		bg.color = songs[curSelected].color;
+		intendedColor = bg.color;
 
 		if(lastDifficultyName == '')
 		{
@@ -343,7 +312,7 @@ class FreeplayState extends MusicBeatState
 		}
 
 		scoreText.text = 'PERSONAL BEST: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
-	//	positionHighscore();
+		positionHighscore();
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
@@ -366,16 +335,6 @@ class FreeplayState extends MusicBeatState
 				changeSelection(shiftMult);
 				holdTime = 0;
 			}
-
-			if (controls.UI_RIGHT)
-				rightarrow.animation.play('press')
-			else
-				rightarrow.animation.play('idle');
-	
-			if (controls.UI_LEFT)
-				leftarrow.animation.play('press');
-			else
-				leftarrow.animation.play('idle');
 
 			if(controls.UI_DOWN || controls.UI_UP)
 			{
@@ -519,29 +478,9 @@ class FreeplayState extends MusicBeatState
 		#end
 
 		PlayState.storyDifficulty = curDifficulty;
-		//diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
-	//	positionHighscore();
+		diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
+		positionHighscore();
 
-		
-		switch (curDifficulty)
-		{
-			case 0:
-			//	diffText.text = "EASY";
-				sprDifficulty.animation.play('easy');
-				sprDifficulty.setPosition(914.2, 569.5);
-
-			case 1:
-		//		diffText.text = 'NORMAL';
-				sprDifficulty.animation.play('normal');
-				sprDifficulty.setPosition(861.25, 571.4);
-
-			case 2:
-		//		diffText.text = "HARD";
-				sprDifficulty.animation.play('hard');
-				sprDifficulty.setPosition(904.85, 567.45);
-
-
-		}
 
 		
 	}
@@ -560,19 +499,19 @@ class FreeplayState extends MusicBeatState
 			curDifficulty = 2;
 			
 		var newColor:Int = songs[curSelected].color;
-		// if(newColor != intendedColor) {
-		// 	if(colorTween != null) {
-		// 		colorTween.cancel();
-		// 	}
-		// 	intendedColor = newColor;
-		// 	colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
-		// 		onComplete: function(twn:FlxTween) {
-		// 			colorTween = null;
-		// 		}
-		// 	});
-		//}
+		if(newColor != intendedColor) {
+			if(colorTween != null) {
+				colorTween.cancel();
+			}
+			intendedColor = newColor;
+			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
+				onComplete: function(twn:FlxTween) {
+					colorTween = null;
+				}
+			});
+		}
 
-		// selector.y = (70 * curSelected) + 30;
+	//	selector.y = (70 * curSelected) + 30;
 
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
@@ -638,76 +577,16 @@ class FreeplayState extends MusicBeatState
 			curDifficulty = newPos;
 		}
 
-
-		switch (songs[curSelected].week)
-		{
-			case 0:
-				diffDisabled = false;
-
-			charaPIP.alpha = 0;
-			charaSus.alpha = 0;
-			charaGF.alpha = 1;
-			sprDifficulty.alpha = 1;
-			//FlxTween.cancelTweensOf(charaPIP);
-			//FlxTween.cancelTweensOf(charaSus);
-			//FlxTween.cancelTweensOf(charaGF);
-			//diffDisabled = true;
-
-		//FlxTween.tween(charaGF, {alpha: 1}, 0.03);
-
-			case 1:
-				diffDisabled = false;
-
-				charaPIP.alpha = 1;
-				charaSus.alpha = 0;
-				charaGF.alpha = 0;
-				sprDifficulty.alpha = 1;
-
-			//	diffDisabled = true;
-			// FlxTween.cancelTweensOf(charaPIP);
-			// FlxTween.cancelTweensOf(charaSus);
-			// FlxTween.cancelTweensOf(charaGF);
-			// FlxTween.tween(charaPIP, {alpha: 1}, 0.30);
-
-			case 2:
-
-				charaPIP.alpha = 0;
-				charaSus.alpha = 1;
-				charaGF.alpha = 0;
-
-				curDifficulty = 2;
-				diffDisabled = true;
-
-				sprDifficulty.animation.play('hard');
-				sprDifficulty.setPosition(904.85, 567.45);
-				sprDifficulty.alpha = .5;
-
-				changeDiff();
-
-			// FlxTween.cancelTweensOf(charaPIP);
-			// FlxTween.cancelTweensOf(charaSus);
-			// FlxTween.cancelTweensOf(charaGF);
-
-			// FlxTween.tween(charaSus, {alpha: 1}, 0.03);
-		default:
-			charaPIP.alpha = 0;
-			charaSus.alpha = 0;
-			charaGF.alpha = 1;
-			sprDifficulty.alpha = 1;
-
-		}
-
-
 	}
 
-	// private function positionHighscore() {
-	// 	scoreText.x = FlxG.width - scoreText.width - 6;
+	private function positionHighscore() {
+		scoreText.x = FlxG.width - scoreText.width - 6;
 
-	// 	scoreBG.scale.x = FlxG.width - scoreText.x + 6;
-	// 	scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
-	// 	diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
-	// 	diffText.x -= diffText.width / 2;
-	// }
+		scoreBG.scale.x = FlxG.width - scoreText.x + 6;
+		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
+		diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
+		diffText.x -= diffText.width / 2;
+	}
 }
 
 class SongMetadata

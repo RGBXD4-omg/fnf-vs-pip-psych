@@ -37,7 +37,7 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		//'credits',
+		'credits',
 		'options'
 	];
 
@@ -85,10 +85,11 @@ class MainMenuState extends MusicBeatState
 		yellowBg.updateHitbox();
 		yellowBg.antialiasing = ClientPrefs.globalAntialiasing;
 
-		bg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('MENU/MainMenuSTORYMODEart'));
+		bg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('menuBG'));
 		bg.setGraphicSize(1286, 730);
 		bg.updateHitbox();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.scrollFactor.set(0, yScroll);
 
 		opitionsBg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('MENU/MainMenuTHEOPTIONSart'));
 		opitionsBg.setGraphicSize(1286, 730);
@@ -141,8 +142,9 @@ class MainMenuState extends MusicBeatState
 		amongusTro.frames = Paths.getSparrowAtlas('MenuShitAssets');
 		amongusTro.setGraphicSize(203, 360);
 		amongusTro.setPosition(1024.45, 339.1);
-		amongusTro.y -= 190;
-		amongusTro.x -= 500;
+		amongusTro.y -= 205;
+		amongusTro.x -= 1150;
+		amongusTro.flipX = true;
 		amongusTro.antialiasing = ClientPrefs.globalAntialiasing;
 		amongusTro.animation.addByPrefix('idle', 'StonePussy', 24, true);
 		amongusTro.animation.addByPrefix('Gold', 'D-goldpussy', 24, true);
@@ -188,53 +190,23 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			//menuItem.screenCenter(X);
+			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			menuItem.updateHitbox();
-			switch (menuId)
-			{
-				case 1:
-					//menuItem.angle -= 6;
-					menuItem.setPosition(165.9, 355.45);
-					menuItem.setGraphicSize(528, 105);
-
-				case 2:
-					menuItem.setPosition(34.7, 555.75);
-					//menuItem.angle += 6;
-					menuItem.alpha = 0.5;
-					menuItem.setGraphicSize(414, 104);
-
-				case 3:
-					//menuItem.angle += 6;
-					menuItem.setGraphicSize(452,104);
-					menuItem.setPosition(-527.8,398.2);
-					menuItem.alpha = 0.5;
-					finishedFunnyMove = true; 
-					changeItem();
-				case 4:
-					menuItem.setPosition(-12.3,170.95);
-					menuItem.alpha = 0.5;
-
-			}
 			menuId += 1;
 		}
+		finishedFunnyMove = true; 
+		changeItem();
 
 		add(bg);
-		add(opitionsBg);
-		add(freeplayBg);
-		add(yellowBg);
-		add(pieChart);
-		add(borders);
 		add(menuItems);
-		add(pipdied);
+		add(blackBar);
 		add(amongusTro);
-		//add(blackBar);
-		//add(amongusTro);
-		//add(pipdied);
+		add(pipdied);
 		
 		if (FlxG.save.data.PipModWeekCompleted == 1)
 			pipdied.animation.play('idleStone');
@@ -254,7 +226,7 @@ class MainMenuState extends MusicBeatState
 			amongusTro.animation.play('Gold', true);
 		}
 		
-		//FlxG.camera.follow(camFollowPos, null, 1);
+		FlxG.camera.follow(camFollowPos, null, 1);
 
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
@@ -343,19 +315,19 @@ class MainMenuState extends MusicBeatState
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
 						if (curSelected != spr.ID)
 						{
-						//FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
-						//FlxFlicker.flicker(magenta, 1.1, 0.15, false);
-						//FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
-						//FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
-						//FlxTween.tween(magenta, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
-						//FlxTween.tween(bg, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
-						//FlxTween.tween(magenta, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(FlxG.camera, {zoom: 5}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(bg, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(magenta, {angle: 45}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(bg, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
+						FlxTween.tween(magenta, {alpha: 0}, 0.8, {ease: FlxEase.expoIn});
 							FlxTween.tween(spr, {alpha: 0}, 0.4, {
 								ease: FlxEase.quadOut,
 								onComplete: function(twn:FlxTween)
@@ -386,53 +358,6 @@ class MainMenuState extends MusicBeatState
 										MusicBeatState.switchState(new CreditsState());
 									case 'options':
 										LoadingState.loadAndSwitchState(new options.OptionsState());
-										function tweenTime(spr:FlxSprite, where:Int) { //this is shit god help me, please improve this, its just so fucking bad
-											//	trace(where);
-												if (where == 1){ //down
-													finishedFunnyMove = false;
-										
-												switch (spr.health)
-												{
-													case 1:
-													FlxTween.tween(spr, {x:168.7, y: 551}, 0.2, {ease: FlxEase.linear});
-													spr.health = 2;
-												
-													case 2:
-													FlxTween.tween(spr, {x:22.9, y: 281.5}, 0.2, {ease: FlxEase.linear});
-													spr.health = 3;
-										
-												
-													case 3:
-													FlxTween.tween(spr, {x:388.55, y:410.15}, 0.2, {ease: FlxEase.linear});
-													spr.health = 1;
-												
-												}
-												finishedFunnyMove = true;
-										
-											}
-											if (where == -1){ //up
-										
-												
-												switch (spr.health)
-												{
-													case 1:
-														FlxTween.tween(spr, {x:22.9, y: 281.5}, 0.2, {ease: FlxEase.linear});
-														spr.health = 2;
-												
-													case 2:
-														FlxTween.tween(spr, {x:388.55, y:410.15}, 0.2, {ease: FlxEase.linear});
-														spr.health = 3;
-												
-													case 3:
-														FlxTween.tween(spr, {x:168.7, y: 551}, 0.2, {ease: FlxEase.linear});
-														spr.health = 1;
-										
-												
-												}
-												finishedFunnyMove = true;
-											}
-										
-											}
 								}
 							});
 						}
@@ -453,38 +378,7 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.animation.play('idle');
-			spr.alpha = 0.5;
-			if (spr.ID == curSelected && finishedFunnyMove)
-				{
-					camFollow.setPosition(650,370);
-	
-					spr.animation.play('selected');
-					spr.alpha = 1;
-	
-					if (curSelected == 0){
-						bg.visible = true;
-						opitionsBg.visible = false;
-						freeplayBg.visible = false;
-	
-						pieChart.angle = -50;
-					}
-				else if (curSelected == 1){
-					bg.visible = false;
-					opitionsBg.visible = false;
-					freeplayBg.visible = true;
-						pieChart.angle = -20;
-			}
-				else if (curSelected == 2){
-					bg.visible = false;
-					freeplayBg.visible = false;
-					opitionsBg.visible = true;
-	
-					pieChart.angle = 30;
-			}
-	
-				}
-			spr.updateHitbox();
+			spr.screenCenter(X);
 		});
 	}
 
