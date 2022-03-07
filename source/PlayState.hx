@@ -1296,7 +1296,7 @@ class PlayState extends MusicBeatState
 
 					// uhhh, there is uh a lot of timers i know- shut up this will do the trick anyways
 					// i could have done this in lua now that i think about it :bruh:
-					new FlxTimer().start(1.42, function(tmr:FlxTimer)
+					new FlxTimer().start(1.33, function(tmr:FlxTimer)
 						{
 								FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 320, y: dad.getMidpoint().y + 50}, 1, {ease: FlxEase.quadInOut});
 								FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 320, y: dad.getMidpoint().y + 50}, 1, {ease: FlxEase.quadInOut});
@@ -1333,7 +1333,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(camFollow, {x: gf.getMidpoint().x - 80, y: gf.getMidpoint().y - 10}, 1, {ease: FlxEase.quadInOut});
 						FlxTween.tween(camFollowPos, {x: gf.getMidpoint().x - 80, y: gf.getMidpoint().y - 10}, 1, {ease: FlxEase.quadInOut});
 						FlxTween.tween(FlxG.camera, {zoom: 1.13}, 0.8, {ease: FlxEase.quadInOut});
-						//boyfriend.playAnim('idle');
+						boyfriend.playAnim('idle');
 
 						gf.playAnim('cutscene', true);
 
@@ -1345,17 +1345,17 @@ class PlayState extends MusicBeatState
 
 						});
 					
-					new FlxTimer().start(5.8, function(tmr:FlxTimer)
+					new FlxTimer().start(5.7, function(tmr:FlxTimer)
 						{
 
 							//boyfriend.playAnim('idle');
 							camHUD.visible = true;
 							camHUD.alpha = 0;
-							FlxTween.tween(camHUD, {alpha: 1}, 0.4, {ease: FlxEase.quadInOut});
+							FlxTween.tween(camHUD, {alpha: 1}, 0.4, {ease: FlxEase.backOut});
 			
 						});
 
-						new FlxTimer().start(5.57, function(tmr:FlxTimer)
+						new FlxTimer().start(5.48, function(tmr:FlxTimer)
 							{
 								generateStaticArrows(0);
 								generateStaticArrows(1);
