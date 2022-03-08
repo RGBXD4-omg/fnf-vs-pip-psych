@@ -2,19 +2,8 @@
 	"animations": [
 		{
 			"offsets": [
-				-10,
-				314
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "firstDeath",
-			"indices": [],
-			"name": "A"
-		},
-		{
-			"offsets": [
-				277,
-				340
+				220,
+				336
 			],
 			"loop": true,
 			"fps": 24,
@@ -25,20 +14,31 @@
 		{
 			"offsets": [
 				-12,
-				331
+				325
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "deathConfirm",
 			"indices": [],
 			"name": "C"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-10,
+				314
+			],
+			"anim": "firstDeath",
+			"fps": 24,
+			"name": "A",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/Boyfriend_Gets_Shot_and_Dies",
 	"position": [
-		-110,
-		410
+		-280,
+		310
 	],
 	"healthicon": "bf-pixel",
 	"flip_x": true,
@@ -49,8 +49,8 @@
 	],
 	"camera_position": [
 		-130,
-		-590
+		-390
 	],
 	"sing_duration": 4,
-	"scale": 0.900000000000004
+	"scale": 0.500000000000004
 }

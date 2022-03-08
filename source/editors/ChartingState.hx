@@ -89,7 +89,8 @@ class ChartingState extends MusicBeatState
 		['Play The Cutscene', "Play Pip MidCutscene"],
 		['Add ExDad', "Add Charcter Violet"],
 		['Show Space', "Show the spacebar (Works if 4 mania!)"],
-		['Trolled', ""]
+		['Trolled', "for vidz"],
+		['hidehud', ""]
 
 	];
 	

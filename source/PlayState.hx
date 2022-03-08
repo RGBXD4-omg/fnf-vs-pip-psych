@@ -496,7 +496,7 @@ class PlayState extends MusicBeatState
 				}
 
 				vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation', -240, -140, 0.0, 0.0, ['Cutscene']);
-				vCutsce.animation.addByPrefix('idle', 'Cutscene', 24, false);
+				vCutsce.animation.addByPrefix('idle', 'Cutscene', 14, false);
 				vCutsce.antialiasing = ClientPrefs.globalAntialiasing;
 				//vCutsce.setGraphicSize(1920, 1080);
 				vCutsce.setGraphicSize(Std.int(vCutsce.width * 0.87));
@@ -3637,15 +3637,17 @@ class PlayState extends MusicBeatState
 				//dad.setGraphicSize(320, 490);
 				dad.setPosition(-84.4, 434.05);
 
-				dad2.setPosition(202.9, 395.55);
+				dad2.setPosition(222.9, 425.55);
 				dad2.setGraphicSize(326, 463);
 
 
 				iconP2.changeIcon("both"); // carlito was here
 
-				// fix the bullshit y positions
-				dad2.y -= 180;
-				dad.y -= 145;
+				// fix the bullshit positions
+				dad.x -= 6; // so pip isnt touching violet ew
+				dad2.x -= 16;
+				dad2.y -= 255;
+				dad.y -= 170;
 
 			case "Show Space":
 				if (ClientPrefs.middleScroll) trace("MOVE ARROWS MOVE");
@@ -3678,8 +3680,6 @@ class PlayState extends MusicBeatState
 					});
 
 			case 'Play The Cutscene': 
-				FlxTween.tween(camHUD, {alpha: 0}, 0.8);
-
 				canPause = false;
 				add(vCutsce);
 				vCutsce.visible = true;
@@ -3694,13 +3694,15 @@ class PlayState extends MusicBeatState
 
 						gf.visible = true;
 
-						new FlxTimer().start(0.3, function(tmr:FlxTimer)
-							{
-							if (storyDifficulty == 0)
-								boyfriend.playAnim('dodge', true);
-					});
+					// 	new FlxTimer().start(0.3, function(tmr:FlxTimer)
+					// 		{
+					// 			boyfriend.playAnim('dodge', true);
+					// });
 
 				});
+			case "hidehud":
+				FlxTween.tween(camHUD, {alpha: 0}, 0.86);
+
 			}
 							
 		
@@ -3936,17 +3938,17 @@ class PlayState extends MusicBeatState
 				if (storyPlaylist.length <= 0)
 				{
 
-					if (Paths.formatToSongPath(SONG.song) == 'cray-cray'){
+					if (Paths.formatToSongPath(SONG.song) == 'cray-cray' && !ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)){
 						FlxG.save.data.PipModWeekCompleted = 1;
 						trace("yay trophy!");
-						if ((ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC')){
+						if ((ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC') && !ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)){
 							FlxG.save.data.PipModFC = 3;
 						}
 					}
-					if (Paths.formatToSongPath(SONG.song) == 'pussy') // only if we complete it in story mode
+					if (Paths.formatToSongPath(SONG.song) == 'pussy' && !ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) // only if we complete it in story mode
 						if (FlxG.save.data.PussyModWeekCompleted != 2) // so you dont lose the gold lmao
 						FlxG.save.data.PussyModWeekCompleted = 1;
-					else if (Paths.formatToSongPath(SONG.song) == 'pussy' && (ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC'))
+					else if (Paths.formatToSongPath(SONG.song) == 'pussy' && (ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC') && !ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false))
 						FlxG.save.data.PussyModWeekCompleted = 2;
 
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -3975,7 +3977,7 @@ class PlayState extends MusicBeatState
 				{
 					var difficulty:String = CoolUtil.getDifficultyFilePath();
 
-					if ((ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC')){
+					if ((ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC') && !ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)){
 						trace("FCED song!");
 					switch(Paths.formatToSongPath(SONG.song))
 					{
@@ -4175,9 +4177,9 @@ class PlayState extends MusicBeatState
 
 		if(daRating == 'sick' && !note.noteSplashDisabled)
 		{
-			if (mania == 4 && note.noteData == 2)
-				trace("nothing lmao")
-				else
+			// if (mania == 4 && note.noteData == 2)
+			// 	trace("nothing lmao")
+			// 	else
 			spawnNoteSplashOnNote(note);
 		}
 
@@ -4715,9 +4717,9 @@ class PlayState extends MusicBeatState
 			if(note.hitCausesMiss) {
 				noteMiss(note);
 				if(!note.noteSplashDisabled && !note.isSustainNote) {
-					if (mania == 4 && note.noteData == 2)
-						trace("nothing lmao")
-						else
+					// if (mania == 4 && note.noteData == 2)
+					// 	trace("nothing lmao")
+					// 	else
 					spawnNoteSplashOnNote(note);
 				}
 

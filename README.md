@@ -1,4 +1,7 @@
-Thanks for playing VS PIP!
+# Thanks for playing VS PIP!
+
+You can view some of the .fla files in art/flashfiles :D
+
 ![image](https://user-images.githubusercontent.com/82354038/155031329-e7160e5e-3044-4ec1-8cd3-4360e3a339b8.png)
 
 # Friday Night Funkin' - Psych Engine

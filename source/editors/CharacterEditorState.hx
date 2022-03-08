@@ -1178,6 +1178,11 @@ class CharacterEditorState extends MusicBeatState
 					char.playAnim(char.animationsArray[curAnim].anim, true);
 					genBoyOffsets();
 				}
+				
+				if (FlxG.keys.pressed.TAB)
+					{
+						trace(char.animation.curAnim.curFrame);
+					}
 
 				if (FlxG.keys.justPressed.R)
 				{
