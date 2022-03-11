@@ -10,7 +10,7 @@ import flixel.FlxG;
 class StartupState extends FlxState
 {
     public var camHUD:FlxCamera;
-
+    var bg:FlxSprite;
     override public function create():Void
     {	Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
@@ -43,7 +43,7 @@ class StartupState extends FlxState
             }
     
             if(foundFile) {
-                var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+                bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
                 bg.scrollFactor.set();
                 bg.cameras = [camHUD];
                 add(bg);
@@ -70,6 +70,7 @@ class StartupState extends FlxState
 
     override public function update(elapsed:Float):Void
     {
+ 
         super.update(elapsed);
     }
 }

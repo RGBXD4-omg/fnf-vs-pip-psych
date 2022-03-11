@@ -1,7 +1,58 @@
 {
 	"song": {
 		"player1": "bf",
-		"events": [],
+		"events": [
+			[
+				60793.0327868853,
+				[
+					[
+						"hidehud",
+						"",
+						""
+					]
+				]
+			],
+			[
+				60983.6065573771,
+				[
+					[
+						"Play The Cutscene",
+						"",
+						""
+					]
+				]
+			],
+			[
+				62090.1639344263,
+				[
+					[
+						"Add ExDad",
+						"",
+						""
+					]
+				]
+			],
+			[
+				62827.868852459,
+				[
+					[
+						"Show Space",
+						"",
+						""
+					]
+				]
+			],
+			[
+				63368.8524590164,
+				[
+					[
+						"Play Animation",
+						"ComeOn",
+						"Dad"
+					]
+				]
+			]
+		],
 		"gfVersion": "gf-ded",
 		"player2": "pip",
 		"notes": [
@@ -1869,53 +1920,54 @@
 			{
 				"lengthInSteps": 16,
 				"sectionNotes": [],
-				"mustHitSection": false
+				"mustHitSection": true
 			},
 			{
 				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						63934.4262295082,
-						0,
+						5,
 						122.950819672131
 					],
 					[
 						64180.3278688525,
-						1,
+						6,
 						0
 					],
 					[
 						64303.2786885246,
-						3,
+						8,
 						0
 					],
 					[
 						64364.7540983607,
-						4,
+						9,
 						0
 					],
 					[
 						64426.2295081967,
-						0,
+						5,
 						0
 					],
 					[
 						64672.131147541,
-						4,
+						9,
 						122.950819672131
 					],
 					[
 						64549.1803278689,
-						1,
+						6,
 						0
 					],
 					[
 						62950.8196721312,
-						4,
-						0
+						9,
+						0,
+						"ExDad Anim"
 					]
 				],
-				"mustHitSection": false
+				"mustHitSection": true
 			},
 			{
 				"lengthInSteps": 16,
@@ -5812,6 +5864,26 @@
 				"bpm": 122,
 				"changeBPM": false,
 				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 122,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 122
 			},
 			{
 				"lengthInSteps": 16,

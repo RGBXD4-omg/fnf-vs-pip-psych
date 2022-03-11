@@ -17,6 +17,16 @@
 				]
 			],
 			[
+				90707.6086956522,
+				[
+					[
+						"hidehud",
+						"",
+						""
+					]
+				]
+			],
+			[
 				90826.0869565215,
 				[
 					[
@@ -35,9 +45,24 @@
 						""
 					],
 					[
+						"Play Animation",
+						"singUP-alt",
+						"Dad"
+					],
+					[
 						"Screen Shake",
-						"0.5, 0.02",
-						""
+						"0.5, 0.01",
+						"0.7, 0"
+					]
+				]
+			],
+			[
+				91676.0869565218,
+				[
+					[
+						"bringBackhud",
+						"singUP-alt",
+						"Dad"
 					]
 				]
 			],
@@ -50,13 +75,24 @@
 						""
 					]
 				]
+			],
+			[
+				91956.5217391305,
+				[
+					[
+						"Camera Follow Pos",
+						"",
+						""
+					]
+				]
 			]
 		],
 		"notes": [],
 		"splashSkin": null,
 		"validScore": false,
 		"gfVersion": "gf-ded",
-		"bpm": 345,
+		"bpm": 335,
+		"mania": 3,
 		"arrowSkin": null,
 		"needsVoices": true,
 		"song": "Pussy"

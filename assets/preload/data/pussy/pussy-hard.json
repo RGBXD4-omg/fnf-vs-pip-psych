@@ -4244,116 +4244,116 @@
 				"sectionNotes": [
 					[
 						87652.1739130435,
-						2,
+						6,
 						0
 					],
 					[
 						87782.6086956522,
-						2,
+						6,
 						0
 					],
 					[
 						87913.0434782609,
-						0,
+						4,
 						0
 					],
 					[
 						88043.4782608696,
-						3,
+						7,
 						0
 					],
 					[
 						88108.6956521739,
-						2,
+						6,
 						0
 					],
 					[
 						88173.9130434783,
-						1,
+						5,
 						0
 					],
 					[
 						88434.7826086957,
-						2,
+						6,
 						0
 					],
 					[
 						88565.2173913044,
-						2,
+						6,
 						0
 					],
 					[
 						88695.6521739131,
-						0,
+						4,
 						0
 					],
 					[
 						88826.0869565218,
-						3,
+						7,
 						0
 					],
 					[
 						88956.5217391305,
-						1,
+						5,
 						0
 					],
 					[
 						89021.7391304348,
-						0,
+						4,
 						0
 					],
 					[
 						89086.9565217392,
-						2,
+						6,
 						0
 					],
 					[
 						89217.3913043478,
-						1,
+						5,
 						0
 					],
 					[
 						89347.8260869565,
-						3,
+						7,
 						0
 					],
 					[
 						89478.2608695652,
-						2,
+						6,
 						0
 					],
 					[
 						89608.6956521739,
-						3,
+						7,
 						0
 					],
 					[
 						88304.347826087,
-						0,
+						4,
 						0,
 						"Sus Note"
 					],
 					[
 						89347.8260869565,
-						0,
+						4,
 						0,
 						"Sus Note"
 					],
 					[
 						89478.2608695652,
-						1,
+						5,
 						0,
 						"Sus Note"
 					],
 					[
 						89608.6956521739,
-						0,
+						4,
 						0,
 						"Sus Note"
 					],
 					[
 						88304.347826087,
-						3,
+						7,
 						0,
 						"Sus Note"
 					]
@@ -4361,7 +4361,7 @@
 				"lengthInSteps": 16,
 				"bpm": 120,
 				"changeBPM": false,
-				"mustHitSection": true
+				"mustHitSection": false
 			},
 			{
 				"typeOfSection": 0,
@@ -4400,96 +4400,6 @@
 						90652.1739130435,
 						4,
 						0
-					],
-					[
-						91304.347826087,
-						2,
-						391.304347826087,
-						"Alt Animation"
-					],
-					[
-						91695.6521739131,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91646.7391304348,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91614.1304347826,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91591.3043478261,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91555.4347826087,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91522.8260869566,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91500,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91467.3913043479,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91428.2608695652,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91402.1739130435,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91372.8260869566,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91340.2173913044,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91320.6521739131,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91304.347826087,
-						6,
-						0,
-						"Sus Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -4654,198 +4564,6 @@
 						93847.8260869566,
 						2,
 						0
-					],
-					[
-						91956.5217391305,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						91826.0869565218,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						91826.0869565218,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						91956.5217391305,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						92086.9565217392,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						92217.3913043479,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						92086.9565217392,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						92217.3913043479,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						92086.9565217392,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						92086.9565217392,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						92478.2608695652,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						92478.2608695652,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						92608.6956521739,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						92739.1304347826,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						92739.1304347826,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						92869.5652173913,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						92739.1304347826,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						92608.6956521739,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						92739.1304347826,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						92869.5652173913,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						93130.4347826087,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						93130.4347826087,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						93260.8695652174,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						93391.3043478261,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						93521.7391304348,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						93391.3043478261,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						93391.3043478261,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						93260.8695652174,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						93391.3043478261,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						93521.7391304348,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						93782.6086956522,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						93782.6086956522,
-						6,
-						0,
-						"Sus Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -4965,174 +4683,6 @@
 						95869.5652173913,
 						1,
 						0
-					],
-					[
-						93913.0434782609,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						94043.4782608696,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						94173.9130434783,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						93913.0434782609,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						94043.4782608696,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						94173.9130434783,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						94043.4782608696,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						94043.4782608696,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						94434.7826086957,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						94434.7826086957,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						94565.2173913044,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						94565.2173913044,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						94695.6521739131,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						94826.0869565218,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						94695.6521739131,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						94826.0869565218,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						94695.6521739131,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						94695.6521739131,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						95086.9565217392,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						95086.9565217392,
-						6,
-						0,
-						"Sus Note"
-					],
-					[
-						95217.3913043479,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						95347.8260869566,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						95478.2608695653,
-						4,
-						0,
-						"Sus Note"
-					],
-					[
-						95217.3913043479,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						95347.8260869566,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						95478.2608695653,
-						7,
-						0,
-						"Sus Note"
-					],
-					[
-						95347.8260869566,
-						5,
-						0,
-						"Sus Note"
-					],
-					[
-						95347.8260869566,
-						6,
-						0,
-						"Sus Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -8598,7 +8148,7 @@
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"altAnim": false,
-				"mustHitSection": true,
+				"mustHitSection": false,
 				"changeBPM": false,
 				"bpm": 120
 			},
@@ -8607,7 +8157,7 @@
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"altAnim": false,
-				"mustHitSection": true,
+				"mustHitSection": false,
 				"changeBPM": false,
 				"bpm": 120
 			},
@@ -8868,12 +8418,152 @@
 				"bpm": 345
 			},
 			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 345,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 345
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 115
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 115
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 335
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 115
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 335
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 335
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 335
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 335
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 335
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 335
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 335
+			},
+			{
 				"gfSection": false,
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
-				"bpm": 345,
+				"bpm": 335,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 335,
 				"changeBPM": false,
 				"mustHitSection": true
 			}
@@ -8885,6 +8575,16 @@
 					[
 						"Set CamZoom",
 						"0.96",
+						""
+					]
+				]
+			],
+			[
+				90707.6086956522,
+				[
+					[
+						"hidehud",
+						"",
 						""
 					]
 				]
@@ -8908,9 +8608,24 @@
 						""
 					],
 					[
+						"Play Animation",
+						"singUP-alt",
+						"Dad"
+					],
+					[
 						"Screen Shake",
-						"0.5, 0.02",
-						""
+						"0.5, 0.01",
+						"0.7, 0"
+					]
+				]
+			],
+			[
+				91676.0869565218,
+				[
+					[
+						"bringBackhud",
+						"singUP-alt",
+						"Dad"
 					]
 				]
 			],
@@ -8920,6 +8635,16 @@
 					[
 						"Set CamZoom",
 						"0.96",
+						""
+					]
+				]
+			],
+			[
+				91956.5217391305,
+				[
+					[
+						"Camera Follow Pos",
+						"",
 						""
 					]
 				]
@@ -8933,6 +8658,6 @@
 		"sections": 0,
 		"stage": "alleyways",
 		"speed": 2.69,
-		"bpm": 345
+		"bpm": 335
 	}
 }

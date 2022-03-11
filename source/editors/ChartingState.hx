@@ -90,7 +90,9 @@ class ChartingState extends MusicBeatState
 		['Add ExDad', "Add Charcter Violet"],
 		['Show Space', "Show the spacebar (Works if 4 mania!)"],
 		['Trolled', "for vidz"],
-		['hidehud', ""]
+		['hidehud', "slow"],
+		['bringBackhud', "yes"],
+		['forcedCamPos', 'look im very lazy to add info on this']
 
 	];
 	

@@ -198,9 +198,11 @@ class FreeplayState extends MusicBeatState
 		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
 		scoreBG.alpha = 0.6;
 		add(scoreBG);
+		scoreBG.visible = false;
 
-		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
+		diffText = new FlxText(scoreText.x - 190, scoreText.y, 0, "", 24);
 		diffText.font = scoreText.font;
+		diffText.screenCenter(X);
 		add(diffText);
 
 		add(scoreText);
@@ -584,8 +586,11 @@ class FreeplayState extends MusicBeatState
 
 		scoreBG.scale.x = FlxG.width - scoreText.x + 6;
 		scoreBG.x = FlxG.width - (scoreBG.scale.x / 2);
-		diffText.x = Std.int(scoreBG.x + (scoreBG.width / 2));
+		// diffText.x -= 20;
+		// diffText.x -= 20;
+		diffText.x = scoreBG.x + (scoreBG.width / 2);
 		diffText.x -= diffText.width / 2;
+		diffText.x -= 358;
 	}
 }
 

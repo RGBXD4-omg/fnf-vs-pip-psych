@@ -653,13 +653,13 @@ class TitleState extends MusicBeatState
 					createCoolText(['In association', 'with'], -40);
 					#end
 				case 7:
-					addMoreText('spark studios i think', -40);
-					sparkStudios.visible = true;
+					addMoreText('your mom lolll', -40);
+					//sparkStudios.visible = true;
 
 				// credTextShit.text += '\nNewgrounds';
 				case 9:
 					deleteCoolText();
-					sparkStudios.visible = false;
+				//	sparkStudios.visible = false;
 				// credTextShit.visible = false;
 
 				// credTextShit.text = 'Shoutouts Tom Fulp';
