@@ -98,7 +98,7 @@ class CreditsState extends MusicBeatState
 			['Kalpy',			'kalpy',			'Main Composer of Vs Pip',				'https://twitter.com/Kalpy19',			'6fa8dc'],
 			['Carlitosmorecom',			'carlitos',			'Main Coder of Vs Pip',				'https://twitter.com/carlitosmorecom',			'f1c232'],
 			['Vidz',			'vidz',			'Coder of Vs Pip',				'https://twitter.com/ItsVidz3',			'16537e'],
-			['Kevin',			'kevin',			'Coder of Vs Pip',				'https://github.com/KevinKuntz255',			'0c446c'],
+			['Kevin Kuntz',			'kevin',			'Coder of Vs Pip',				'https://github.com/KevinKuntz255',			'0c446c'],
 			[''],
 			[''],
 			['Engine Shit'],
