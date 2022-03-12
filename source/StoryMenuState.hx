@@ -73,13 +73,13 @@ class StoryMenuState extends MusicBeatState
 		pussyStare.visible = false;
 
 		gfStare = new FlxSprite().loadGraphic(Paths.image("gf"));
-		gfStare.y -= 15;
 		//gfStare.setGraphicSize(1280, 720);
 		gfStare.updateHitbox();
 		//gfStare.screenCenter();
 		gfStare.visible = false;
-		pussyStare.y -= 15;
-		pipStare.y -= 15;
+		gfStare.y += 15;
+		pussyStare.y += 15;
+		pipStare.y += 15;
 
 		
 		PlayState.isStoryMode = true;

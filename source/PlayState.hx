@@ -509,6 +509,8 @@ class PlayState extends MusicBeatState
 				add(blackScreenOfPip);
 
 				
+				CoolUtil.precacheSound('pipdies', 'main');
+				CoolUtil.precacheSound('bfgetshotanddies');
 
 			case 'spooky': //Week 2
 				if(!ClientPrefs.lowQuality) {
@@ -1357,7 +1359,7 @@ class PlayState extends MusicBeatState
 
 				case "pussy": // also fixed werid cam
 					FlxG.camera.zoom = .9;
-
+					defaultCamZoom = .9;
 					snapCamFollowToPos(boyfriend.getMidpoint().x - 240, boyfriend.getMidpoint().y - 230);
 
 					var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
@@ -1379,7 +1381,7 @@ class PlayState extends MusicBeatState
 							}});
 					new FlxTimer().start(1.4, function(tmr:FlxTimer)
 						{
-							snapCamFollowToPos(dad.getGraphicMidpoint().x + 70, dad.getGraphicMidpoint().y - 120);
+							snapCamFollowToPos(dad.getGraphicMidpoint().x + 70, dad.getGraphicMidpoint().y - 160);
 
 							FlxG.camera.zoom = 1.2;
 							dad.visible = true;
@@ -1737,7 +1739,7 @@ class PlayState extends MusicBeatState
 				remove(bg);
 				completedVideo = true;
 
-				if (!isCutscene)
+				if (isCutscene)
 				startAndEnd();
 			}
 			return;
@@ -1748,7 +1750,7 @@ class PlayState extends MusicBeatState
 			startAndEnd();
 		}
 		#end
-		if (!isCutscene)
+		if (isCutscene)
 		startAndEnd();
 	}
 
@@ -1936,18 +1938,14 @@ class PlayState extends MusicBeatState
 			}
 
 			var random:Int = FlxG.random.int(0, 3);
-					if (random == 3 && (SONG.song.toLowerCase() == 'pip' ||SONG.song.toLowerCase() == 'cray cray'))
+					if (random == 3 && (SONG.song.toLowerCase() == 'pip'))
 						{
 							moveCamera(false);
-							dad.y -= 900;
-							dad.x -= 900;
+							dad.y -= 600;
+							dad.x -= 600;
 							fuckingUhanim = true;
 						}
-						else
-							{
-								moveCamera(true);
-								random = FlxG.random.int(0, 2);
-							}
+				
 
 			if (skipCountdown){
 				Conductor.songPosition = 0;
@@ -1957,16 +1955,21 @@ class PlayState extends MusicBeatState
 			
 			var arrayAnims:Array<String> = ['VoltzEntrance', 'GarcelloEntrance', 'RonEntrance', 'FlashEntrance'];
 
-			if (SONG.song.toLowerCase() == 'pip' ||SONG.song.toLowerCase() == 'cray cray'){
+			if (SONG.song.toLowerCase() == 'pip'){
 			startSoon = true;
 			dad.stunned = true;
 		}
 
-		if (SONG.song.toLowerCase() == 'pip' ||SONG.song.toLowerCase() == 'cray cray')
+		if (SONG.song.toLowerCase() == 'pip')
 			dad.playAnim(arrayAnims[random], true);
+
+				
+		if (fuckingUhanim)
+			FlxTween.tween(dad, {x: dad.x + 600, y:  dad.y + 600}, 1, {ease: FlxEase.quadInOut});
 
 			startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 			{
+				if (startSoon != false){
 				if (tmr.loopsLeft % gfSpeed == 0 && !gf.stunned && gf.animation.curAnim.name != null && !gf.animation.curAnim.name.startsWith("sing"))
 				{
 					gf.dance();
@@ -1995,7 +1998,7 @@ class PlayState extends MusicBeatState
 					{
 						dad2.dance();
 					}
-				
+				}
 
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 				introAssets.set('default', ['ready', 'set', 'go']);
@@ -2021,12 +2024,13 @@ class PlayState extends MusicBeatState
 				// 		swagCounter = 3;
 				// 		startSoon = false;
 				// 	}
+			
 
 				switch (swagCounter)
 				{
 					case 0:
 						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
-
+				
 					case 1:
 						countdownReady = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
 						countdownReady.scrollFactor.set();
@@ -2049,7 +2053,7 @@ class PlayState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
 
 						if (fuckingUhanim)
-							FlxTween.tween(dad, {x: dad.x + 900, y:  dad.y + 900}, 1, {startDelay: 0.7, ease: FlxEase.quadInOut});
+							dad.playAnim('idle', true);
 					case 2:
 						countdownSet = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
 						countdownSet.scrollFactor.set();
@@ -2092,6 +2096,7 @@ class PlayState extends MusicBeatState
 						});
 						FlxG.sound.play(Paths.sound('introGo' + introSoundsSuffix), 0.6);
 						}
+
 
 						if (startSoon && skipCountdown)
 							dad.playAnim('Start', true);
@@ -3882,37 +3887,39 @@ class PlayState extends MusicBeatState
 		if (curSong.toLowerCase() == 'cray cray'){
 			if (exDad)
 				dad2.visible = false;
-				FlxG.camera.zoom = 1;
-				FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 380, y: dad.getMidpoint().y + 20}, 0.5, {ease: FlxEase.quadInOut});
-				FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 380, y: dad.getMidpoint().y + 20}, 0.5, {ease: FlxEase.quadInOut});
+				FlxG.camera.zoom = 0.86;
+			//	FlxTween.tween(camFollow, {x: dad.getMidpoint().x + 380, y: dad.getMidpoint().y + 20}, 0.5, {ease: FlxEase.quadInOut});
+			//	FlxTween.tween(camFollowPos, {x: dad.getMidpoint().x + 380, y: dad.getMidpoint().y + 20}, 0.5, {ease: FlxEase.quadInOut});
 				//boyfriend_extra.visible = false;
 				boyfriend.visible = false;
 				gf.visible = false;
 
 				blackScreenOfPip.alpha = 1;
 				FlxG.sound.music.volume = 0;
+				dad.stunned = true;
+
 				//camHUD.visible = false;
 
-				if(!dadMap.exists("pip-ded")) {
-					addCharacterToList("pip-ded", 1);
-				}
+				// if(!dadMap.exists("pip-ded")) {
+				// 	addCharacterToList("pip-ded", 1);
+				// }
 
-				var wasGf:Bool = dad.curCharacter.startsWith('gf');
-				var lastAlpha:Float = dad.alpha;
-				dad.alpha = 0.00001;
-				dad = dadMap.get("pip-ded");
-				if(!dad.curCharacter.startsWith('gf')) {
-					if(wasGf) {
-						gf.visible = true;
-					}
-				} else {
-					gf.visible = false;
-				}
-				dad.alpha = lastAlpha;
+				// var wasGf:Bool = dad.curCharacter.startsWith('gf');
+				// var lastAlpha:Float = dad.alpha;
+				// dad.alpha = 0.00001;
+				// dad = dadMap.get("pip-ded");
+				// if(!dad.curCharacter.startsWith('gf')) {
+				// 	if(wasGf) {
+				// 		gf.visible = true;
+				// 	}
+				// } else {
+				// 	gf.visible = false;
+				// }
+				// dad.alpha = lastAlpha;
 			
-				dad.setGraphicSize(320, 490);
-				dad.x -= 140;
-				dad.y += 80;
+				// dad.setGraphicSize(320, 490);
+				// dad.x -= 140;
+				// dad.y += 80;
 			
 				dad.playAnim('Death');
 				FlxG.sound.play(Paths.sound('pipdies', 'main'), 3);

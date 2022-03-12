@@ -86,7 +86,8 @@ class MainMenuState extends MusicBeatState
 		yellowBg.antialiasing = ClientPrefs.globalAntialiasing;
 
 		bg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('menuBG'));
-		bg.setGraphicSize(1286, 730);
+		//bg.setGraphicSize(1286, 730);
+		bg.setGraphicSize(Std.int(1286 * 1.175));
 		bg.updateHitbox();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.scrollFactor.set(0, yScroll);
@@ -156,10 +157,11 @@ class MainMenuState extends MusicBeatState
 		blackBar.screenCenter();
 		blackBar.scrollFactor.set();
 		blackBar.antialiasing = ClientPrefs.globalAntialiasing;
-
+		
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuBGMagenta'));
 		magenta.scrollFactor.set(0, yScroll);
-		magenta.setGraphicSize(1286, 730);
+	//	magenta.setGraphicSize(1286, 730);
+		magenta.setGraphicSize(Std.int(1286 * 1.175));
 		//magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
 		magenta.screenCenter();
