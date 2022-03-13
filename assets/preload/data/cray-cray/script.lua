@@ -7,9 +7,12 @@ local ofs = 20;
 local followchars = true;
 local del = 0;
 local del2 = 0;
+local funnishit = false;
 
 function onGameOverStart()
-	setProperty('camFollow.y', getProperty('camFollow.y') - 300)
+	if funnishit == true then
+		setProperty('camFollow.y', getProperty('camFollow.y') - 300)
+	end
 end
 
 
@@ -23,6 +26,7 @@ function onStartCountdown()
 end
 
 function onUpdate()
+    funnishit=getProperty('gameOverStateChanged');
 	if del > 0 then
 		del = del - 1
 	end

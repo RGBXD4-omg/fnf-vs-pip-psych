@@ -61,25 +61,19 @@ class StoryMenuState extends MusicBeatState
 		Paths.clearUnusedMemory();
 
 		pipStare = new FlxSprite().loadGraphic(Paths.image("pip"));
-		//pipStare.setGraphicSize(1280, 720);
 		pipStare.updateHitbox();
-		//pipStare.screenCenter();
 		pipStare.visible = false;
 
 		pussyStare = new FlxSprite().loadGraphic(Paths.image("sus"));
-		//pussyStare.setGraphicSize(1280, 720);
 		pussyStare.updateHitbox();
-		//pussyStare.screenCenter();
 		pussyStare.visible = false;
 
 		gfStare = new FlxSprite().loadGraphic(Paths.image("gf"));
-		//gfStare.setGraphicSize(1280, 720);
 		gfStare.updateHitbox();
-		//gfStare.screenCenter();
 		gfStare.visible = false;
-		gfStare.y += 15;
-		pussyStare.y += 15;
-		pipStare.y += 15;
+		gfStare.y += 35;
+		pussyStare.y += 35;
+		pipStare.y += 35;
 
 		
 		PlayState.isStoryMode = true;
@@ -99,8 +93,6 @@ class StoryMenuState extends MusicBeatState
 		rankText.setFormat(Paths.font("vcr.ttf"), 32);
 		rankText.size = scoreText.size;
 		rankText.screenCenter(X);
-
-	
 
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
