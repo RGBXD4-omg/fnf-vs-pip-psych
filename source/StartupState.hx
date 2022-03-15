@@ -1,5 +1,6 @@
 package;
 
+import flixel.system.FlxSound;
 import flixel.FlxCamera;
 import flixel.util.FlxColor;
 import sys.FileSystem;
@@ -11,6 +12,7 @@ class StartupState extends FlxState
 {
     public var camHUD:FlxCamera;
     var bg:FlxSprite;
+
     override public function create():Void
     {	Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
@@ -68,9 +70,11 @@ class StartupState extends FlxState
         super.create();
     }
 
+    
+
     override public function update(elapsed:Float):Void
     {
- 
+
         super.update(elapsed);
     }
 }

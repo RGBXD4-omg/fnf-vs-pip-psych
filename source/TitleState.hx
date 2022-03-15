@@ -635,56 +635,51 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1:
-				//	FlxG.camera.flash(FlxColor.WHITE, 1);
 					createCoolText(['Made by this swaggy people'], -40);
+				case 2:
 					ezXD.visible = true;
-				// credTextShit.visible = true;
 				case 4:
 					deleteCoolText();
 					ezXD.visible = false;
-
-				// credTextShit.visible = false;
-				// credTextShit.text = 'In association \nwith';
-				// credTextShit.screenCenter();
 				case 5:
 					#if PSYCH_WATERMARKS
 					createCoolText(['Not associated', 'with'], -40);
 					#else
 					createCoolText(['In association', 'with'], -40);
 					#end
-				case 7:
+				case 6:
 					addMoreText('your mom lolll', -40);
 					//sparkStudios.visible = true;
 
 				// credTextShit.text += '\nNewgrounds';
-				case 9:
+				case 8:
 					deleteCoolText();
 				//	sparkStudios.visible = false;
 				// credTextShit.visible = false;
 
 				// credTextShit.text = 'Shoutouts Tom Fulp';
 				// credTextShit.screenCenter();
-				case 11:
+				case 9:
 					createCoolText([curWacky[0]]);
 				// credTextShit.visible = true;
-				case 13:
+				case 10:
 					addMoreText(curWacky[1]);
 				// credTextShit.text += '\nlmao';
-				case 14:
+				case 12:
 					deleteCoolText();
 				// credTextShit.visible = false;
 				// credTextShit.text = "Friday";
 				// credTextShit.screenCenter();
-				case 15:
+				case 13:
 					addMoreText('Friday Night Funkin');
 				// credTextShit.visible = true;
-				case 16:
+				case 14:
 					addMoreText('VS');
 				// credTextShit.text += '\nNight';
-				case 17:
+				case 15:
 					addMoreText('PIP'); // credTextShit.text += '\nFunkin';
 
-				case 18:
+				case 16:
 					skipIntro();
 			}
 		}

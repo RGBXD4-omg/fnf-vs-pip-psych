@@ -4,6 +4,7 @@ You can view some of the .fla files in art/flashfiles :D
 
 ![image](https://user-images.githubusercontent.com/82354038/155031329-e7160e5e-3044-4ec1-8cd3-4360e3a339b8.png)
 
+btw special thanks to the [Psych Engine With Extra Keys Source Engine](https://github.com/tposejank/FNF-PsychEngine-ExtraKeys) for the space bar shit 
 # Friday Night Funkin' - Psych Engine
 Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
 

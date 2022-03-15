@@ -71,10 +71,13 @@ class StoryMenuState extends MusicBeatState
 		gfStare = new FlxSprite().loadGraphic(Paths.image("gf"));
 		gfStare.updateHitbox();
 		gfStare.visible = false;
-		gfStare.y += 35;
-		pussyStare.y += 35;
-		pipStare.y += 35;
-
+		gfStare.y += 65;
+		pussyStare.y += 65;
+		pipStare.y += 65;
+		
+		gfStare.setGraphicSize(1290, 406);
+		pussyStare.setGraphicSize(1290, 406);
+		pipStare.setGraphicSize(1290, 406);
 		
 		PlayState.isStoryMode = true;
 		WeekData.reloadWeekFiles(true);
@@ -472,12 +475,6 @@ class StoryMenuState extends MusicBeatState
 
 	function updateText()
 	{
-	//	var weekArray:Array<String> = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]).weekCharacters;
-	//	for (i in 0...grpWeekCharacters.length) {
-	//		grpWeekCharacters.members[i].changeCharacter(weekArray[i]);
-	//	}
-
-		
 
 		var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
 		var stringThing:Array<String> = [];
