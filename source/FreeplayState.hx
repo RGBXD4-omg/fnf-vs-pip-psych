@@ -405,6 +405,9 @@ class FreeplayState extends MusicBeatState
 
 		else if (accepted)
 		{
+			if (songs[curSelected].songName.toLowerCase() == 'pussy')
+				curDifficulty = 2;
+			
 			FlxG.sound.play(Paths.sound('confirmMenu', 'preload'));
 			FlxTween.tween(FlxG.camera, {zoom:1.05}, 1.3, {ease: FlxEase.quadOut, type: BACKWARD});
 

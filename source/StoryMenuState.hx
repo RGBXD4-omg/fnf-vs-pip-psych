@@ -60,20 +60,18 @@ class StoryMenuState extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
-		pipStare = new FlxSprite().loadGraphic(Paths.image("pip"));
+		pipStare = new FlxSprite(-20, 65).loadGraphic(Paths.image("pip"));
 		pipStare.updateHitbox();
 		pipStare.visible = false;
 
-		pussyStare = new FlxSprite().loadGraphic(Paths.image("sus"));
+		pussyStare = new FlxSprite(-20, 65).loadGraphic(Paths.image("sus"));
 		pussyStare.updateHitbox();
 		pussyStare.visible = false;
 
-		gfStare = new FlxSprite().loadGraphic(Paths.image("gf"));
+		gfStare = new FlxSprite(15, 65).loadGraphic(Paths.image("gf"));
 		gfStare.updateHitbox();
 		gfStare.visible = false;
-		gfStare.y += 65;
-		pussyStare.y += 65;
-		pipStare.y += 65;
+
 		
 		gfStare.setGraphicSize(1290, 406);
 		pussyStare.setGraphicSize(1290, 406);

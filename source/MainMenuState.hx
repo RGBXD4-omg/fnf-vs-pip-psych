@@ -91,7 +91,7 @@ class MainMenuState extends MusicBeatState
 		bg.updateHitbox();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.scrollFactor.set(0, yScroll);
-		bg.x -= 60;
+		bg.x -= 70;
 
 		opitionsBg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('MENU/MainMenuTHEOPTIONSart'));
 		opitionsBg.setGraphicSize(1286, 730);
@@ -166,7 +166,7 @@ class MainMenuState extends MusicBeatState
 		//magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
 		magenta.screenCenter();
-		magenta.x -= 60;
+		magenta.x -= 70;
 		magenta.visible = false;
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;

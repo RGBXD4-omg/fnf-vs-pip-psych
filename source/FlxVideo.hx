@@ -120,6 +120,20 @@ class FlxVideo extends FlxBasic {
 		}
 	}
 
+	public static function skipVLC()
+		{
+			vlcBitmap.stop();
+	
+			// Clean player, just in case!
+			vlcBitmap.dispose();
+	
+			if (FlxG.game.contains(vlcBitmap))
+			{
+				FlxG.game.removeChild(vlcBitmap);
+			}
+				
+		}
+	
 	
 	function onVLCError()
 		{

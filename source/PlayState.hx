@@ -117,7 +117,7 @@ class PlayState extends MusicBeatState
 
 	var amongusDrip:FlxSprite;
 	var exDad:Bool = false;
-
+	var cutscenebg:FlxSprite; // so cutscene is skipable
 	public var songSpeedTween:FlxTween;
 	public var songSpeed(default, set):Float = 1;
 	public var songSpeedType:String = "multiplicative";
@@ -146,7 +146,6 @@ class PlayState extends MusicBeatState
 	// static var playedAnim:Int = 0;
 	var startSoon = false;
 	var flashMovement = false;
-
 	public var notes:FlxTypedGroup<Note>;
 	//public var spaceNotes:FlxTypedGroup<FlxSprite>;
 
@@ -172,6 +171,7 @@ class PlayState extends MusicBeatState
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
 	public var combo:Int = 0;
+	public static var lastSavedHealth:Float = 1;
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
@@ -903,8 +903,6 @@ class PlayState extends MusicBeatState
 		dadGroup.add(dad);
 		startCharacterLua(dad.curCharacter);
 
-
-		
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
@@ -919,7 +917,7 @@ class PlayState extends MusicBeatState
 			gf.visible = false;
 		}
 		if (dad.curCharacter == "pimposter"){
-				dad.setGraphicSize(572, 327);
+				//dad.setGraphicSize(572, 327);
 				dad.x -= 250;
 				dad.y += 130;
 		}
@@ -999,6 +997,14 @@ class PlayState extends MusicBeatState
 		add(timeBar);
 		add(timeTxt);
 		timeBarBG.sprTracker = timeBar;
+
+		if (SONG.song.toLowerCase() == 'fuck' && isStoryMode && !seenCutscene)
+			{
+				timeTxt.text = "0:00";
+				songPercent = 1;
+				timeBar.alpha = 1;
+				timeTxt.alpha = 1;
+			}
 
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
@@ -1093,7 +1099,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.fixedTimestep = false;
 
-		if (SONG.song != 'fuck' && isStoryMode)
+		if ((SONG.song != 'fuck') && isStoryMode)
 			moveCameraSection(0);
 
 		if (!isStoryMode)
@@ -1223,9 +1229,11 @@ class PlayState extends MusicBeatState
 					generateStaticArrows(0);
 					generateStaticArrows(1);
 
-					timeBarBG.visible = true;
+					timeBarBG.visible = showTime;
 					timeBar.visible = true;
 					timeTxt.visible = true;
+					timeTxt.text = "0:00";
+					health = lastSavedHealth;
 
 					inCutscene = true;
 					isCameraOnForcedPos = true;
@@ -1254,12 +1262,12 @@ class PlayState extends MusicBeatState
 					pipAudio.play();
 
 					var partType:Int = -1;
-					var time:Float = 0.01; // me when the delayed audio
+					var time:Float = 0.01; 
 					var stepsLmao = 0;
 						 
 					new FlxTimer().start(time, function(tmr:FlxTimer) // better code i think, its less clunky and much smaller
 						{
-							trace(pipAudio.time +" pippy time!!");
+							trace(pipAudio.time +" da millsecond in pippy time!!");
 							if (pipAudio.time >= 1800 && partType == -1) // da audio check so no delay or whatever
 								partType = 0;
 
@@ -1297,6 +1305,8 @@ class PlayState extends MusicBeatState
 								timeBar.alpha = 1;
 								timeTxt.alpha = 1;
 								timeTxt.text = "2:20";
+								health = 1;
+								FlxTween.tween(this, {songPercent: 0}, .25);
 								}
 								}
 							else
@@ -1320,38 +1330,45 @@ class PlayState extends MusicBeatState
 							startCountdown();
 	
 				case "pussy": // also fixed werid cam
-					FlxG.camera.zoom = .9;
+				FlxG.camera.zoom = .9;
 					defaultCamZoom = .9;
-					snapCamFollowToPos(boyfriend.getMidpoint().x - 240, boyfriend.getMidpoint().y - 230);
-
-					var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
-					//add(blackScreen);
-					blackScreen.alpha = 1;
-					blackScreen.scrollFactor.set();
-					dad.visible = false;
 					camHUD.visible = false;
 					inCutscene = true;
+					snapCamFollowToPos(dad.getGraphicMidpoint().x + 70, dad.getGraphicMidpoint().y - 120);
 
-					FlxTween.tween(blackScreen, {alpha: 0}, 1.8, {ease: FlxEase.quadOut, type: BACKWARD, 
-						onComplete: function(twn:FlxTween)
-							{
-								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 1.2, {ease: FlxEase.quadInOut});
-								camHUD.visible = true;
-								remove(blackScreen);
-
-								startCountdown();
-							}});
-					new FlxTimer().start(1.4, function(tmr:FlxTimer)
+					dad.visible = true;
+					var daTiming = 0;
+					new FlxTimer().start(0.01, function(tmr:FlxTimer)
 						{
-							snapCamFollowToPos(dad.getGraphicMidpoint().x + 70, dad.getGraphicMidpoint().y - 160);
-
+							if (daTiming == 0){
 							FlxG.camera.zoom = 1.2;
-							dad.visible = true;
-
-							FlxG.sound.play(Paths.sound('ventt'), 2.3);
-
 							dad.playAnim('Vent', true);
+							}
+
+							if (daTiming <= 17)
+								{
+									if (dad.animation.curAnim.curFrame >= 7)
+										{
+										dad.playAnim('Vent', true);
+										}
+								}
+
+							if (daTiming == 15)
+								FlxG.sound.play(Paths.sound('ventt'), 2.3);
+
+
+							if (daTiming >= 37){
+							camHUD.visible = true;
+							startCountdown();
+							}
+							daTiming++;
+
+							tmr.reset(0.01);
 						});
+
+
+							
+		
 				case "monster":
 					var whiteScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.WHITE);
 					add(whiteScreen);
@@ -1414,7 +1431,10 @@ class PlayState extends MusicBeatState
 				default:
 					startCountdown();
 			}
-			seenCutscene = true;
+			if (daSong != 'fuck' && daSong != 'pussy')
+				seenCutscene = true;
+	
+
 		} else {
 			startCountdown();
 		}
@@ -1692,13 +1712,13 @@ class PlayState extends MusicBeatState
 
 		if(foundFile) {
 			inCutscene = isCutscene;
-			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-			bg.scrollFactor.set();
-			bg.cameras = [camHUD];
-			add(bg);
+			cutscenebg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
+			cutscenebg.scrollFactor.set();
+			cutscenebg.cameras = [camHUD];
+			add(cutscenebg);
 
 			(new FlxVideo(fileName)).finishCallback = function() {
-				remove(bg);
+				remove(cutscenebg);
 				completedVideo = true;
 
 				if (isCutscene)
@@ -1977,7 +1997,7 @@ class PlayState extends MusicBeatState
 					bottomBoppers.dance(true);
 					santa.dance(true);
 				}
-				if (isStoryMode && SONG.song.toLowerCase() == 'fuck')
+				if (isStoryMode && SONG.song.toLowerCase() == 'fuck' && !seenCutscene)
 					gf.dance();
 
 				if (dad.animation.finished && !flashMovement)
@@ -2117,12 +2137,13 @@ class PlayState extends MusicBeatState
 
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
-		if (isStoryMode && SONG.song.toLowerCase() != 'fuck'){
+
+		if (SONG.song.toLowerCase() != 'fuck' && (seenCutscene || SONG.song.toLowerCase() == 'pussy')){
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		}
 
-		if (isStoryMode && SONG.song.toLowerCase() == 'fuck'){
+		if (isStoryMode && SONG.song.toLowerCase() == 'fuck' && !seenCutscene){
 		camHUD.visible = true;
 		camHUD.alpha = 0;
 		FlxTween.tween(camHUD, {alpha: 1}, 0.9, {ease: FlxEase.backOut, onComplete: function (twen:FlxTween) {
@@ -2131,6 +2152,7 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.middleScroll)
 					FlxTween.tween(spr, {alpha: 0.6},0.6, {ease: FlxEase.quadInOut});
 				});
+				seenCutscene = true;
 		}});
 		
 		camZooming = false;
@@ -2656,6 +2678,14 @@ class PlayState extends MusicBeatState
 		{
 			iconP1.swapOldIcon();
 		}*/
+
+		if ((FlxG.keys.justPressed.SPACE || FlxG.keys.justPressed.ENTER) && isStoryMode && SONG.song.toLowerCase() == 'cray cray' && inCutscene){
+			FlxVideo.skipVLC();
+			remove(cutscenebg);
+			completedVideo = true;
+
+			startAndEnd();
+		}
 
 		callOnLuas('onUpdate', [elapsed]);
 
@@ -3675,9 +3705,12 @@ class PlayState extends MusicBeatState
 								defaultCamZoom = 0.9;
 
 								FlxTween.cancelTweensOf(camHUD);
-								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 1.2, {ease: FlxEase.quadInOut});
+								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, 1.2, {ease: FlxEase.quadInOut, onComplete: function(twen:FlxTween)
+									{
+										canPause = true;
+									}
+								});
 								FlxTween.tween(camHUD, {alpha: 1}, 0.6);
-								canPause = true;
 								trace(boyfriendCamPos + " Keeping track of cam pos of bf 2");
 
 								new FlxTimer().start(1.7, function(tmr:FlxTimer)
@@ -3811,6 +3844,8 @@ class PlayState extends MusicBeatState
 
 		if (SONG.song.toLowerCase() == 'pip' && isStoryMode)
 			{
+				lastSavedHealth = health;
+				trace(health+ " is what was left | "+lastSavedHealth+" was what i got");
 			//	FlxTween.tween(camHUD, {alpha: 0}, 0.5, {ease: FlxEase.quadInOut});
 				FlxTween.tween(FlxG.camera, {x: 0, y: 0, zoom: defaultCamZoom}, 0.55, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween) {
 					finishCallback();
@@ -3850,7 +3885,7 @@ class PlayState extends MusicBeatState
 				return;
 			}
 		}
-		if (SONG.song.toLowerCase() != 'fuck' && isStoryMode){
+		if (SONG.song.toLowerCase() != 'pip' && isStoryMode){
 		timeBarBG.visible = false;
 		timeBar.visible = false;
 		timeTxt.visible = false;
@@ -4841,14 +4876,11 @@ class PlayState extends MusicBeatState
 						}
 
 					case 'Sus Note': //Sus note
-						if(boyfriend.animation.getByName('hurt') != null) {
-							boyfriend.playAnim('hurt', true);
-							boyfriend.specialAnim = true;
-							amongusDrip.alpha = 1;
-							FlxTween.cancelTweensOf(amongusDrip);
+						FlxTween.cancelTweensOf(amongusDrip);
+						amongusDrip.alpha = 1;
 						FlxG.sound.play(Paths.sound('vine-boom'));
 						FlxTween.tween(amongusDrip, {alpha: 0}, 1.4);
-						}
+						
 				}
 				
 				note.wasGoodHit = true;
@@ -5398,6 +5430,17 @@ class PlayState extends MusicBeatState
 		{
 			lightningStrikeShit();
 		}
+
+		// if (curBeat == 511 && curSong.toLowerCase() == 'pussy')
+		// 	{
+		// 		defaultCamZoom = 1.6;
+		// 		camGame.zoom = 1.6;
+		// 	}
+		// if (curBeat == 526 && curSong.toLowerCase() == 'pussy')
+		// 	{
+		// 		defaultCamZoom = 0.86;
+		// 		camGame.zoom = 0.86;
+		// 	}
 
 		if (curBeat == 322 && curSong.toLowerCase() == 'cray cray')
 			{
