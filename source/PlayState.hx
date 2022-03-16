@@ -172,6 +172,7 @@ class PlayState extends MusicBeatState
 	public var health:Float = 1;
 	public var combo:Int = 0;
 	public static var lastSavedHealth:Float = 1;
+	public static var lastSavedRating:String = "";
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
@@ -1234,7 +1235,7 @@ class PlayState extends MusicBeatState
 					timeTxt.visible = true;
 					timeTxt.text = "0:00";
 					health = lastSavedHealth;
-
+					scoreTxt.text = lastSavedRating;
 					inCutscene = true;
 					isCameraOnForcedPos = true;
 
@@ -2000,7 +2001,7 @@ class PlayState extends MusicBeatState
 				if (isStoryMode && SONG.song.toLowerCase() == 'fuck' && !seenCutscene)
 					gf.dance();
 
-				if (dad.animation.finished && !flashMovement)
+				if (dad.animation.finished && !flashMovement && SONG.song.toLowerCase() == 'pip')
 					dad.playAnim('idle', true);
 				
 
@@ -2142,7 +2143,7 @@ class PlayState extends MusicBeatState
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		}
-
+	
 		if (isStoryMode && SONG.song.toLowerCase() == 'fuck' && !seenCutscene){
 		camHUD.visible = true;
 		camHUD.alpha = 0;
@@ -2162,6 +2163,12 @@ class PlayState extends MusicBeatState
 			}
 		});
 	}
+
+	if (SONG.song.toLowerCase() != 'fuck' && !seenCutscene)
+		{
+			FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+			FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		}
 
 
 		#if desktop
@@ -3845,6 +3852,7 @@ class PlayState extends MusicBeatState
 		if (SONG.song.toLowerCase() == 'pip' && isStoryMode)
 			{
 				lastSavedHealth = health;
+				lastSavedRating = scoreTxt.text;
 				trace(health+ " is what was left | "+lastSavedHealth+" was what i got");
 			//	FlxTween.tween(camHUD, {alpha: 0}, 0.5, {ease: FlxEase.quadInOut});
 				FlxTween.tween(FlxG.camera, {x: 0, y: 0, zoom: defaultCamZoom}, 0.55, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween) {
