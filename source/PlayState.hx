@@ -172,17 +172,17 @@ class PlayState extends MusicBeatState
 	public var health:Float = 1;
 	public var combo:Int = 0;
 
-	// LAST SAVED SHIT LOLLL
-	public static var lastSavedHealth:Float = 1;
-	public static var lastSavedScore:Int = 0;
-	public static var lastSavedMisses:Int = 0;
-	public static var lastSavedPercent:Float = 0.0;
-	public static var lastSavedRating:String = "";
-	public static var lastSavedFC:String = '';
+	// LAST SAVED SHIT xd
+	private static var lastSavedHealth:Float = 1;
+	private static var lastSavedScore:Int = 0;
+	private static var lastSavedMisses:Int = 0;
+	private static var lastSavedPercent:Float = 0.0;
+	private static var lastSavedRating:String = "";
+	private static var lastSavedFC:String = '';
 
-	public static var lastSavedScoretxt:String = "";
+	private static var lastSavedScoretxt:String = "";
 
-	public static var fuckCutscene:Bool = false;
+	private static var fuckCutscene:Bool = false;
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
@@ -1271,7 +1271,7 @@ class PlayState extends MusicBeatState
 					isCameraOnForcedPos = true;
 
 					//fakebops
-					new FlxTimer().start(0.7, function(fuckingtmr:FlxTimer) {
+					new FlxTimer().start(0.58, function(fuckingtmr:FlxTimer) {
 					
 						if (!gf.specialAnim)
 						{			
@@ -2907,6 +2907,11 @@ class PlayState extends MusicBeatState
 		{
 			if (SONG.song.toLowerCase() != 'pussy') // no cheating pls
 			openChartEditor();
+			else{
+				vocals.volume = 0;
+			health -= 69; 
+			doDeathCheck(true);	
+			}
 		}
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);

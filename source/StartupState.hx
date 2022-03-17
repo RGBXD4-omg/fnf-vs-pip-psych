@@ -57,7 +57,7 @@ class StartupState extends FlxState
                 skipText.scrollFactor.set();
                 skipText.borderSize = 1.25;
                 skipText.y = FlxG.height * 0.89 + 36;
-
+                skipText.visible = false;
     
                 (new FlxVideo(fileName)).finishCallback = function() {
                     remove(bg);
