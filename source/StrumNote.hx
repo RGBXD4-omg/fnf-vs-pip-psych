@@ -109,6 +109,7 @@ class StrumNote extends FlxSprite
 		x += ((FlxG.width / 2) * player);
 		ID = noteData;
 		x -= Note.posRest[PlayState.mania];
+
 	}
 
 	override function update(elapsed:Float) {
@@ -117,6 +118,7 @@ class StrumNote extends FlxSprite
 			if(resetAnim <= 0) {
 				playAnim('static');
 				resetAnim = 0;
+
 			}
 		}
 		if(animation.curAnim != null){ //my bad i was upset
@@ -130,6 +132,7 @@ class StrumNote extends FlxSprite
 
 	public function playAnim(anim:String, ?force:Bool = false) {
 		animation.play(anim, force);
+
 		centerOffsets();
 		centerOrigin();
 		if(animation.curAnim == null || animation.curAnim.name == 'static') {
@@ -143,6 +146,7 @@ class StrumNote extends FlxSprite
 
 			if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage) {
 				centerOrigin();
+
 			}
 		}
 	}

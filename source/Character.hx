@@ -408,6 +408,10 @@ class Character extends FlxSprite
 			{
 				danced = !danced;
 			}
+			if (AnimName == 'cutscene')
+				{
+					danced = !danced;
+				}
 		}
 	}
 

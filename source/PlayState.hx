@@ -171,8 +171,18 @@ class PlayState extends MusicBeatState
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
 	public var combo:Int = 0;
+
+	// LAST SAVED SHIT LOLLL
 	public static var lastSavedHealth:Float = 1;
+	public static var lastSavedScore:Int = 0;
+	public static var lastSavedMisses:Int = 0;
+	public static var lastSavedPercent:Float = 0.0;
 	public static var lastSavedRating:String = "";
+	public static var lastSavedFC:String = '';
+
+	public static var lastSavedScoretxt:String = "";
+
+	public static var fuckCutscene:Bool = false;
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
@@ -410,6 +420,13 @@ class PlayState extends MusicBeatState
 					curStage = 'stage';
 			}
 		}
+
+		// FIX SCORETXT BUG
+		if (SONG.song.toLowerCase() == 'fuck' && isStoryMode && !seenCutscene)
+			fuckCutscene = true;
+		else
+			fuckCutscene = false;
+
 
 		var stageData:StageFile = StageData.getStageFile(curStage);
 		if(stageData == null) { //Stage couldn't be found, create a dummy stage for preventing a crash
@@ -1002,6 +1019,11 @@ class PlayState extends MusicBeatState
 		if (SONG.song.toLowerCase() == 'fuck' && isStoryMode && !seenCutscene)
 			{
 				timeTxt.text = "0:00";
+				
+				if(ClientPrefs.timeBarType == 'Song Name')
+					{
+						timeTxt.text = 'Pip';
+					}
 				songPercent = 1;
 				timeBar.alpha = 1;
 				timeTxt.alpha = 1;
@@ -1231,26 +1253,29 @@ class PlayState extends MusicBeatState
 					generateStaticArrows(1);
 
 					timeBarBG.visible = showTime;
-					timeBar.visible = true;
-					timeTxt.visible = true;
+					timeBar.visible = showTime;
+					timeTxt.visible = showTime;
 					timeTxt.text = "0:00";
+								
+				if(ClientPrefs.timeBarType == 'Song Name')
+					{
+						timeTxt.text = 'Pip';
+					}
+
 					health = lastSavedHealth;
-					scoreTxt.text = lastSavedRating;
+					scoreTxt.text = lastSavedScoretxt;
+					trace(lastSavedScoretxt);
+
+					
 					inCutscene = true;
 					isCameraOnForcedPos = true;
 
 					//fakebops
-					var rightDanced = false;
 					new FlxTimer().start(0.7, function(fuckingtmr:FlxTimer) {
 					
 						if (!gf.specialAnim)
-						{
-							if (!rightDanced)
-								gf.playAnim('danceRight');
-							else
-								gf.playAnim('danceLeft');									
-						//	gf.dance(); loll kinda buggy rn
-						rightDanced = !rightDanced;
+						{			
+						gf.dance();
 						}
 						if (boyfriend.animation.curAnim.name != null && !boyfriend.animation.curAnim.name.startsWith("sing"))
 						{
@@ -1306,6 +1331,11 @@ class PlayState extends MusicBeatState
 								timeBar.alpha = 1;
 								timeTxt.alpha = 1;
 								timeTxt.text = "2:20";
+											
+								if(ClientPrefs.timeBarType == 'Song Name')
+									{
+										timeTxt.text = 'Pip';
+									}
 								health = 1;
 								FlxTween.tween(this, {songPercent: 0}, .25);
 								}
@@ -1318,7 +1348,9 @@ class PlayState extends MusicBeatState
 								startSoon = true;
 								skipCountdown = true;
 								inCutscene = !inCutscene;
-	
+								ratingName = '?';
+								scoreTxt.text = 'Score: ' + '0' + ' | Misses: ' + '0' + ' | Rating: ' + ratingName;
+
 								startCountdown();
 							}
 								if (partType == -1)
@@ -1948,7 +1980,7 @@ class PlayState extends MusicBeatState
 			startTimer = new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer)
 			{
 		
-				if (tmr.loopsLeft % gfSpeed == 0 && !gf.stunned && gf.animation.curAnim.name != null && !gf.animation.curAnim.name.startsWith("sing"))
+				if (fuckCutscene && tmr.loopsLeft % gfSpeed == 0 && !gf.stunned && gf.animation.curAnim.name != null && !gf.animation.curAnim.name.startsWith("sing"))
 				{
 					gf.dance();
 				}
@@ -1958,7 +1990,7 @@ class PlayState extends MusicBeatState
 						boyfriend.dance();
 					}
 					
-					if (startSoon != false && dad.animation.curAnim != null && !dad.animation.curAnim.name.startsWith('sing') && !dad.stunned)
+					if (startSoon != true && dad.animation.curAnim != null && !dad.animation.curAnim.name.startsWith('sing') && !dad.stunned)
 					{
 						dad.dance();
 					}
@@ -1967,7 +1999,7 @@ class PlayState extends MusicBeatState
 							dad2.dance();
 						}
 				}
-				else if(startSoon != false && dad.danceIdle && dad.animation.curAnim != null && !dad.stunned && !dad.curCharacter.startsWith('gf') && !dad.animation.curAnim.name.startsWith("sing"))
+				else if(startSoon != true && dad.danceIdle && dad.animation.curAnim != null && !dad.stunned && !dad.curCharacter.startsWith('gf') && !dad.animation.curAnim.name.startsWith("sing"))
 				{
 					dad.dance();
 					
@@ -1998,8 +2030,8 @@ class PlayState extends MusicBeatState
 					bottomBoppers.dance(true);
 					santa.dance(true);
 				}
-				if (isStoryMode && SONG.song.toLowerCase() == 'fuck' && !seenCutscene)
-					gf.dance();
+				// if (isStoryMode && SONG.song.toLowerCase() == 'fuck' && fuckCutscene)
+				// 	gf.dance();
 
 				if (dad.animation.finished && !flashMovement && SONG.song.toLowerCase() == 'pip')
 					dad.playAnim('idle', true);
@@ -2147,6 +2179,7 @@ class PlayState extends MusicBeatState
 		if (isStoryMode && SONG.song.toLowerCase() == 'fuck' && !seenCutscene){
 		camHUD.visible = true;
 		camHUD.alpha = 0;
+		gf.recalculateDanceIdle();
 		FlxTween.tween(camHUD, {alpha: 1}, 0.9, {ease: FlxEase.backOut, onComplete: function (twen:FlxTween) {
 			opponentStrums.forEach(function(spr:StrumNote)
 				{
@@ -2154,6 +2187,7 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(spr, {alpha: 0.6},0.6, {ease: FlxEase.quadInOut});
 				});
 				seenCutscene = true;
+				fuckCutscene = false;
 		}});
 		
 		camZooming = false;
@@ -2825,11 +2859,15 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
+		if (!fuckCutscene){ // isStoryMode && SONG.song.toLowerCase() == 'fuck' && !seenCutscene
+
 		if(ratingName == '?') {
 			scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName;
 		} else {
 			scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + ' (' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%)' + ' - ' + ratingFC;//peeps wanted no integer rating
 		}
+
+	}
 
 		if(botplayTxt.visible) {
 			botplaySine += 180 * elapsed;
@@ -3852,9 +3890,14 @@ class PlayState extends MusicBeatState
 		if (SONG.song.toLowerCase() == 'pip' && isStoryMode)
 			{
 				lastSavedHealth = health;
-				lastSavedRating = scoreTxt.text;
-				trace(health+ " is what was left | "+lastSavedHealth+" was what i got");
-			//	FlxTween.tween(camHUD, {alpha: 0}, 0.5, {ease: FlxEase.quadInOut});
+
+				lastSavedScore = songScore;
+				lastSavedMisses = songMisses;
+				lastSavedPercent = ratingPercent;
+				lastSavedRating = ratingName;
+				lastSavedFC = ratingFC;
+				lastSavedScoretxt = 'Score: ' + lastSavedScore + ' | Misses: ' + lastSavedMisses + ' | Rating: ' + lastSavedRating + ' (' + Highscore.floorDecimal(lastSavedPercent * 100, 2) + '%)' + ' - ' + lastSavedFC;
+				trace(lastSavedScoretxt);
 				FlxTween.tween(FlxG.camera, {x: 0, y: 0, zoom: defaultCamZoom}, 0.55, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween) {
 					finishCallback();
 				}});
@@ -5359,7 +5402,6 @@ class PlayState extends MusicBeatState
 
 		if (curBeat % gfSpeed == 0 && !gf.stunned && gf.animation.curAnim.name != null && !gf.animation.curAnim.name.startsWith("sing"))
 		{
-		//	trace("did gf dance to the left correctly? "+ gf.danced); was fixing some werid gf bug
 			gf.dance();
 		}
 
