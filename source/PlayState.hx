@@ -5003,15 +5003,21 @@ class PlayState extends MusicBeatState
 				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 					time += 0.15;
 				}
+				
 				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % Note.ammo[mania], time);
 			} else {
+				var time:Float = 0.15;
+				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
+					time += 0.15;
+				}
 				playerStrums.forEach(function(spr:StrumNote)
 				{
 					if (Math.abs(note.noteData) == spr.ID)
 					{
-						// if (mania == 4 && spr.ID == 2)
-						// 	spr.setGraphicSize(Std.int(spr.width * 1.05));
-
+				
+						if (mania == 4 && spr.ID == 2)
+							StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % Note.ammo[mania], time);
+						else
 						spr.playAnim('confirm', true);
 					}
 				});

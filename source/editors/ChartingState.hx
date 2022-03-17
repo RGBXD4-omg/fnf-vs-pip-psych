@@ -87,12 +87,11 @@ class ChartingState extends MusicBeatState
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
 		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."],
 		['Play The Cutscene', "Play Pip MidCutscene"],
-		['Add ExDad', "Add Charcter Violet"],
+		['Add ExDad', "Add Charcter Violet (ONLY WORKS IN CRAY CRAY)"],
 		['Show Space', "Show the spacebar (Works if 4 mania!)"],
-		['Trolled', "for vidz"],
-		['hidehud', "slow"],
-		['bringBackhud', "yes"],
-		['forcedCamPos', 'look im very lazy to add info on this']
+		['Trolled', "UNUSED"],
+		['hidehud', "Value1: Type in slow for a slowed down ver"],
+		['bringBackhud', "Bring Back Hude By Tweening"]
 
 	];
 	
