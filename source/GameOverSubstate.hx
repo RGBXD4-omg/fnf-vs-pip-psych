@@ -46,7 +46,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		super();
 
 		PlayState.instance.setOnLuas('inGameOver', true);
-		if (PlayState.SONG.song.toLowerCase() == 'cray cray') loopSoundName = "cheeseballs-death_dance";
+		//if (PlayState.SONG.song.toLowerCase() == 'cray cray') loopSoundName = "cheeseballs-death_dance";
 
 		Conductor.songPosition = 0;
 
