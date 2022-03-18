@@ -297,7 +297,7 @@ class PlayState extends MusicBeatState
 	public var luaArray:Array<FunkinLua> = [];
 	private var luaDebugGroup:FlxTypedGroup<DebugLuaText>;
 	public var introSoundsSuffix:String = '';
-	var gameOverStateChanged = false;
+	public static var gameOverStateChanged = false;
 
 	// Debug buttons
 	private var debugKeysChart:Array<FlxKey>;
@@ -511,6 +511,7 @@ class PlayState extends MusicBeatState
 				GameOverSubstate.loopSoundName = 'death_by_the_swag';
 				GameOverSubstate.endSoundName = 'gameOverEnd';
 				GameOverSubstate.characterName = 'bf'; 
+
 
 				vCutsce = new BGSprite('Violet_Mid_Cutscene_Animation', -300, -160, 0.0, 0.0, ['Cutscene']);
 				vCutsce.animation.addByPrefix('idle', 'Cutscene', 14, false);
@@ -3721,16 +3722,16 @@ class PlayState extends MusicBeatState
 
 			case 'Play The Cutscene': 
 				if (canPause){
+				vocals.volume = 1;
 				canPause = false;
 				defaultCamZoom = 0.7;
 				FlxG.camera.zoom = 0.7;
 				add(vCutsce);
 				vCutsce.animation.play('idle');
-				gameOverStateChanged = true;
-				GameOverSubstate.deathSoundName = 'bfgetshotanddies';
-				GameOverSubstate.loopSoundName = 'cheeseballs-death_dance';
-				GameOverSubstate.endSoundName = 'gameOverEnd';
-				GameOverSubstate.characterName = 'bf-fucking-dies';
+				// GameOverSubstate.deathSoundName = 'bfgetshotanddies';
+				// GameOverSubstate.endSoundName = 'gameOverEnd';
+				// GameOverSubstate.characterName = 'bf-fucking-dies';
+				// GameOverSubstate.loopSoundName = 'cheeseballs-death_dance';
 
 				new FlxTimer().start(2.05, function(tmr:FlxTimer)
 					{
@@ -4751,6 +4752,12 @@ class PlayState extends MusicBeatState
 	if (mania == 4 && daNote.noteData == 2)
 		{
 			trace("fuck");
+			gameOverStateChanged = true;
+			GameOverSubstate.deathSoundName = 'bfgetshotanddies';
+			GameOverSubstate.endSoundName = 'gameOverEnd';
+			GameOverSubstate.characterName = 'bf-fucking-dies';
+			GameOverSubstate.loopSoundName = 'cheeseballs-death_dance';
+
 			vocals.volume = 0;
 			health -= 69; //instakill requested by CRAE THE DIRECTOR (DONT YOU TRY VIDZ)
 			doDeathCheck(true);

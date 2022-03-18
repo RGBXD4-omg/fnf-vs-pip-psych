@@ -46,7 +46,6 @@ class GameOverSubstate extends MusicBeatSubstate
 		super();
 
 		PlayState.instance.setOnLuas('inGameOver', true);
-		//if (PlayState.SONG.song.toLowerCase() == 'cray cray') loopSoundName = "cheeseballs-death_dance";
 
 		Conductor.songPosition = 0;
 
@@ -56,6 +55,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		add(boyfriend);
 
 		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
+
 
 		FlxG.sound.play(Paths.sound(deathSoundName));
 		Conductor.changeBPM(100);
@@ -78,10 +78,22 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		super.update(elapsed);
 
+		if (characterName != 'bf-fucking-dies')
+			{
+				PlayState.gameOverStateChanged = false;
+			}
+			else
+				PlayState.gameOverStateChanged = true;
+
 		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
 		if(updateCamera) {
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 0.6, 0, 1);
+			if (characterName != 'bf-fucking-dies'){
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
+			}
+			else
+				camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y-300, lerpVal)); // wtf is this camera shit>?!
+
 		}
 
 		if (controls.ACCEPT)
@@ -111,6 +123,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				FlxG.camera.follow(camFollowPos, LOCKON, 1);
 				updateCamera = true;
 				isFollowingAlready = true;
+				
 			}
 
 			if (boyfriend.animation.curAnim.finished)
