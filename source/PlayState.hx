@@ -1217,7 +1217,7 @@ class PlayState extends MusicBeatState
 		doof.cameras = [camHUD];
 
 		// less mem is used when low quality 
-		if (ClientPrefs.lowQuality && SONG.song.toLowerCase() == 'pussy'){
+		if (SONG.song.toLowerCase() == 'pussy'){
 			amongusDrip = new FlxSprite(0,0).loadGraphic(Paths.image('AmongDrip', 'main'));
 			amongusDrip.antialiasing = true;	
 			amongusDrip.alpha = 0;
