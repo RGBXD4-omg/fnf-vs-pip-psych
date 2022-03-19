@@ -10,6 +10,7 @@ class ClientPrefs {
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
 	public static var showFPS:Bool = true;
+	public static var showMEM:Bool = true;
 	public static var flashing:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
@@ -51,7 +52,7 @@ class ClientPrefs {
 	public static var inputSystem:String = 'Native';
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
-	public static var noAntimash:Bool = false;
+	public static var noAntimash:Bool = true;
 	public static var ratingOffset:Int = 0;
 	public static var sickWindow:Int = 45;
 	public static var goodWindow:Int = 90;
@@ -166,6 +167,7 @@ class ClientPrefs {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.showFPS = showFPS;
+		FlxG.save.data.showMEM = showMEM;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
@@ -216,6 +218,12 @@ class ClientPrefs {
 			showFPS = FlxG.save.data.showFPS;
 			if(Main.fpsVar != null) {
 				Main.fpsVar.visible = showFPS;
+			}
+		}
+		if(FlxG.save.data.showMEM != null) {
+			showMEM = FlxG.save.data.showMEM;
+			if(Main.memoryCounter != null) {
+				Main.memoryCounter.visible = showMEM;
 			}
 		}
 		if(FlxG.save.data.flashing != null) {

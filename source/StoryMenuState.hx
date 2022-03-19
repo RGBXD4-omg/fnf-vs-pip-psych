@@ -356,9 +356,6 @@ class StoryMenuState extends MusicBeatState
 		if (curDifficulty >= CoolUtil.difficulties.length)
 			curDifficulty = 0;
 
-		if (pussyStare.visible)
-			curDifficulty = 2;
-
 		var image:Dynamic = Paths.image('menudifficulties/' + Paths.formatToSongPath(CoolUtil.difficulties[curDifficulty]));
 		var newImagePath:String = '';
 		if(Std.isOfType(image, FlxGraphic))
@@ -494,7 +491,6 @@ class StoryMenuState extends MusicBeatState
 				gfStare.visible = false;
 				pussyStare.visible = true;
 				pipStare.visible = false;
-				curDifficulty = 2;
 
 		}
 

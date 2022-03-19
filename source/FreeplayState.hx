@@ -65,6 +65,8 @@ class FreeplayState extends MusicBeatState
 	var charaPIP:FlxSprite;
 	var charaSus:FlxSprite;
 
+	var fcShity:FlxSprite;
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -120,6 +122,13 @@ class FreeplayState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
+		fcShity = new FlxSprite(920, 440);
+		fcShity.frames = Paths.getSparrowAtlas('fcShit', 'preload');
+		fcShity.animation.addByPrefix('fc', 'Fced', 24);
+		fcShity.animation.addByPrefix('idle', 'nonfc', 24);
+		fcShity.antialiasing = ClientPrefs.globalAntialiasing;
+		fcShity.setGraphicSize(Std.int(fcShity.width*0.6));
+
 		var bgArea:FlxSprite = new FlxSprite(0, 0.05).loadGraphic(Paths.image('FREEPLAY/FreeplayArea'));
 		var borders:FlxSprite = new FlxSprite(-6.95, -10.05).loadGraphic(Paths.image('FREEPLAY/FreeplayBorder'));
 		borders.setGraphicSize(1286, 730);
@@ -165,14 +174,39 @@ class FreeplayState extends MusicBeatState
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
 
-		
 
 		for (i in 0...songs.length)
 		{
 			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true, false);
 			songText.isMenuItem = true;
 			songText.targetY = i;
+			songText.ID = i;
 			grpSongs.add(songText);
+				/*
+			if (FlxG.save.data.PipModFC != null)
+				{
+					if (FlxG.save.data.PipModFCedPip)
+						{
+							if (songText.ID == 1)
+							songText.color = 0xffff33;
+						}
+					if (FlxG.save.data.PipModFCedFuck)
+						{
+							if (songText.ID == 2)
+							songText.color = 0xffff33;
+						}
+					if (FlxG.save.data.PipModFCedCray)
+						{
+							if (songText.ID == 3)
+							songText.color = 0xffff33;
+						}
+					if (FlxG.save.data.PussyModWeekCompleted == 2)
+						if (songText.ID == 4)
+							songText.color = 0xffff33;
+				}
+				*/
+
+
 
 			Paths.currentModDirectory = songs[i].folder;
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
@@ -189,6 +223,7 @@ class FreeplayState extends MusicBeatState
 
 	
 		add(blackBar);
+		add(fcShity);
 
 		WeekData.setDirectoryFromWeek();
 
@@ -291,6 +326,7 @@ class FreeplayState extends MusicBeatState
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
+
 		if (FlxG.sound.music.volume < 0.7)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -405,9 +441,6 @@ class FreeplayState extends MusicBeatState
 
 		else if (accepted)
 		{
-			if (songs[curSelected].songName.toLowerCase() == 'pussy')
-				curDifficulty = 2;
-			
 			FlxG.sound.play(Paths.sound('confirmMenu', 'preload'));
 			FlxTween.tween(FlxG.camera, {zoom:1.05}, 1.3, {ease: FlxEase.quadOut, type: BACKWARD});
 
@@ -474,9 +507,6 @@ class FreeplayState extends MusicBeatState
 
 		lastDifficultyName = CoolUtil.difficulties[curDifficulty];
 
-		if (songs[curSelected].songName.toLowerCase() == 'pussy')
-			curDifficulty = 2;
-
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
 		intendedRating = Highscore.getRating(songs[curSelected].songName, curDifficulty);
@@ -499,9 +529,6 @@ class FreeplayState extends MusicBeatState
 			curSelected = songs.length - 1;
 		if (curSelected >= songs.length)
 			curSelected = 0;
-
-		if (songs[curSelected].songName.toLowerCase() == 'pussy')
-			curDifficulty = 2;
 			
 		var newColor:Int = songs[curSelected].color;
 		if(newColor != intendedColor) {
@@ -515,8 +542,45 @@ class FreeplayState extends MusicBeatState
 				}
 			});
 		}
+		// me when fced
+		fcShity.animation.play('idle');
+		fcShity.centerOrigin();
+		fcShity.visible = true;
 
-	//	selector.y = (70 * curSelected) + 30;
+		if (curSelected == 0)
+			fcShity.visible = false;
+
+		if (FlxG.save.data.PipModFC != null)
+			{
+				if (FlxG.save.data.PipModFCedPip && curSelected == 1)
+					{
+						fcShity.animation.play('fc');
+						fcShity.centerOffsets();
+					}
+
+				if (FlxG.save.data.PipModFCedFuck&& curSelected == 2)
+					{
+						fcShity.animation.play('fc');
+						fcShity.centerOffsets();
+
+					}
+
+				if (FlxG.save.data.PipModFCedCray&& curSelected == 3)
+					{
+						fcShity.animation.play('fc');
+						fcShity.centerOffsets();
+
+					}
+	
+
+				if (FlxG.save.data.PussyModWeekCompleted == 2 && curSelected == 4)
+					fcShity.animation.play('fc');
+				fcShity.centerOffsets();
+
+			}
+
+
+
 
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
@@ -535,7 +599,8 @@ class FreeplayState extends MusicBeatState
 		for (item in grpSongs.members)
 		{
 			item.targetY = bullShit - curSelected;
-			bullShit++;
+			bullShit++;		
+			
 
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
@@ -583,6 +648,10 @@ class FreeplayState extends MusicBeatState
 		}
 
 	}
+
+	// function switchColors(item:Int) {
+		
+	// }
 
 	private function positionHighscore() {
 		scoreText.x = FlxG.width - scoreText.width - 6;

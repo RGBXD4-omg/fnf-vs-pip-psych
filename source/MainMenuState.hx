@@ -56,6 +56,7 @@ class MainMenuState extends MusicBeatState
 	var amongusTro:FlxSprite;
 	var pipdied:FlxSprite;
 	var blackBar:FlxSprite;
+	public static var isReseting:Bool = false;
 
 	override function create()
 	{
@@ -64,7 +65,7 @@ class MainMenuState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
-
+		isReseting = false;
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
@@ -93,35 +94,6 @@ class MainMenuState extends MusicBeatState
 		bg.scrollFactor.set(0, yScroll);
 		bg.x -= 70;
 
-		opitionsBg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('MENU/MainMenuTHEOPTIONSart'));
-		opitionsBg.setGraphicSize(1286, 730);
-		opitionsBg.updateHitbox();
-		opitionsBg.antialiasing = ClientPrefs.globalAntialiasing;
-		opitionsBg.visible = false;
-		
-		freeplayBg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('MENU/MainMenuTHEFREEPLAYart'));
-		freeplayBg.setGraphicSize(1286, 730);
-		freeplayBg.updateHitbox();
-		freeplayBg.antialiasing = ClientPrefs.globalAntialiasing;
-		freeplayBg.visible = false;
-
-		pieChart = new FlxSprite(34.5, 217.95);
-		pieChart.angle = -20;
-		pieChart.frames = Paths.getSparrowAtlas('Piechart');
-		pieChart.setGraphicSize(595, 600);
-		pieChart.animation.addByPrefix('idle', 'pie instance', 24, false);
-		pieChart.animation.addByPrefix('spinDown', 'E-piedown instance', 24, false);
-		pieChart.animation.addByPrefix('spinUp', 'F-pieup instance', 24, false);
-		pieChart.updateHitbox();
-		pieChart.x -= 80;
-		pieChart.y -= 30;
-		pieChart.antialiasing = ClientPrefs.globalAntialiasing;
-
-		var borders:FlxSprite = new FlxSprite(0.05, -7.95).loadGraphic(Paths.image('MENU/MainMenuBorder'));
-		borders.setGraphicSize(1286, 730);
-		borders.updateHitbox();
-		borders.antialiasing = ClientPrefs.globalAntialiasing;
-
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
@@ -148,8 +120,8 @@ class MainMenuState extends MusicBeatState
 		amongusTro.x -= 1150;
 		amongusTro.flipX = true;
 		amongusTro.antialiasing = ClientPrefs.globalAntialiasing;
-		amongusTro.animation.addByPrefix('idle', 'StonePussy', 24, true);
-		amongusTro.animation.addByPrefix('Gold', 'D-goldpussy', 24, true);
+		amongusTro.animation.addByPrefix('idle', 'StonePussy', 24);
+		amongusTro.animation.addByPrefix('Gold', 'D-goldpussy instance', 24, true);
 		amongusTro.visible = false;
 		amongusTro.scrollFactor.set();
 
@@ -227,6 +199,7 @@ class MainMenuState extends MusicBeatState
 
 		if (FlxG.save.data.PussyModWeekCompleted == 2){
 			amongusTro.visible = true;
+			amongusTro.animation.stop();
 			amongusTro.animation.play('Gold', true);
 		}
 		
@@ -236,10 +209,25 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
+
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
+
+		var resetTxt = new FlxText(0, 0, FlxG.width, "PRESS RESET TO CLEAR GAME PROGRESS", 20);
+		resetTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		resetTxt.scrollFactor.set();
+		resetTxt.borderSize = 1.25;
+		resetTxt.y = FlxG.height * 0.89 + 18;
+		add(resetTxt);
+
+		var tipTxt = new FlxText(0, 0, FlxG.width, "Also Turn On low Quality Mode if your having trouble loading in!", 20);
+		tipTxt.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipTxt.scrollFactor.set();
+		tipTxt.borderSize = 1.25;
+		tipTxt.y = FlxG.height * 0.89 + 40;
+		add(tipTxt);
 
 		// NG.core.calls.event.logEvent('swag').send();
 
@@ -282,7 +270,7 @@ class MainMenuState extends MusicBeatState
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
-		if (!selectedSomethin)
+		if (!selectedSomethin && !isReseting)
 		{
 			if (controls.UI_UP_P)
 			{
@@ -307,6 +295,12 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
+
+			if (controls.RESET)
+				{
+					isReseting = true;
+					openSubState(new RemoveDataSubState());
+				}
 
 			if (controls.ACCEPT)
 			{

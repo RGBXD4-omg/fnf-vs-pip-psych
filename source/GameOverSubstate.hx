@@ -65,6 +65,9 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.target = null;
 
 		boyfriend.playAnim('firstDeath');
+		if (PlayState.SONG.song.toLowerCase() == 'pussy')
+			FlxG.sound.play(Paths.sound('vine-boom'));
+
 
 		var exclude:Array<Int> = [];
 

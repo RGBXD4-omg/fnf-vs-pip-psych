@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 #if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
@@ -177,6 +178,8 @@ class WeekData {
 
 	private static function addWeek(weekToCheck:String, path:String, directory:String, i:Int, originalLength:Int)
 	{
+
+
 		if(!weeksLoaded.exists(weekToCheck))
 		{
 			var week:WeekFile = getWeekFile(path);
@@ -189,6 +192,10 @@ class WeekData {
 					weekFile.folder = directory.substring(Paths.mods().length, directory.length-1);
 					#end
 				}
+				
+				if (weekFile.hideFreeplay && FlxG.save.data.PussyModWeekCompleted >= 1)
+					weekFile.hideFreeplay = false;
+
 				if((PlayState.isStoryMode && !weekFile.hideStoryMode) || (!PlayState.isStoryMode && !weekFile.hideFreeplay))
 				{
 					weeksLoaded.set(weekToCheck, weekFile);

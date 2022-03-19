@@ -1,7 +1,7 @@
 {
 	"storyName": "Pussy",
-	"difficulties": "",
-	"hideFreeplay": false,
+	"difficulties": "Hard",
+	"hideFreeplay": true,
 	"weekBackground": "stage",
 	"weekBefore": "weekPi",
 	"freeplayColor": [
