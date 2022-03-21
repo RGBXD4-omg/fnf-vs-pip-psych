@@ -1504,11 +1504,10 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 
-		if(!ClientPrefs.controllerMode)
-		{
-			FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
-			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
-		}
+
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
+		
 
 		Conductor.safeZoneOffset = (ClientPrefs.safeFrames / 60) * 1000;
 		callOnLuas('onCreatePost', []);
@@ -4679,142 +4678,145 @@ class PlayState extends MusicBeatState
 	}
 
 	private function onKeyPress(event:KeyboardEvent):Void
-	{
-		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(eventKey);
-		//trace('Pressed: ' + eventKey);
-
-		if (!cpuControlled && !paused && key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.controllerMode))
 		{
-			if(!boyfriend.stunned && generatedMusic && !endingSong)
-			{
-				//more accurate hit time for the ratings?
-				var lastTime:Float = Conductor.songPosition;
-				Conductor.songPosition = FlxG.sound.music.time;
-
-				var canMiss:Bool = !ClientPrefs.ghostTapping;
-
-				// heavily based on my own code LOL if it aint broke dont fix it
-				var pressNotes:Array<Note> = [];
-				//var notesDatas:Array<Int> = [];
-				var notesStopped:Bool = false;
-
-				var sortedNotesList:Array<Note> = [];
-				notes.forEachAlive(function(daNote:Note)
-				{
-					if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.isSustainNote)
-					{
-						if(daNote.noteData == key)
-						{
-							sortedNotesList.push(daNote);
-							//notesDatas.push(daNote.noteData);
-						}
-						canMiss = true;
-					}
-				});
-				sortedNotesList.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
-
-				if (sortedNotesList.length > 0) {
-					for (epicNote in sortedNotesList)
-					{
-						for (doubleNote in pressNotes) {
-							if (Math.abs(doubleNote.strumTime - epicNote.strumTime) < 1) {
-								doubleNote.kill();
-								notes.remove(doubleNote, true);
-								doubleNote.destroy();
-							} else
-								notesStopped = true;
-						}
-							
-						// eee jack detection before was not super good
-						if (!notesStopped) {
-							goodNoteHit(epicNote);
-							pressNotes.push(epicNote);
-						}
-
-					}
-				}
-				else if (canMiss) {
-					noteMissPress(key);
-					callOnLuas('noteMissPress', [key]);
-				}
-
-				// I dunno what you need this for but here you go
-				//									- Shubs
-
-				// Shubs, this is for the "Just the Two of Us" achievement lol
-				//									- Shadow Mario
-				keysPressed[key] = true;
-
-				//more accurate hit time for the ratings? part 2 (Now that the calculations are done, go back to the time it was before for not causing a note stutter)
-				Conductor.songPosition = lastTime;
-			}
-
-			var spr:StrumNote = playerStrums.members[key];
-			if(spr != null && spr.animation.curAnim.name != 'confirm')
-			{
-				spr.playAnim('pressed');
-				spr.resetAnim = 0;
-			}
-			callOnLuas('onKeyPress', [key]);
-		}
-		//trace('pressed: ' + controlArray);
-	}
+			var eventKey:FlxKey = event.keyCode;
+			var key:Int = getKeyFromEvent(eventKey);
+			//trace('Pressed: ' + eventKey);
 	
-	private function onKeyRelease(event:KeyboardEvent):Void
-	{
-		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(eventKey);
-		if(!cpuControlled && !paused && key > -1)
-		{
-			var spr:StrumNote = playerStrums.members[key];
-			if(spr != null)
+			if (!cpuControlled && !paused && key > -1 && FlxG.keys.checkStatus(eventKey, JUST_PRESSED))
 			{
-				spr.playAnim('static');
-				spr.resetAnim = 0;
-			}
-			callOnLuas('onKeyRelease', [key]);
-		}
-		//trace('released: ' + controlArray);
-	}
-
-	private function getKeyFromEvent(key:FlxKey):Int
-	{
-		if(key != NONE)
-		{
-			for (i in 0...keysArray[mania].length)
-			{
-				for (j in 0...keysArray[mania][i].length)
+				if(!boyfriend.stunned && generatedMusic && !endingSong)
 				{
-					if(key == keysArray[mania][i][j])
+					//more accurate hit time for the ratings?
+					var lastTime:Float = Conductor.songPosition;
+					Conductor.songPosition = FlxG.sound.music.time;
+	
+					var canMiss:Bool = !ClientPrefs.ghostTapping;
+	
+					// heavily based on my own code LOL if it aint broke dont fix it
+					var pressNotes:Array<Note> = [];
+					//var notesDatas:Array<Int> = [];
+					var notesStopped:Bool = false;
+	
+					var sortedNotesList:Array<Note> = [];
+					notes.forEachAlive(function(daNote:Note)
 					{
-						return i;
+						if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.isSustainNote)
+						{
+							if(daNote.noteData == key)
+							{
+								sortedNotesList.push(daNote);
+								//notesDatas.push(daNote.noteData);
+							}
+							if (!ClientPrefs.noAntimash) {	//shut up
+								canMiss = true;
+							}
+						}
+					});
+					sortedNotesList.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
+	
+					if (sortedNotesList.length > 0) {
+						for (epicNote in sortedNotesList)
+						{
+							for (doubleNote in pressNotes) {
+								if (Math.abs(doubleNote.strumTime - epicNote.strumTime) < 1) {
+									doubleNote.kill();
+									notes.remove(doubleNote, true);
+									doubleNote.destroy();
+								} else
+									notesStopped = true;
+							}
+								
+							// eee jack detection before was not super good
+							if (!notesStopped) {
+								goodNoteHit(epicNote);
+								pressNotes.push(epicNote);
+							}
+	
+						}
+					}
+					else if (canMiss) {
+						noteMissPress(key);
+						callOnLuas('noteMissPress', [key]);
+					}
+	
+					// I dunno what you need this for but here you go
+					//									- Shubs
+	
+					// Shubs, this is for the "Just the Two of Us" achievement lol
+					//									- Shadow Mario
+					keysPressed[key] = true;
+	
+					//more accurate hit time for the ratings? part 2 (Now that the calculations are done, go back to the time it was before for not causing a note stutter)
+					Conductor.songPosition = lastTime;
+				}
+	
+				var spr:StrumNote = playerStrums.members[key];
+				if(spr != null && spr.animation.curAnim.name != 'confirm')
+				{
+					spr.playAnim('pressed');
+					spr.resetAnim = 0;
+				}
+				callOnLuas('onKeyPress', [key]);
+			}
+			//trace('pressed: ' + controlArray);
+		}
+	
+		private function onKeyRelease(event:KeyboardEvent):Void
+			{
+				var eventKey:FlxKey = event.keyCode;
+				var key:Int = getKeyFromEvent(eventKey);
+				if(!cpuControlled && !paused && key > -1)
+				{
+					var spr:StrumNote = playerStrums.members[key];
+					if(spr != null)
+					{
+						spr.playAnim('static');
+						spr.resetAnim = 0;
+					}
+		
+					callOnLuas('onKeyRelease', [key]);
+				}
+				//trace('released: ' + controlArray);
+			}
+		
+			private function getKeyFromEvent(key:FlxKey):Int
+			{
+				if(key != NONE)
+				{
+					for (i in 0...keysArray[mania].length)
+					{
+						for (j in 0...keysArray[mania][i].length)
+						{
+							if(key == keysArray[mania][i][j])
+							{
+								return i;
+							}
+						}
 					}
 				}
+				return -1;
 			}
-		}
-		return -1;
-	}
-
-	private function keysArePressed():Bool
-	{
-		for (i in 0...keysArray[mania].length) {
-			for (j in 0...keysArray[mania][i].length) {
-				if (FlxG.keys.checkStatus(keysArray[mania][i][j], PRESSED)) return true;
+		
+			private function keysArePressed():Bool
+			{
+				for (i in 0...keysArray[mania].length) {
+					for (j in 0...keysArray[mania][i].length) {
+						if (FlxG.keys.checkStatus(keysArray[mania][i][j], PRESSED)) return true;
+					}
+				}
+		
+				return false;
 			}
-		}
-
-		return false;
-	}
-
-	private function dataKeyIsPressed(data:Int):Bool
-	{
-		for (i in 0...keysArray[mania][data].length) {
-			if (FlxG.keys.checkStatus(keysArray[mania][data][i], PRESSED)) return true;
-		}
-
-		return false;
-	}
+		
+			private function dataKeyIsPressed(data:Int):Bool
+			{
+				for (i in 0...keysArray[mania][data].length) {
+					if (FlxG.keys.checkStatus(keysArray[mania][data][i], PRESSED)) return true;
+				}
+		
+				return false;
+			}
 
 	private function keyShit():Void
 		{
@@ -5443,11 +5445,11 @@ class PlayState extends MusicBeatState
 		}
 		luaArray = [];
 
-		if(!ClientPrefs.controllerMode)
-		{
-			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
-			FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
-		}
+	
+		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
+		FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
+		
+
 		super.destroy();
 	}
 
