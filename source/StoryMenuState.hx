@@ -221,6 +221,7 @@ class StoryMenuState extends MusicBeatState
 		super.closeSubState();
 	}
 
+
 	override function update(elapsed:Float)
 	{
 		// scoreText.setFormat('VCR OSD Mono', 32);

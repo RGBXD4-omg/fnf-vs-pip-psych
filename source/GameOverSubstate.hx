@@ -81,13 +81,6 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		super.update(elapsed);
 
-		if (characterName != 'bf-fucking-dies')
-			{
-				PlayState.gameOverStateChanged = false;
-			}
-			else
-				PlayState.gameOverStateChanged = true;
-
 		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
 		if(updateCamera) {
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 0.6, 0, 1);

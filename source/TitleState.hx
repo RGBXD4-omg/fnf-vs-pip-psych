@@ -226,26 +226,6 @@ class TitleState extends MusicBeatState
 	{
 		if (!initialized)
 		{
-			/*var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
-			diamond.persist = true;
-			diamond.destroyOnNoUse = false;
-
-			FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), {asset: diamond, width: 32, height: 32},
-				new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-			FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
-				{asset: diamond, width: 32, height: 32}, new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-				
-			transIn = FlxTransitionableState.defaultTransIn;
-			transOut = FlxTransitionableState.defaultTransOut;*/
-
-			// HAD TO MODIFY SOME BACKEND SHIT
-			// IF THIS PR IS HERE IF ITS ACCEPTED UR GOOD TO GO
-			// https://github.com/HaxeFlixel/flixel-addons/pull/348
-
-			// var music:FlxSound = new FlxSound();
-			// music.loadStream(Paths.music('freakyMenu'));
-			// FlxG.sound.list.add(music);
-			// music.play();
 
 			if(FlxG.sound.music == null) {
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
@@ -276,16 +256,6 @@ class TitleState extends MusicBeatState
 		ezXD.updateHitbox();
 		ezXD.screenCenter();
 		ezXD.y += 50;
-
-		// if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none"){
-		// 	bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
-		// }else{
-		// 	bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		// }
-		
-		// bg.antialiasing = ClientPrefs.globalAntialiasing;
-		// bg.setGraphicSize(Std.int(bg.width * 0.6));
-		// bg.updateHitbox();
 		
 		
 		ezXD.visible = false;
@@ -381,14 +351,10 @@ class TitleState extends MusicBeatState
 		logo.antialiasing = ClientPrefs.globalAntialiasing;
 		// add(logo);
 
-		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
-		// FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
-
 		credGroup = new FlxGroup();
 		add(credGroup);
 		textGroup = new FlxGroup();
 
-		//blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		credGroup.add(fuckbg);
 		credGroup.add(ezXD);
 
@@ -436,7 +402,7 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		var foldersToCheck:Array<String> = [Paths.getPreloadPath('main/images/old/error')];
+		var foldersToCheck:Array<String> = [Paths.getPreloadPath('main/images')];
 		var canEnter = false;
 		for (folder in foldersToCheck)
 		{
@@ -444,7 +410,7 @@ class TitleState extends MusicBeatState
 			{
 				for (file in FileSystem.readDirectory(folder))
 				{
-					if(file.toString().toLowerCase() == 'pipleak49.png')
+					if(file.toString().toLowerCase() == 'veryimportantimage.png')
 					{
 						canEnter = true;
 						break;
@@ -454,7 +420,7 @@ class TitleState extends MusicBeatState
 		}
 		if (canEnter == false)
 			{
-				lime.app.Application.current.window.alert('I cant find a funni file called pipleak49.png', 'You Idiot');
+				lime.app.Application.current.window.alert('You trial of life is expired...', '?1?');
 				Sys.exit(0);
 			}
 
@@ -513,6 +479,7 @@ class TitleState extends MusicBeatState
 				});
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 			}
+			
 			else if(easterEggEnabled)
 			{
 				var finalKey:FlxKey = FlxG.keys.firstJustPressed();
@@ -533,26 +500,6 @@ class TitleState extends MusicBeatState
 							}
 						}
 
-						/*if(!isDifferent) {
-							trace('Easter egg triggered!');
-							FlxG.save.data.psykaEasterEgg = !FlxG.save.data.psykaEasterEgg;
-							FlxG.sound.play(Paths.sound('secretSound'));
-
-							var black:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-							black.alpha = 0;
-							add(black);
-
-							FlxTween.tween(black, {alpha: 1}, 1, {onComplete:
-								function(twn:FlxTween) {
-									FlxTransitionableState.skipNextTransIn = true;
-									FlxTransitionableState.skipNextTransOut = true;
-									MusicBeatState.switchState(new TitleState());
-								}
-							});
-							lastKeysPressed = [];
-							closedState = true;
-							transitioning = true;
-						}*/
 					}
 				}
 			}
@@ -660,12 +607,9 @@ class TitleState extends MusicBeatState
 				// credTextShit.visible = true;
 				case 10:
 					addMoreText(curWacky[1]);
-				// credTextShit.text += '\nlmao';
 				case 12:
 					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = "Friday";
-				// credTextShit.screenCenter();
+
 				case 13:
 					addMoreText('Friday Night Funkin');
 				// credTextShit.visible = true;

@@ -58,6 +58,12 @@ class MainMenuState extends MusicBeatState
 	var blackBar:FlxSprite;
 	public static var isReseting:Bool = false;
 
+	var tipTxt:FlxText;
+	var resetTxt:FlxText;
+
+	var descText:FlxText;
+	var descBox:FlxSprite;
+
 	override function create()
 	{
 		#if desktop
@@ -80,11 +86,6 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-
-		var yellowBg:FlxSprite = new FlxSprite(0, -7.95).loadGraphic(Paths.image('MENU/MainMenuArea'));
-		yellowBg.setGraphicSize(1286, 730);
-		yellowBg.updateHitbox();
-		yellowBg.antialiasing = ClientPrefs.globalAntialiasing;
 
 		bg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('menuBG'));
 		//bg.setGraphicSize(1286, 730);
@@ -215,19 +216,31 @@ class MainMenuState extends MusicBeatState
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 
-		var resetTxt = new FlxText(0, 0, FlxG.width, "PRESS RESET TO CLEAR GAME PROGRESS", 20);
+		resetTxt = new FlxText(0, 0, FlxG.width, "PUSH RESET TO CLEAR GAME PROGRESS", 20);
 		resetTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		resetTxt.scrollFactor.set();
 		resetTxt.borderSize = 1.25;
 		resetTxt.y = FlxG.height * 0.89 + 18;
 		add(resetTxt);
 
-		var tipTxt = new FlxText(0, 0, FlxG.width, "Also Turn On low Quality Mode if your having trouble loading in!", 20);
+		tipTxt = new FlxText(0, 0, FlxG.width, "Use Low Quality Mode For Potato PCs", 20);
 		tipTxt.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipTxt.scrollFactor.set();
 		tipTxt.borderSize = 1.25;
 		tipTxt.y = FlxG.height * 0.89 + 40;
 		add(tipTxt);
+
+		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.alpha = 0.6;
+		add(descBox);
+	
+		descText = new FlxText(50, 600, 1180, "", 32);
+		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.scrollFactor.set();
+		descText.borderSize = 2.4;
+		add(descText);
+		descText.visible = false;
+		descBox.visible = false;
 
 		// NG.core.calls.event.logEvent('swag').send();
 
@@ -245,6 +258,8 @@ class MainMenuState extends MusicBeatState
 			}
 		}
 		#end
+		FlxG.mouse.visible = true;
+
 
 		super.create();
 	}
@@ -262,6 +277,18 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+
+		if (FlxG.mouse.overlaps(pipdied))
+			{
+				descText.text = "You need to complete WeekPi first!";
+				descText.screenCenter(Y);
+				descText.y += 270;
+		
+				descBox.setPosition(descText.x - 10, descText.y - 10);
+				descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
+				descBox.updateHitbox();
+			}
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -304,6 +331,7 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
+				FlxG.mouse.visible = false;
 				if (optionShit[curSelected] == 'donate')
 				{
 					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
@@ -346,10 +374,6 @@ class MainMenuState extends MusicBeatState
 										MusicBeatState.switchState(new StoryMenuState());
 									case 'freeplay':
 										MusicBeatState.switchState(new FreeplayState());
-									#if MODS_ALLOWED
-									case 'mods':
-										MusicBeatState.switchState(new ModsMenuState());
-									#end
 									case 'awards':
 										MusicBeatState.switchState(new AchievementsMenuState());
 									case 'credits':
@@ -363,7 +387,7 @@ class MainMenuState extends MusicBeatState
 				}
 			}
 			
-			#if desktop
+			#if debug
 			else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
 				selectedSomethin = true;

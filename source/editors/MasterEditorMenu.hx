@@ -46,6 +46,8 @@ class MasterEditorMenu extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
 		bg.color = 0xFF353535;
+		bg.setGraphicSize(Std.int(1286 * 1.175));
+		bg.screenCenter();
 		add(bg);
 
 		grpTexts = new FlxTypedGroup<Alphabet>();

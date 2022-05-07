@@ -35,6 +35,7 @@ class CreditsState extends MusicBeatState
 	var descText:FlxText;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
+	var descBox:FlxSprite;
 
 	override function create()
 	{
@@ -94,20 +95,19 @@ class CreditsState extends MusicBeatState
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 			['Vs Pip Team'],
 			['Crae',		'crae',		'Main Artist of Vs Pip',						'https://twitter.com/Crae_YT',	'5b5b5b'],
-			['Charlie',			'charlie',		'Main Charter of Vs Pip',					'https://twitter.com/pickled_bastard',		'8fce00'],
+			['Sophie',			'sophie',		'Main Charter of Vs Pip',					'https://twitter.com/pickled_bastard',		'8fce00'],
 			['Kalpy',			'kalpy',			'Main Composer of Vs Pip',				'https://twitter.com/Kalpy19',			'6fa8dc'],
-			['Carlitosmorecom',			'carlitos',			'Main Coder of Vs Pip',				'https://twitter.com/carlitosmorecom',			'f1c232'],
-			['Vidz',			'vidz',			'Coder of Vs Pip',				'https://twitter.com/ItsVidz3',			'16537e'],
-			['Kevin Kuntz',			'kevin',			'Coder of Vs Pip',				'https://github.com/KevinKuntz255',			'0c446c'],
+			['Carlitosmorecom',			'carlitos',			'Main Programmer of Vs Pip',				'https://twitter.com/carlitosmorecom',			'f1c232'],
+			['Vidz',			'vidz',			'Additional Programmer of Vs Pip',				'https://twitter.com/ItsVidz3',			'16537e'],
+			['Special Thanks'],
+			['Kevin Kuntz',			'kevin',			'Additional Programmer of Vs Pip',				'https://github.com/KevinKuntz255',			'0c446c'],
 			[''],
-			[''],
-			['Engine Shit'],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',						'https://twitter.com/Shadow_Mario_',	'444444'],
 			['RiverOaken',			'riveroaken',		'Main Artist/Animator of Psych Engine',					'https://twitter.com/river_oaken',		'C30085'],
 			['bb-panzu',			'bb-panzu',			'Additional Programmer of Psych Engine',				'https://twitter.com/bbsub3',			'389A58'],
 			[''],
-			['Engine Contributors'],
+			['Psych Engine Contributors'],
 			['shubs',				'shubs',			'New Input System Programmer',							'https://twitter.com/yoshubs',			'4494E6'],
 			['SqirraRNG',			'gedehari',			'Chart Editor\'s Sound Waveform base',					'https://twitter.com/gedehari',			'FF9300'],
 			['iFlicky',				'iflicky',			'Delay/Combo Menu Song Composer\nand Dialogue Sounds',	'https://twitter.com/flicky_i',			'C549DB'],
@@ -161,6 +161,10 @@ class CreditsState extends MusicBeatState
 			}
 		}
 		add(blackBar);
+
+		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.alpha = 0.6;
+		add(descBox);
 	
 		descText = new FlxText(50, 600, 1180, "", 32);
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -254,6 +258,12 @@ class CreditsState extends MusicBeatState
 			}
 		}
 		descText.text = creditsStuff[curSelected][2];
+		descText.screenCenter(Y);
+		descText.y += 270;
+
+		descBox.setPosition(descText.x - 10, descText.y - 10);
+		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
+		descBox.updateHitbox();
 	}
 
 	function getCurrentBGColor() {
