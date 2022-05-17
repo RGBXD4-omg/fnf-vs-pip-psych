@@ -36,17 +36,11 @@ class MainMenuState extends MusicBeatState
 	
 	var optionShit:Array<String> = [
 		'story_mode',
-		'freeplay',
 		'credits',
 		'options'
 	];
 
-	var newGaming:FlxText;
-	var newGaming2:FlxText;
-	var pieChart:FlxSprite;
 	var bg:FlxSprite;
-	var opitionsBg:FlxSprite;
-	var freeplayBg:FlxSprite;
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
@@ -58,11 +52,7 @@ class MainMenuState extends MusicBeatState
 	var blackBar:FlxSprite;
 	public static var isReseting:Bool = false;
 
-	var tipTxt:FlxText;
-	var resetTxt:FlxText;
-
 	var descText:FlxText;
-	var descBox:FlxSprite;
 
 	override function create()
 	{
@@ -85,10 +75,17 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
+
+		if (FlxG.save.data.PipModWeekCompleted == 1)
+			optionShit = [
+				'story_mode',
+				'freeplay',
+				'credits',
+				'options'
+			];
+			var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 
 		bg = new FlxSprite(0, -9.95).loadGraphic(Paths.image('menuBG'));
-		//bg.setGraphicSize(1286, 730);
 		bg.setGraphicSize(Std.int(1286 * 1.175));
 		bg.updateHitbox();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -104,13 +101,16 @@ class MainMenuState extends MusicBeatState
 		pipdied.frames = Paths.getSparrowAtlas('MenuShitAssets');
 		pipdied.setGraphicSize(203, 360);
 		pipdied.setPosition(1024.45, 339.1);
-		pipdied.y -= 300;
-		pipdied.x -= 180;
+		// pipdied.y -= 300;
+		// pipdied.x -= 180;
 		pipdied.animation.addByPrefix('idleGold', 'C-goldpip', 24, true);
 		pipdied.animation.addByPrefix('idleStone', 'StonePip', 24, true);
 		pipdied.animation.addByPrefix('idle', 'A-lockedtrophy', 24, true);
+		pipdied.animation.addByPrefix('select', 'B-lockedtrophyselect instance', 24, true);
+
 		pipdied.scrollFactor.set();
 		pipdied.antialiasing = ClientPrefs.globalAntialiasing;
+		pipdied.updateHitbox();
 
 
 		amongusTro = new FlxSprite(0, -9.95);
@@ -134,9 +134,7 @@ class MainMenuState extends MusicBeatState
 		
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuBGMagenta'));
 		magenta.scrollFactor.set(0, yScroll);
-	//	magenta.setGraphicSize(1286, 730);
 		magenta.setGraphicSize(Std.int(1286 * 1.175));
-		//magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
 		magenta.screenCenter();
 		magenta.x -= 70;
@@ -154,6 +152,8 @@ class MainMenuState extends MusicBeatState
 		/*if(optionShit.length > 6) {
 			scale = 6 / optionShit.length;
 		}*/
+
+	
 
 		var menuId = 1;
 		for (i in 0...optionShit.length)
@@ -206,33 +206,11 @@ class MainMenuState extends MusicBeatState
 		
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
-
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
-
-		resetTxt = new FlxText(0, 0, FlxG.width, "PUSH RESET TO CLEAR GAME PROGRESS", 20);
+		var resetTxt = new FlxText(0, FlxG.height * 0.89 + 25, FlxG.width, "PUSH RESET TO CLEAR GAME PROGRESS", 20);
 		resetTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		resetTxt.scrollFactor.set();
 		resetTxt.borderSize = 1.25;
-		resetTxt.y = FlxG.height * 0.89 + 18;
 		add(resetTxt);
-
-		tipTxt = new FlxText(0, 0, FlxG.width, "Use Low Quality Mode For Potato PCs", 20);
-		tipTxt.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipTxt.scrollFactor.set();
-		tipTxt.borderSize = 1.25;
-		tipTxt.y = FlxG.height * 0.89 + 40;
-		add(tipTxt);
-
-		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
-		descBox.alpha = 0.6;
-		add(descBox);
 	
 		descText = new FlxText(50, 600, 1180, "", 32);
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -240,9 +218,6 @@ class MainMenuState extends MusicBeatState
 		descText.borderSize = 2.4;
 		add(descText);
 		descText.visible = false;
-		descBox.visible = false;
-
-		// NG.core.calls.event.logEvent('swag').send();
 
 		changeItem();
 
@@ -278,16 +253,25 @@ class MainMenuState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 
-		if (FlxG.mouse.overlaps(pipdied))
+		if (FlxG.mouse.overlaps(pipdied) && FlxG.save.data.PipModWeekCompleted != 1) 
 			{
-				descText.text = "You need to complete WeekPi first!";
+				descText.visible = true;
+
+				descText.text = "You need to complete WeekPi first \nto unlock this and freeplay!";
 				descText.screenCenter(Y);
 				descText.y += 270;
-		
-				descBox.setPosition(descText.x - 10, descText.y - 10);
-				descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
-				descBox.updateHitbox();
+
+				pipdied.animation.play('select');
+
 			}
+		else
+			{
+				if (pipdied.animation.curAnim.name == "select")
+					pipdied.animation.play('idle');
+
+				descText.visible = false;
+			}
+
 
 		if (FlxG.sound.music.volume < 0.8)
 		{

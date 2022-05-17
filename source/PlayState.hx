@@ -3720,8 +3720,12 @@ class PlayState extends MusicBeatState
 						trace("yay trophy!");
 						if ((ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC')){
 							trace("yay gold trophy!");
-							FlxG.save.data.PipModFC = 3;
+							//FlxG.save.data.PipModFC = 3;
 							FlxG.save.data.PipModFCedCray = true;
+							
+							if (FlxG.save.data.PipModFCedPip&&FlxG.save.data.PipModFCedFuck&&FlxG.save.data.PipModFCedCray){
+								FlxG.save.data.PipModFC = 3;
+							}
 
 						}
 
@@ -3972,8 +3976,12 @@ class PlayState extends MusicBeatState
 						trace("yay trophy!");
 						if ((ratingFC == 'FC' || ratingFC == 'GFC' || ratingFC =='SFC')){
 							trace("yay gold trophy!");
-							FlxG.save.data.PipModFC = 3;
+							//FlxG.save.data.PipModFC = 3; whoops
 							FlxG.save.data.PipModFCedCray = true;
+
+							if (FlxG.save.data.PipModFCedPip&&FlxG.save.data.PipModFCedFuck&&FlxG.save.data.PipModFCedCray){
+								FlxG.save.data.PipModFC = 3;
+							}
 
 						}
 					}
@@ -4576,9 +4584,6 @@ class PlayState extends MusicBeatState
 
 			var animToPlay:String = 'sing' + Note.keysShit.get(mania).get('anims')[daNote.noteData] + 'miss' + daAlt;
 
-			if (mania == 4 && daNote.noteData == 2 && ClientPrefs.noAntimash) // carlito was here
-				animToPlay = "hurt";
-
 			char.playAnim(animToPlay, true);
 		}
 
@@ -4588,7 +4593,8 @@ class PlayState extends MusicBeatState
 	function noteMissPress(direction:Int = 1):Void //You pressed a key when there was no notes to press for this key
 	{
 		var cannotHIT = false;
-		if (mania == 4 && direction ==2 )
+
+		if (mania == 4 && direction == 2)
 			cannotHIT = true; 
 
 		if (!boyfriend.stunned && !cannotHIT)
@@ -4619,9 +4625,7 @@ class PlayState extends MusicBeatState
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 
 			if(boyfriend.hasMissAnimations) {
-				if (mania == 4 && direction == 2 && ClientPrefs.noAntimash) // carlito was here
-					boyfriend.playAnim('hurt', true);
-				else
+	
 					boyfriend.playAnim('sing' + Note.keysShit.get(mania).get('anims')[direction] + 'miss', true);
 			}
 			vocals.volume = 0;
@@ -4751,10 +4755,7 @@ class PlayState extends MusicBeatState
 				var animToPlay:String = 'sing' + Note.keysShit.get(mania).get('anims')[note.noteData];
 				if (mania == 4 && note.noteData == 2)
 					{
-						if (!hittingHard && !ClientPrefs.noAntimash)
-							animToPlay= 'dodge';
-						else
-							animToPlay= 'hurt';
+						animToPlay= 'dodge';
 
 					}
 				
