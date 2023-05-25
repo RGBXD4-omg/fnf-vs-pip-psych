@@ -95,8 +95,8 @@ class CreditsState extends MusicBeatState
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 			['Vs Pip Team'],
 			['Crae',		'crae',		'Main Artist of Vs Pip',						'https://twitter.com/Crae_YT',	'5b5b5b'],
-			['Sophie',			'sophie',		'Main Charter of Vs Pip',					'https://twitter.com/pickled_bastard',		'8fce00'],
-			['Kalpy',			'kalpy',			'Main Composer of Vs Pip',				'https://twitter.com/Kalpy19',			'6fa8dc'],
+			['Sophie',			'sophie',		'Charter of Vs Pip',					'https://twitter.com/pickled_bastard',		'8fce00'],
+			['Kalpy',			'kalpy',			'Composer of Vs Pip',				'https://twitter.com/Kalpy19',			'6fa8dc'],
 			['Carlitosmorecom',			'carlitos',			'Main Programmer of Vs Pip',				'https://twitter.com/carlitosmorecom',			'f1c232'],
 			['Vidz',			'vidz',			'Additional Programmer of Vs Pip',				'https://twitter.com/ItsVidz3',			'16537e'],
 			['Special Thanks'],
