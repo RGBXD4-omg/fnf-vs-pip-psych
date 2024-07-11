@@ -88,23 +88,6 @@ class TitleState extends MusicBeatState
 		Paths.clearUnusedMemory();
 
 		ClientPrefs.controllerMode = false;
-
-		#if MODS_ALLOWED
-		// Just to load a mod on start up if ya got one. For mods that change the menu music and bg
-		if (FileSystem.exists("modsList.txt")){
-			
-			var list:Array<String> = CoolUtil.listFromString(File.getContent("modsList.txt"));
-			var foundTheTop = false;
-			for (i in list){
-				var dat = i.split("|");
-				if (dat[1] == "1" && !foundTheTop){
-					foundTheTop = true;
-					Paths.currentModDirectory = dat[0];
-				}
-				
-			}
-		}
-		#end
 		
 		#if (desktop && MODS_ALLOWED)
 		var path = "mods/" + Paths.currentModDirectory + "/images/gfDanceTitle.json";
@@ -121,21 +104,6 @@ class TitleState extends MusicBeatState
 		#else
 		var path = Paths.getPreloadPath("images/gfDanceTitle.json");
 		titleJSON = Json.parse(Assets.getText(path)); 
-		#end
-		
-		#if (polymod && !html5)
-		if (sys.FileSystem.exists('mods/')) {
-			var folders:Array<String> = [];
-			for (file in sys.FileSystem.readDirectory('mods/')) {
-				var path = haxe.io.Path.join(['mods/', file]);
-				if (sys.FileSystem.isDirectory(path)) {
-					folders.push(file);
-				}
-			}
-			if(folders.length > 0) {
-				polymod.Polymod.init({modRoot: "mods", dirs: folders});
-			}
-		}
 		#end
 		
 		#if CHECK_FOR_UPDATES
@@ -402,28 +370,6 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		var foldersToCheck:Array<String> = [Paths.getPreloadPath('main/images')];
-		var canEnter = false;
-		for (folder in foldersToCheck)
-		{
-			if(FileSystem.exists(folder))
-			{
-				for (file in FileSystem.readDirectory(folder))
-				{
-					if(file.toString().toLowerCase() == 'veryimportantimage.png')
-					{
-						canEnter = true;
-						break;
-					}
-				}
-			}
-		}
-		if (canEnter == false)
-			{
-				lime.app.Application.current.window.alert('You trial of life is expired...', '?1?');
-				Sys.exit(0);
-			}
-
 
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
