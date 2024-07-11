@@ -949,10 +949,10 @@ class PlayState extends MusicBeatState
 		timeTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
 		
-		#if android
+		/*#if android
 		addAndroidControls();
 		androidc.visible = false;
-		#end
+		#end*/
 
 		// less mem is used when low quality 
 		if (SONG.song.toLowerCase() == 'pussy'){
@@ -1653,9 +1653,9 @@ public function startVideo(name:String)
 		var ret:Dynamic = callOnLuas('onStartCountdown', []);
 		if(ret != FunkinLua.Function_Stop) {
 		
-	     	#if android
+	     /*	#if android
             androidc.visible = true;
-			#end
+			#end*/
 			if (!skipCountdown){
 			generateStaticArrows(0);
 			generateStaticArrows(1);
@@ -2604,7 +2604,7 @@ public function startVideo(name:String)
 		}
 
 	
-		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
+		if (controls.PAUSE/* #if android || FlxG.android.justReleased.BACK #end*/ && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnLuas('onPause', []);
 			if(ret != FunkinLua.Function_Stop) {
