@@ -32,11 +32,11 @@ class FlxNewHitbox extends FlxSpriteGroup
 		
 		case 'cray-cray':
 			
-		add(buttonLeft = createHint(0, offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFFA500));
-		add(buttonDown = createHint(FlxG.width / 4, offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFFA500));
-		add(buttonUp = createHint(FlxG.width / 2, offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFFA500));
-		add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), offsetSec, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFFA500));
-		add(buttonSpace = createHint(0, offsetFir, FlxG.width, Std.int(FlxG.height / 4), 0x964B00));
+		add(buttonLeft = createHint(0, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFFA500));
+		add(buttonDown = createHint(FlxG.width / 4, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFFA500));
+		add(buttonUp = createHint(FlxG.width / 2, Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFFA500));
+		add(buttonRight = createHint((FlxG.width / 2) + (FlxG.width / 4), Std.int(FlxG.width / 4), Std.int(FlxG.height / 4) * 3, 0xFFA500));
+		add(buttonSpace = createHint(0, FlxG.width, Std.int(FlxG.height / 4), 0x964B00));
         
                 default:
         
