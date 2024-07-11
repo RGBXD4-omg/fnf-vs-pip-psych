@@ -16,7 +16,8 @@ class StartupState extends FlxState
 	var skipText:FlxText;
 
     override public function create():Void
-    {	Paths.clearStoredMemory();
+    {	
+	    Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
 		camHUD = new FlxCamera();
@@ -81,19 +82,5 @@ class StartupState extends FlxState
         startDaVideo("Newgrounds");
 
         super.create();
-    }
-
-    
-
-    override public function update(elapsed:Float):Void
-    {
-        if (FlxG.keys.justPressed.SPACE || FlxG.keys.justPressed.ENTER){
-			FlxVideo.skipVLC();
-			remove(bg);
-            remove(skipText);
-
-            FlxG.switchState(new TitleState());
-		}
-        super.update(elapsed);
     }
 }
