@@ -8,15 +8,6 @@ local followchars = true;
 local del = 0;
 local del2 = 0;
 
-function onStartCountdown()
-	if not allowCountdown and isStoryMode and not seenCutscene then
-		startVideo('shoot-new');
-		allowCountdown = true;
-		return Function_Stop;
-	end
-	return Function_Continue;
-end
-
 function onUpdate()
 	if del > 0 then
 		del = del - 1
