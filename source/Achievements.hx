@@ -119,94 +119,14 @@ class Achievements {
 
 	public static function reloadAchievements() {	//Achievements in game are hardcoded, no need to make a folder for them
 		loadedAchievements.clear();
-
-		#if MODS_ALLOWED //Based on WeekData.hx
-		var disabledMods:Array<String> = [];
-		var modsListPath:String = 'modsList.txt';
-		var directories:Array<String> = [Paths.mods()];
-		if(FileSystem.exists(modsListPath))
-		{
-			var stuff:Array<String> = CoolUtil.coolTextFile(modsListPath);
-			for (i in 0...stuff.length)
-			{
-				var splitName:Array<String> = stuff[i].trim().split('|');
-				if(splitName[1] == '0') // Disable mod
-				{
-					disabledMods.push(splitName[0]);
-				}
-				else // Sort mod loading order based on modsList.txt file
-				{
-					var path = haxe.io.Path.join([Paths.mods(), splitName[0]]);
-					//trace('trying to push: ' + splitName[0]);
-					if (sys.FileSystem.isDirectory(path) && !Paths.ignoreModFolders.contains(splitName[0]) && !disabledMods.contains(splitName[0]) && !directories.contains(path + '/'))
-					{
-						directories.push(path + '/');
-						//trace('pushed Directory: ' + splitName[0]);
-					}
-				}
-			}
-		}
-
-		var modsDirectories:Array<String> = Paths.getModDirectories();
-		for (folder in modsDirectories)
-		{
-			var pathThing:String = haxe.io.Path.join([Paths.mods(), folder]) + '/';
-			if (!disabledMods.contains(folder) && !directories.contains(pathThing))
-			{
-				directories.push(pathThing);
-				//trace('pushed Directory: ' + folder);
-			}
-		}
-
-		for (i in 0...directories.length) {
-			var directory:String = directories[i] + 'achievements/';
-
-			//trace(directory);
-			if (FileSystem.exists(directory)) {
-
-				var listOfAchievements:Array<String> = CoolUtil.coolTextFile(directory + 'achievementList.txt');
-
-				for (achievement in listOfAchievements) {
-					var path:String = directory + achievement + '.json';
-
-					if (FileSystem.exists(path) && !loadedAchievements.exists(achievement) && achievement != PlayState.othersCodeName) {
-						loadedAchievements.set(achievement, getAchievementInfo(path));
-					}
-
-					//trace(path);
-				}
-
-				for (file in FileSystem.readDirectory(directory)) {
-					var path = haxe.io.Path.join([directory, file]);
-					
-					var cutName:String = file.substr(0, file.length - 5);
-					if (!FileSystem.isDirectory(path) && file.endsWith('.json') && !loadedAchievements.exists(cutName) && cutName != PlayState.othersCodeName) {
-						loadedAchievements.set(cutName, getAchievementInfo(path));
-					}
-
-					//trace(file);
-				}
-			}
-		}
-
-		for (json in loadedAchievements) {
-			//trace(json);
-			achievementsStuff.push([json.name, json.description, json.icon, json.unlocksAfter, json.hidden]);
-		}
-		#end
 	}
 
 	private static function getAchievementInfo(path:String):AchievementFile {
 		var rawJson:String = null;
-		#if MODS_ALLOWED
-		if (FileSystem.exists(path)) {
-			rawJson = File.getContent(path);
-		}
-		#else
+		
 		if(OpenFlAssets.exists(path)) {
 			rawJson = Assets.getText(path);
 		}
-		#end
 
 		if(rawJson != null && rawJson.length > 0) {
 			return cast Json.parse(rawJson);
