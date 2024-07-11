@@ -2448,15 +2448,6 @@ public function startVideo(name:String)
 	override public function update(elapsed:Float)
 	{
 
-		// weird way of skipping
-		if (FlxG.keys.justPressed.SPACE && isStoryMode && SONG.song.toLowerCase() == 'cray cray' && inCutscene){
-			FlxVideo.skipVLC();
-			remove(cutscenebg);
-			completedVideo = true;
-
-			startAndEnd();
-		}
-
 		callOnLuas('onUpdate', [elapsed]);
 
 	
