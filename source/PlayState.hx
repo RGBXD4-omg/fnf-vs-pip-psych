@@ -4479,14 +4479,14 @@ public function startVideo(name:String)
 			}
 
 	private function keyShit():Void
-		{
-		
+	{
+		// HOLDING
 		var up = controls.NOTE_UP;
 		var right = controls.NOTE_RIGHT;
 		var down = controls.NOTE_DOWN;
 		var left = controls.NOTE_LEFT;
 		var controlHoldArray:Array<Bool> = [left, down, up, right];
-		
+
 		// TO DO: Find a better way to handle controller inputs, this should work for now
 		if (ClientPrefs.controllerMode)
 		{
@@ -4505,33 +4505,37 @@ public function startVideo(name:String)
 				}
 			}
 		}
-			// FlxG.watch.addQuick('asdfa', upP);
-			if (!boyfriend.stunned && generatedMusic)
+
+		// FlxG.watch.addQuick('asdfa', upP);
+		if (!boyfriend.stunned && generatedMusic)
+		{
+			// rewritten inputs???
+			notes.forEachAlive(function(daNote:Note)
 			{
-				// rewritten inputs???
-				notes.forEachAlive(function(daNote:Note)
+				// hold note functions
+				if (daNote.isSustainNote && controlHoldArray[daNote.noteData] && daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit)
 				{
-					
-							if (daNote.isSustainNote && controlHoldArray[daNote.noteData]
-							&& daNote.canBeHit && daNote.mustPress && !daNote.tooLate 
-							&& !daNote.wasGoodHit) {
-								goodNoteHit(daNote);
-					}
-				});
-	
-				if (controlHoldArray.contains(true) && !endingSong) {
-					#if ACHIEVEMENTS_ALLOWED
-					var achieve:String = checkForAchievement(['oversinging']);
-					if (achieve != null) {
-						startAchievement(achieve);
-					}
-					#end
-				} else if (boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing')
-				&& !boyfriend.animation.curAnim.name.endsWith('miss') && !boyfriend.animation.curAnim.name.contains('dodge'))
-					boyfriend.dance();
+					goodNoteHit(daNote);
 				}
-					
-					// TO DO: Find a better way to handle controller inputs, this should work for now
+			});
+
+			if (controlHoldArray.contains(true) && !endingSong)
+			{
+				#if ACHIEVEMENTS_ALLOWED
+				var achieve:String = checkForAchievement(['oversinging']);
+				if (achieve != null)
+				{
+					startAchievement(achieve);
+				}
+				#end
+			}
+			else if (boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration
+				&& boyfriend.animation.curAnim.name.startsWith('sing')
+				&& !boyfriend.animation.curAnim.name.endsWith('miss'))
+				boyfriend.dance();
+		}
+
+		// TO DO: Find a better way to handle controller inputs, this should work for now
 		if (ClientPrefs.controllerMode)
 		{
 			var controlArray:Array<Bool> = [
@@ -4551,11 +4555,17 @@ public function startVideo(name:String)
 		}
 	}
 
-	function noteMiss(daNote:Note):Void { //You didn't hit the key and let it go offscreen, also used by Hurt Notes
-		//Dupe note remove
-		healthbarshake(1.0);
-		notes.forEachAlive(function(note:Note) {		
-			if (daNote != note && daNote.mustPress && daNote.noteData == note.noteData && daNote.isSustainNote == note.isSustainNote && Math.abs(daNote.strumTime - note.strumTime) < 1) {
+	function noteMiss(daNote:Note):Void
+	{ // You didn't hit the key and let it go offscreen, also used by Hurt Notes
+		// Dupe note remove
+		notes.forEachAlive(function(note:Note)
+		{
+			if (daNote != note
+				&& daNote.mustPress
+				&& daNote.noteData == note.noteData
+				&& daNote.isSustainNote == note.isSustainNote
+				&& Math.abs(daNote.strumTime - note.strumTime) < 1)
+			{
 				note.kill();
 				notes.remove(note, true);
 				note.destroy();
@@ -4563,73 +4573,60 @@ public function startVideo(name:String)
 		});
 		combo = 0;
 
-		
-	if (mania == 4 && daNote.noteData == 2)
-		{
-			trace("BRO WHYYY");
-			GameOverSubstate.deathSoundName = 'bfgetshotanddies';
-			GameOverSubstate.endSoundName = 'gameOverEnd';
-			GameOverSubstate.characterName = 'bf-fucking-dies';
-			GameOverSubstate.loopSoundName = 'cheeseballs-death_dance';
-
-			vocals.volume = 0;
-			health -= 69; 
-			doDeathCheck(true);
-		}
-		
 		health -= daNote.missHealth * healthLoss;
-		if(instakillOnMiss)
+		if (instakillOnMiss)
 		{
 			vocals.volume = 0;
 			doDeathCheck(true);
 		}
 
-	
-		//For testing purposes
-		//trace(daNote.missHealth);
+		// For testing purposes
+		// trace(daNote.missHealth);
 		songMisses++;
 		vocals.volume = 0;
-		if(!practiceMode) songScore -= 10;
-		
+		if (!practiceMode)
+			songScore -= 10;
+
 		totalPlayed++;
 		RecalculateRating();
 
 		var char:Character = boyfriend;
-		if(daNote.gfNote) {
+		if (daNote.gfNote)
+		{
 			char = gf;
 		}
 
-		if(char.hasMissAnimations)
+		if (char.hasMissAnimations)
 		{
 			var daAlt = '';
-			if(daNote.noteType == 'Alt Animation') daAlt = '-alt';
+			if (daNote.noteType == 'Alt Animation')
+				daAlt = '-alt';
 
-			var animToPlay:String = 'sing' + Note.keysShit.get(mania).get('anims')[daNote.noteData] + 'miss' + daAlt;
-
+			var animToPlay:String = singAnimations[Std.int(Math.abs(daNote.noteData))] + 'miss' + daAlt;
 			char.playAnim(animToPlay, true);
 		}
 
-		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
+		callOnLuas('noteMiss', [
+			notes.members.indexOf(daNote),
+			daNote.noteData,
+			daNote.noteType,
+			daNote.isSustainNote
+		]);
 	}
 
-	function noteMissPress(direction:Int = 1):Void //You pressed a key when there was no notes to press for this key
+	function noteMissPress(direction:Int = 1):Void // You pressed a key when there was no notes to press for this key
 	{
-		var cannotHIT = false;
-
-		if (mania == 4 && direction == 2)
-			cannotHIT = true; 
-
-		if (!boyfriend.stunned && !cannotHIT)
+		if (!boyfriend.stunned)
 		{
-			healthbarshake(1.0);
 			health -= 0.05 * healthLoss;
-			if(instakillOnMiss)
+			if (instakillOnMiss)
 			{
 				vocals.volume = 0;
 				doDeathCheck(true);
 			}
 
-			if(ClientPrefs.ghostTapping) return;
+			if (ClientPrefs.ghostTapping)
+				return;
 
 			if (combo > 5 && gf.animOffsets.exists('sad'))
 			{
@@ -4637,18 +4634,30 @@ public function startVideo(name:String)
 			}
 			combo = 0;
 
-			if(!practiceMode) songScore -= 10;
-			if(!endingSong) {
+			if (!practiceMode)
+				songScore -= 10;
+			if (!endingSong)
+			{
 				songMisses++;
 			}
 			totalPlayed++;
 			RecalculateRating();
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
+			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
+			// FlxG.log.add('played imss note');
 
-			if(boyfriend.hasMissAnimations) {
-	
-					boyfriend.playAnim('sing' + Note.keysShit.get(mania).get('anims')[direction] + 'miss', true);
+			/*boyfriend.stunned = true;
+		
+					// get stunned for 1/60 of a second, makes you able to
+					new FlxTimer().start(1 / 60, function(tmr:FlxTimer)
+					{
+						boyfriend.stunned = false;
+				});*/
+
+			if (boyfriend.hasMissAnimations)
+			{
+				boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction))] + 'miss', true);
 			}
 			vocals.volume = 0;
 		}
