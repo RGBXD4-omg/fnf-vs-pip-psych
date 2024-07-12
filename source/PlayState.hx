@@ -1207,7 +1207,8 @@ class PlayState extends MusicBeatState
 					if(daSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
 					schoolIntro(doof);
 
-				
+				case 'cray-cray':
+				startVideo('shoot-new');
 
 				default:
 					startCountdown();
@@ -2450,13 +2451,6 @@ public function startVideo(name:String)
 	{
 
 		// weird way of skipping
-		if (FlxG.keys.justPressed.SPACE && isStoryMode && SONG.song.toLowerCase() == 'cray-cray' && inCutscene){
-			FlxVideo.skipVLC();
-			remove(cutscenebg);
-			completedVideo = true;
-
-			startAndEnd();
-		}
 
 		callOnLuas('onUpdate', [elapsed]);
 
