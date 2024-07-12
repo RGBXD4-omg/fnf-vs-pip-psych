@@ -249,7 +249,6 @@ class PlayState extends MusicBeatState
 	var grpLimoParticles:FlxTypedGroup<BGSprite>;
 	var grpLimoDancers:FlxTypedGroup<BackgroundDancer>;
 	var fastCar:BGSprite;
-	var perfectMode:Bool = false;
 
 	var upperBoppers:BGSprite;
 	var bottomBoppers:BGSprite;
@@ -4422,13 +4421,13 @@ public function startVideo(name:String)
 		var rightP = controls.NOTE_RIGHT_P;
 		var downP =  controls.NOTE_DOWN_P;
 		var leftP =  controls.NOTE_LEFT_P;
-		//var dodgeP = controls.DODGE_P;
+		var dodgeP = controls.DODGE_P;
 
 		var upR =  controls.NOTE_UP_R;
 		var rightR = controls.NOTE_RIGHT_R;
 		var downR =  controls.NOTE_DOWN_R;
 		var leftR =  controls.NOTE_LEFT_R;
-		//var dodgeR = controls.DODGE_R;
+		var dodgeR = controls.DODGE_R;
 
 		// var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
 		// var controlReleaseArray:Array<Bool> = [leftR, downR, upR, rightR];
@@ -4439,8 +4438,8 @@ public function startVideo(name:String)
 		var fH:Array<Bool> = [left, down, up, right];
 
 		if (mania == 4){
-		fP = [leftP, downP, upP, rightP];
-		fR = [leftR, downR, upR, rightR];
+		fP = [leftP, downP, dodgeP, upP, rightP];
+		fR = [leftR, downR, dodgeR, upR, rightR];
 		fH = [left, down, dodge, up, right];
 		}
 
@@ -4564,7 +4563,7 @@ public function startVideo(name:String)
 			}
 		});
 	}
-
+	
 	function badNoteHit():Void {
 		var fP:Array<Bool> = [controls.NOTE_LEFT_P, controls.NOTE_DOWN_P, controls.NOTE_UP_P, controls.NOTE_RIGHT_P];
 

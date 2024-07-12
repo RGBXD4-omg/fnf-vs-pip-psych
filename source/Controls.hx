@@ -10,14 +10,9 @@ import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
-#if android
-import flixel.group.FlxGroup;
-import android.FlxHitbox;
-import android.FlxNewHitbox;
-import android.FlxVirtualPad;
+import ui.Hitbox;
+import ui.FlxVirtualPad;
 import flixel.ui.FlxButton;
-import android.flixel.FlxButton as FlxNewButton;
-#end
 
 #if (haxe >= "4.0.0")
 enum abstract Action(String) to String from String
@@ -35,6 +30,9 @@ enum abstract Action(String) to String from String
 	var UI_RIGHT_R = "ui_right-release";
 	var UI_DOWN_R = "ui_down-release";
 	var NOTE_UP = "note_up";
+	var DODGE = "dodge";
+	var DODGE_P = "dodge-press";	
+	var DODGE_R = "dodge-release";
 	var NOTE_LEFT = "note_left";
 	var NOTE_RIGHT = "note_right";
 	var NOTE_DOWN = "note_down";
@@ -46,7 +44,6 @@ enum abstract Action(String) to String from String
 	var NOTE_LEFT_R = "note_left-release";
 	var NOTE_RIGHT_R = "note_right-release";
 	var NOTE_DOWN_R = "note_down-release";
-	var DODGE = "dodge";
 	var ACCEPT = "accept";
 	var BACK = "back";
 	var PAUSE = "pause";
@@ -69,6 +66,9 @@ abstract Action(String) to String from String
 	var UI_RIGHT_R = "ui_right-release";
 	var UI_DOWN_R = "ui_down-release";
 	var NOTE_UP = "note_up";
+	var DODGE = "dodge";
+	var DODGE_P = "dodge-press";	
+	var DODGE_R = "dodge-release";
 	var NOTE_LEFT = "note_left";
 	var NOTE_RIGHT = "note_right";
 	var NOTE_DOWN = "note_down";
@@ -80,7 +80,6 @@ abstract Action(String) to String from String
 	var NOTE_LEFT_R = "note_left-release";
 	var NOTE_RIGHT_R = "note_right-release";
 	var NOTE_DOWN_R = "note_down-release";
-	var DODGE = "dodge";
 	var ACCEPT = "accept";
 	var BACK = "back";
 	var PAUSE = "pause";
@@ -106,11 +105,11 @@ enum Control
 	UI_RIGHT;
 	UI_DOWN;
 	NOTE_UP;
+	DODGE;
 	NOTE_LEFT;
 	NOTE_RIGHT;
 	NOTE_DOWN;
 	RESET;
-	DODGE;
 	ACCEPT;
 	BACK;
 	PAUSE;
@@ -145,6 +144,9 @@ class Controls extends FlxActionSet
 	var _ui_rightR = new FlxActionDigital(Action.UI_RIGHT_R);
 	var _ui_downR = new FlxActionDigital(Action.UI_DOWN_R);
 	var _note_up = new FlxActionDigital(Action.NOTE_UP);
+	var _dodge = new FlxActionDigital(Action.DODGE);
+	var _dodgeP = new FlxActionDigital(Action.DODGE_P);
+	var _dodgeR = new FlxActionDigital(Action.DODGE_R);
 	var _note_left = new FlxActionDigital(Action.NOTE_LEFT);
 	var _note_right = new FlxActionDigital(Action.NOTE_RIGHT);
 	var _note_down = new FlxActionDigital(Action.NOTE_DOWN);
@@ -156,7 +158,6 @@ class Controls extends FlxActionSet
 	var _note_leftR = new FlxActionDigital(Action.NOTE_LEFT_R);
 	var _note_rightR = new FlxActionDigital(Action.NOTE_RIGHT_R);
 	var _note_downR = new FlxActionDigital(Action.NOTE_DOWN_R);
-	var _dodge = new FlxActionDigital(Action.DODGE);
 	var _accept = new FlxActionDigital(Action.ACCEPT);
 	var _back = new FlxActionDigital(Action.BACK);
 	var _pause = new FlxActionDigital(Action.PAUSE);
@@ -236,6 +237,21 @@ class Controls extends FlxActionSet
 	inline function get_NOTE_UP()
 		return _note_up.check();
 
+	public var DODGE(get, never):Bool;
+
+	inline function get_DODGE()
+		return _dodge.check();
+
+	public var DODGE_P(get, never):Bool;
+
+	inline function get_DODGE_P()
+		return _dodgeP.check();
+
+	public var DODGE_R(get, never):Bool;
+
+	inline function get_DODGE_R()
+		return _dodgeR.check();
+
 	public var NOTE_LEFT(get, never):Bool;
 
 	inline function get_NOTE_LEFT()
@@ -291,11 +307,6 @@ class Controls extends FlxActionSet
 	inline function get_NOTE_DOWN_R()
 		return _note_downR.check();
 
-	public var DODGE(get, never):Bool;
-
-	inline function get_DODGE()
-	        return _dodge.check();
-
 	public var ACCEPT(get, never):Bool;
 
 	inline function get_ACCEPT()
@@ -335,6 +346,9 @@ class Controls extends FlxActionSet
 		add(_ui_rightR);
 		add(_ui_downR);
 		add(_note_up);
+		add(_dodge);
+		add(_dodgeP);
+		add(_dodgeR);
 		add(_note_left);
 		add(_note_right);
 		add(_note_down);
@@ -346,7 +360,6 @@ class Controls extends FlxActionSet
 		add(_note_leftR);
 		add(_note_rightR);
 		add(_note_downR);
-		add(_dodge);
 		add(_accept);
 		add(_back);
 		add(_pause);
@@ -371,7 +384,7 @@ class Controls extends FlxActionSet
 	}
 	#end
 
-		#if android
+	#if android
 	public var trackedinputsUI:Array<FlxActionInput> = [];
 	public var trackedinputsNOTES:Array<FlxActionInput> = [];	
 
@@ -563,6 +576,7 @@ class Controls extends FlxActionSet
 	}	
 	#end
 
+
 	override function update()
 	{
 		super.update();
@@ -603,10 +617,10 @@ class Controls extends FlxActionSet
 			case UI_LEFT: _ui_left;
 			case UI_RIGHT: _ui_right;
 			case NOTE_UP: _note_up;
+			case DODGE: _dodge;
 			case NOTE_DOWN: _note_down;
 			case NOTE_LEFT: _note_left;
 			case NOTE_RIGHT: _note_right;
-                        case DODGE: _dodge;
 			case ACCEPT: _accept;
 			case BACK: _back;
 			case PAUSE: _pause;
@@ -650,6 +664,10 @@ class Controls extends FlxActionSet
 				func(_note_up, PRESSED);
 				func(_note_upP, JUST_PRESSED);
 				func(_note_upR, JUST_RELEASED);
+			case DODGE:
+				func(_dodge, PRESSED);
+				func(_dodgeP, JUST_PRESSED);
+				func(_dodgeR, JUST_RELEASED);
 			case NOTE_LEFT:
 				func(_note_left, PRESSED);
 				func(_note_leftP, JUST_PRESSED);
@@ -662,8 +680,6 @@ class Controls extends FlxActionSet
 				func(_note_down, PRESSED);
 				func(_note_downP, JUST_PRESSED);
 				func(_note_downR, JUST_RELEASED);
-			case DODGE:
-				func(_dodge, JUST_PRESSED);
 			case ACCEPT:
 				func(_accept, JUST_PRESSED);
 			case BACK:
@@ -871,7 +887,6 @@ class Controls extends FlxActionSet
 				bindKeys(Control.NOTE_DOWN, [S, FlxKey.DOWN]);
 				bindKeys(Control.NOTE_LEFT, [A, FlxKey.LEFT]);
 				bindKeys(Control.NOTE_RIGHT, [D, FlxKey.RIGHT]);
-				bindKeys(Control.DODGE, [SPACE]);
 				bindKeys(Control.ACCEPT, [Z, SPACE, ENTER]);
 				bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
 				bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
