@@ -249,6 +249,7 @@ class PlayState extends MusicBeatState
 	var grpLimoParticles:FlxTypedGroup<BGSprite>;
 	var grpLimoDancers:FlxTypedGroup<BackgroundDancer>;
 	var fastCar:BGSprite;
+	var perfectMode:Bool = false;
 
 	var upperBoppers:BGSprite;
 	var bottomBoppers:BGSprite;
