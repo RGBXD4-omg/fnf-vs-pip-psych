@@ -1488,7 +1488,7 @@ public function startVideo(name:String)
 			return;
 		}
 
-		var video:VideoHandler = new VideoHandler();
+		var video:MP4Handler = new MP4Handler();
 		video.playVideo(filepath);
 		video.finishCallback = function()
 		{
@@ -4335,132 +4335,150 @@ public function startVideo(name:String)
 		});
 	}
 
-private function onKeyPress(event:KeyboardEvent):Void
-	{
-		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(eventKey);
-		// trace('Pressed: ' + eventKey);
-
-		if (!cpuControlled && !paused && key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.controllerMode))
+	private function onKeyPress(event:KeyboardEvent):Void
 		{
-			if (!boyfriend.stunned && generatedMusic && !endingSong)
+			var eventKey:FlxKey = event.keyCode;
+			var key:Int = getKeyFromEvent(eventKey);
+			//trace('Pressed: ' + eventKey);
+	
+			if (!cpuControlled && !paused && key > -1 && FlxG.keys.checkStatus(eventKey, JUST_PRESSED))
 			{
-				var canMiss:Bool = !ClientPrefs.ghostTapping;
-
-				// heavily based on my own code LOL if it aint broke dont fix it
-				var pressNotes:Array<Note> = [];
-				// var notesDatas:Array<Int> = [];
-				var notesStopped:Bool = false;
-
-				var sortedNotesList:Array<Note> = [];
-				notes.forEachAlive(function(daNote:Note)
+				if(!boyfriend.stunned && generatedMusic && !endingSong)
 				{
-					if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.isSustainNote)
+					//more accurate hit time for the ratings?
+					var lastTime:Float = Conductor.songPosition;
+					Conductor.songPosition = FlxG.sound.music.time;
+	
+					var canMiss:Bool = !ClientPrefs.ghostTapping;
+	
+					// heavily based on my own code LOL if it aint broke dont fix it
+					var pressNotes:Array<Note> = [];
+					//var notesDatas:Array<Int> = [];
+					var notesStopped:Bool = false;
+	
+					var sortedNotesList:Array<Note> = [];
+					notes.forEachAlive(function(daNote:Note)
 					{
-						if (daNote.noteData == key)
+						if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.isSustainNote)
 						{
-							sortedNotesList.push(daNote);
-							// notesDatas.push(daNote.noteData);
-						}
-						canMiss = true;
-					}
-				});
-				sortedNotesList.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
-
-				if (sortedNotesList.length > 0)
-				{
-					for (epicNote in sortedNotesList)
-					{
-						for (doubleNote in pressNotes)
-						{
-							if (Math.abs(doubleNote.strumTime - epicNote.strumTime) < 1)
+							if(daNote.noteData == key)
 							{
-								doubleNote.kill();
-								notes.remove(doubleNote, true);
-								doubleNote.destroy();
+								sortedNotesList.push(daNote);
+								//notesDatas.push(daNote.noteData);
 							}
-							else
-								notesStopped = true;
+							if (!ClientPrefs.noAntimash) {	//shut up
+								canMiss = true;
+							}
 						}
-
-						// eee jack detection before was not super good
-						if (!notesStopped)
+					});
+					sortedNotesList.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
+	
+					if (sortedNotesList.length > 0) {
+						for (epicNote in sortedNotesList)
 						{
-							goodNoteHit(epicNote);
-							pressNotes.push(epicNote);
+							for (doubleNote in pressNotes) {
+								if (Math.abs(doubleNote.strumTime - epicNote.strumTime) < 1) {
+									doubleNote.kill();
+									notes.remove(doubleNote, true);
+									doubleNote.destroy();
+								} else
+									notesStopped = true;
+							}
+								
+							// eee jack detection before was not super good
+							if (!notesStopped) {
+								goodNoteHit(epicNote);
+								pressNotes.push(epicNote);
+							}
+	
+						}
+					}
+					else if (canMiss) {
+						noteMissPress(key);
+						callOnLuas('noteMissPress', [key]);
+					}
+	
+					// I dunno what you need this for but here you go
+					//									- Shubs
+	
+					// Shubs, this is for the "Just the Two of Us" achievement lol
+					//									- Shadow Mario
+					keysPressed[key] = true;
+	
+					//more accurate hit time for the ratings? part 2 (Now that the calculations are done, go back to the time it was before for not causing a note stutter)
+					Conductor.songPosition = lastTime;
+				}
+	
+				var spr:StrumNote = playerStrums.members[key];
+				if(spr != null && spr.animation.curAnim.name != 'confirm')
+				{
+					spr.playAnim('pressed');
+					spr.resetAnim = 0;
+				}
+				callOnLuas('onKeyPress', [key]);
+			}
+			//trace('pressed: ' + controlArray);
+		}
+	
+		private function onKeyRelease(event:KeyboardEvent):Void
+			{
+				var eventKey:FlxKey = event.keyCode;
+				var key:Int = getKeyFromEvent(eventKey);
+				if(!cpuControlled && !paused && key > -1)
+				{
+					var spr:StrumNote = playerStrums.members[key];
+					if(spr != null)
+					{
+						spr.playAnim('static');
+						spr.resetAnim = 0;
+					}
+		
+					callOnLuas('onKeyRelease', [key]);
+				}
+				//trace('released: ' + controlArray);
+			}
+		
+			private function getKeyFromEvent(key:FlxKey):Int
+			{
+				if(key != NONE)
+				{
+					for (i in 0...keysArray[mania].length)
+					{
+						for (j in 0...keysArray[mania][i].length)
+						{
+							if(key == keysArray[mania][i][j])
+							{
+								return i;
+							}
 						}
 					}
 				}
-				else if (canMiss)
-				{
-					noteMissPress(key);
-					callOnLuas('noteMissPress', [key]);
-				}
-
-				// I dunno what you need this for but here you go
-				//									- Shubs
-
-				// Shubs, this is for the "Just the Two of Us" achievement lol
-				//									- Shadow Mario
-				keysPressed[key] = true;
+				return -1;
 			}
-
-			var spr:StrumNote = playerStrums.members[key];
-			if (spr != null && spr.animation.curAnim.name != 'confirm')
+		
+			private function keysArePressed():Bool
 			{
-				spr.playAnim('pressed');
-				spr.resetAnim = 0;
-			}
-			callOnLuas('onKeyPress', [key]);
-		}
-		// trace('pressed: ' + controlArray);
-	}
-
-	private function onKeyRelease(event:KeyboardEvent):Void
-	{
-		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(eventKey);
-		if (!cpuControlled && !paused && key > -1)
-		{
-			var spr:StrumNote = playerStrums.members[key];
-			if (spr != null)
-			{
-				spr.playAnim('static');
-				spr.resetAnim = 0;
-			}
-			callOnLuas('onKeyRelease', [key]);
-		}
-		// trace('released: ' + controlArray);
-	}
-
-	private function getKeyFromEvent(key:FlxKey):Int
-	{
-		if (key != NONE)
-		{
-			for (i in 0...keysArray.length)
-			{
-				for (j in 0...keysArray[i].length)
-				{
-					if (key == keysArray[i][j])
-					{
-						return i;
+				for (i in 0...keysArray[mania].length) {
+					for (j in 0...keysArray[mania][i].length) {
+						if (FlxG.keys.checkStatus(keysArray[mania][i][j], PRESSED)) return true;
 					}
 				}
+		
+				return false;
 			}
-		}
-		return -1;
-	}
+		
+			private function dataKeyIsPressed(data:Int):Bool
+			{
+				for (i in 0...keysArray[mania][data].length) {
+					if (FlxG.keys.checkStatus(keysArray[mania][data][i], PRESSED)) return true;
+				}
+		
+				return false;
+			}
 
-	// Hold notes
 	private function keyShit():Void
-	{
-		// HOLDING
-		var up = controls.NOTE_UP;
-		var right = controls.NOTE_RIGHT;
-		var down = controls.NOTE_DOWN;
-		var left = controls.NOTE_LEFT;
-		var controlHoldArray:Array<Bool> = [left, down, up, right];
-
+		{
+		
 		// TO DO: Find a better way to handle controller inputs, this should work for now
 		if (ClientPrefs.controllerMode)
 		{
@@ -4479,37 +4497,33 @@ private function onKeyPress(event:KeyboardEvent):Void
 				}
 			}
 		}
-
-		// FlxG.watch.addQuick('asdfa', upP);
-		if (!boyfriend.stunned && generatedMusic)
-		{
-			// rewritten inputs???
-			notes.forEachAlive(function(daNote:Note)
+			// FlxG.watch.addQuick('asdfa', upP);
+			if (!boyfriend.stunned && generatedMusic)
 			{
-				// hold note functions
-				if (daNote.isSustainNote && controlHoldArray[daNote.noteData] && daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit)
+				// rewritten inputs???
+				notes.forEachAlive(function(daNote:Note)
 				{
-					goodNoteHit(daNote);
-				}
-			});
-
-			if (controlHoldArray.contains(true) && !endingSong)
-			{
-				#if ACHIEVEMENTS_ALLOWED
-				var achieve:String = checkForAchievement(['oversinging']);
-				if (achieve != null)
-				{
-					startAchievement(achieve);
-				}
-				#end
+					
+							if (daNote.isSustainNote && dataKeyIsPressed(daNote.noteData)
+							&& daNote.canBeHit && daNote.mustPress && !daNote.tooLate 
+							&& !daNote.wasGoodHit) {
+								goodNoteHit(daNote);
+					}
+				});
+	
+				if (keysArePressed() && !endingSong) {
+					#if ACHIEVEMENTS_ALLOWED
+					var achieve:String = checkForAchievement(['oversinging']);
+					if (achieve != null) {
+						startAchievement(achieve);
+					}
+					#end
+				} else if (boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing')
+				&& !boyfriend.animation.curAnim.name.endsWith('miss') && !boyfriend.animation.curAnim.name.contains('dodge'))
+					boyfriend.dance();
 			}
-			else if (boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration
-				&& boyfriend.animation.curAnim.name.startsWith('sing')
-				&& !boyfriend.animation.curAnim.name.endsWith('miss'))
-				boyfriend.dance();
-		}
-
-		// TO DO: Find a better way to handle controller inputs, this should work for now
+			
+			// TO DO: Find a better way to handle controller inputs, this should work for now
 		if (ClientPrefs.controllerMode)
 		{
 			var controlArray:Array<Bool> = [
@@ -4528,7 +4542,7 @@ private function onKeyPress(event:KeyboardEvent):Void
 			}
 		}
 	}
-
+		
 	function noteMiss(daNote:Note):Void { //You didn't hit the key and let it go offscreen, also used by Hurt Notes
 		//Dupe note remove
 		healthbarshake(1.0);
