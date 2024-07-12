@@ -4343,7 +4343,7 @@ public function startVideo(name:String)
 			var key:Int = getKeyFromEvent(eventKey);
 			//trace('Pressed: ' + eventKey);
 	
-			if (!cpuControlled && !paused && key > -1 && FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.controllerMode)
+			if (!cpuControlled && !paused && key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.controllerMode))
 			{
 				if(!boyfriend.stunned && generatedMusic && !endingSong)
 				{
@@ -4481,6 +4481,13 @@ public function startVideo(name:String)
 	private function keyShit():Void
 		{
 		
+		var up = controls.NOTE_UP;
+		var right = controls.NOTE_RIGHT;
+		var down = controls.NOTE_DOWN;
+		var left = controls.NOTE_LEFT;
+		var dodge = controls.DODGE;
+		var controlHoldArray:Array<Bool> = [left, down, up, right, dodge];
+		
 		// TO DO: Find a better way to handle controller inputs, this should work for now
 		if (ClientPrefs.controllerMode)
 		{
@@ -4506,14 +4513,14 @@ public function startVideo(name:String)
 				notes.forEachAlive(function(daNote:Note)
 				{
 					
-							if (daNote.isSustainNote && dataKeyIsPressed(daNote.noteData)
+							if (daNote.isSustainNote && controlHoldArray(daNote.noteData)
 							&& daNote.canBeHit && daNote.mustPress && !daNote.tooLate 
 							&& !daNote.wasGoodHit) {
 								goodNoteHit(daNote);
 					}
 				});
 	
-				if (keysArePressed() && !endingSong) {
+				if (controlHoldArray.contains(true) && !endingSong) {
 					#if ACHIEVEMENTS_ALLOWED
 					var achieve:String = checkForAchievement(['oversinging']);
 					if (achieve != null) {
