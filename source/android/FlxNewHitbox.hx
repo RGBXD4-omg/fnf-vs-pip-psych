@@ -27,7 +27,7 @@ class FlxNewHitbox extends FlxSpriteGroup
 	{
 		super();
 
-		switch (PlayState.SONG.song.toLowerCase())
+		switch (song)
 		{
 		
 		case 'cray-cray':
