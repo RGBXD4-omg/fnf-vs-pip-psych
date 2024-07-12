@@ -525,7 +525,7 @@ class PlayState extends MusicBeatState
 				vCutsce.screenCenter();
 			}
 
-			if (SONG.song.toLowerCase() == 'cray-cray'){
+			if (SONG.song.toLowerCase() == 'cray cray'){
 				blackScreenOfPip = new BGSprite('bgs/meWhen', -287.6, -51.95, 1, 1);
 				blackScreenOfPip.alpha = 0;
 				add(blackScreenOfPip);
@@ -666,7 +666,7 @@ class PlayState extends MusicBeatState
 		gfGroup.add(gf);
 		startCharacterLua(gf.curCharacter);
 		
-		if (SONG.song.toLowerCase() == 'cray-cray') exDad = true;
+		if (SONG.song.toLowerCase() == 'cray cray') exDad = true;
 
 		if (exDad){
 			dad2 = new Character(202.9, 395.55, "violet");
@@ -982,7 +982,6 @@ class PlayState extends MusicBeatState
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
 		
 		#end
-		
 		var daSong:String = Paths.formatToSongPath(curSong);
 
 		if (!seenCutscene)
@@ -1205,10 +1204,10 @@ class PlayState extends MusicBeatState
 				case 'senpai' | 'roses' | 'thorns':
 					if(daSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
 					schoolIntro(doof);
-					
+
 				case 'cray-cray':
 				startVideo('shoot-new');
-				
+
 				default:
 					startCountdown();
 			}
@@ -1235,13 +1234,12 @@ class PlayState extends MusicBeatState
 
 		if (!ClientPrefs.controllerMode)
 		{
-			FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
-			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
+			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
+			FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 		}
 		
 
 		Conductor.safeZoneOffset = (ClientPrefs.safeFrames / 60) * 1000;
-		
 		callOnLuas('onCreatePost', []);
 		
 		super.create();
@@ -1657,16 +1655,15 @@ public function startVideo(name:String)
 		var ret:Dynamic = callOnLuas('onStartCountdown', []);
 		if(ret != FunkinLua.Function_Stop) {
 		
-	     	#if android
-            androidc.visible = true;
-			#end
-			
+		#if android
+        androidc.visible = true;
+	    #end
 			if (!skipCountdown){
 			generateStaticArrows(0);
 			generateStaticArrows(1);
 			}
 
-			if (SONG.song.toLowerCase() == 'pip' ||SONG.song.toLowerCase() == 'cray-cray')
+			if (SONG.song.toLowerCase() == 'pip' ||SONG.song.toLowerCase() == 'cray cray')
 				FlxG.camera.zoom = .9;
 
 			for (i in 0...playerStrums.length) {
@@ -2002,7 +1999,7 @@ public function startVideo(name:String)
 		var file:String = Paths.json(songName + '/events');
 
 		if (OpenFlAssets.exists(file)) {
-	
+		
 			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
 			for (event in eventsData) //Event Notes
 			{
@@ -2453,6 +2450,8 @@ public function startVideo(name:String)
 	override public function update(elapsed:Float)
 	{
 
+		// weird way of skipping
+
 		callOnLuas('onUpdate', [elapsed]);
 
 	
@@ -2599,8 +2598,7 @@ public function startVideo(name:String)
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
-	
-		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
+		if (controls.PAUSE #if androidFlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnLuas('onPause', []);
 			if(ret != FunkinLua.Function_Stop) {
@@ -3568,7 +3566,7 @@ public function startVideo(name:String)
 	{
 		var finishCallback:Void->Void = endSong; //In case you want to change it in a specific song.
 
-		if (SONG.song.toLowerCase() == 'cray-cray' && isStoryMode)
+		if (SONG.song.toLowerCase() == 'cray cray' && isStoryMode)
 			{
 				finishCallback = pipDiesOfDeath; 
 			}
@@ -3888,7 +3886,7 @@ public function startVideo(name:String)
 			seenCutscene = false;
 			updateTime = false;
 	
-			if (curSong.toLowerCase() == 'cray-cray'){
+			if (curSong.toLowerCase() == 'cray cray'){
 					if (exDad)
 					dad2.visible = false;
 	
@@ -4337,147 +4335,123 @@ public function startVideo(name:String)
 		});
 	}
 
-	private function onKeyPress(event:KeyboardEvent):Void
+		private function onKeyPress(event:KeyboardEvent):Void
+	{
+		var eventKey:FlxKey = event.keyCode;
+		var key:Int = getKeyFromEvent(eventKey);
+		// trace('Pressed: ' + eventKey);
+
+		if (!cpuControlled && !paused && key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.controllerMode))
 		{
-			var eventKey:FlxKey = event.keyCode;
-			var key:Int = getKeyFromEvent(eventKey);
-			//trace('Pressed: ' + eventKey);
-	
-			if (!cpuControlled && !paused && key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.controllerMode))
+			if (!boyfriend.stunned && generatedMusic && !endingSong)
 			{
-				if(!boyfriend.stunned && generatedMusic && !endingSong)
+				var canMiss:Bool = !ClientPrefs.ghostTapping;
+
+				// heavily based on my own code LOL if it aint broke dont fix it
+				var pressNotes:Array<Note> = [];
+				// var notesDatas:Array<Int> = [];
+				var notesStopped:Bool = false;
+
+				var sortedNotesList:Array<Note> = [];
+				notes.forEachAlive(function(daNote:Note)
 				{
-					//more accurate hit time for the ratings?
-					var lastTime:Float = Conductor.songPosition;
-					Conductor.songPosition = FlxG.sound.music.time;
-	
-					var canMiss:Bool = !ClientPrefs.ghostTapping;
-	
-					// heavily based on my own code LOL if it aint broke dont fix it
-					var pressNotes:Array<Note> = [];
-					//var notesDatas:Array<Int> = [];
-					var notesStopped:Bool = false;
-	
-					var sortedNotesList:Array<Note> = [];
-					notes.forEachAlive(function(daNote:Note)
+					if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.isSustainNote)
 					{
-						if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.isSustainNote)
+						if (daNote.noteData == key)
 						{
-							if(daNote.noteData == key)
+							sortedNotesList.push(daNote);
+							// notesDatas.push(daNote.noteData);
+						}
+						canMiss = true;
+					}
+				});
+				sortedNotesList.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
+
+				if (sortedNotesList.length > 0)
+				{
+					for (epicNote in sortedNotesList)
+					{
+						for (doubleNote in pressNotes)
+						{
+							if (Math.abs(doubleNote.strumTime - epicNote.strumTime) < 1)
 							{
-								sortedNotesList.push(daNote);
-								//notesDatas.push(daNote.noteData);
+								doubleNote.kill();
+								notes.remove(doubleNote, true);
+								doubleNote.destroy();
 							}
-							if (!ClientPrefs.noAntimash) {	//shut up
-								canMiss = true;
-							}
+							else
+								notesStopped = true;
 						}
-					});
-					sortedNotesList.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
-	
-					if (sortedNotesList.length > 0) {
-						for (epicNote in sortedNotesList)
+
+						// eee jack detection before was not super good
+						if (!notesStopped)
 						{
-							for (doubleNote in pressNotes) {
-								if (Math.abs(doubleNote.strumTime - epicNote.strumTime) < 1) {
-									doubleNote.kill();
-									notes.remove(doubleNote, true);
-									doubleNote.destroy();
-								} else
-									notesStopped = true;
-							}
-								
-							// eee jack detection before was not super good
-							if (!notesStopped) {
-								goodNoteHit(epicNote);
-								pressNotes.push(epicNote);
-							}
-	
-						}
-					}
-					else if (canMiss) {
-						noteMissPress(key);
-						callOnLuas('noteMissPress', [key]);
-					}
-	
-					// I dunno what you need this for but here you go
-					//									- Shubs
-	
-					// Shubs, this is for the "Just the Two of Us" achievement lol
-					//									- Shadow Mario
-					keysPressed[key] = true;
-	
-					//more accurate hit time for the ratings? part 2 (Now that the calculations are done, go back to the time it was before for not causing a note stutter)
-					Conductor.songPosition = lastTime;
-				}
-	
-				var spr:StrumNote = playerStrums.members[key];
-				if(spr != null && spr.animation.curAnim.name != 'confirm')
-				{
-					spr.playAnim('pressed');
-					spr.resetAnim = 0;
-				}
-				callOnLuas('onKeyPress', [key]);
-			}
-			//trace('pressed: ' + controlArray);
-		}
-	
-		private function onKeyRelease(event:KeyboardEvent):Void
-			{
-				var eventKey:FlxKey = event.keyCode;
-				var key:Int = getKeyFromEvent(eventKey);
-				if(!cpuControlled && !paused && key > -1)
-				{
-					var spr:StrumNote = playerStrums.members[key];
-					if(spr != null)
-					{
-						spr.playAnim('static');
-						spr.resetAnim = 0;
-					}
-		
-					callOnLuas('onKeyRelease', [key]);
-				}
-				//trace('released: ' + controlArray);
-			}
-		
-			private function getKeyFromEvent(key:FlxKey):Int
-			{
-				if(key != NONE)
-				{
-					for (i in 0...keysArray[mania].length)
-					{
-						for (j in 0...keysArray[mania][i].length)
-						{
-							if(key == keysArray[mania][i][j])
-							{
-								return i;
-							}
+							goodNoteHit(epicNote);
+							pressNotes.push(epicNote);
 						}
 					}
 				}
-				return -1;
-			}
-		
-			private function keysArePressed():Bool
-			{
-				for (i in 0...keysArray[mania].length) {
-					for (j in 0...keysArray[mania][i].length) {
-						if (FlxG.keys.checkStatus(keysArray[mania][i][j], PRESSED)) return true;
-					}
+				else if (canMiss)
+				{
+					noteMissPress(key);
+					callOnLuas('noteMissPress', [key]);
 				}
-		
-				return false;
-			}
-		
-			private function dataKeyIsPressed(data:Int):Bool
-			{
-				for (i in 0...keysArray[mania][data].length) {
-					if (FlxG.keys.checkStatus(keysArray[mania][data][i], PRESSED)) return true;
-				}
-		
-				return false;
+
+				// I dunno what you need this for but here you go
+				//									- Shubs
+
+				// Shubs, this is for the "Just the Two of Us" achievement lol
+				//									- Shadow Mario
+				keysPressed[key] = true;
 			}
 
+			var spr:StrumNote = playerStrums.members[key];
+			if (spr != null && spr.animation.curAnim.name != 'confirm')
+			{
+				spr.playAnim('pressed');
+				spr.resetAnim = 0;
+			}
+			callOnLuas('onKeyPress', [key]);
+		}
+		// trace('pressed: ' + controlArray);
+	}
+
+	private function onKeyRelease(event:KeyboardEvent):Void
+	{
+		var eventKey:FlxKey = event.keyCode;
+		var key:Int = getKeyFromEvent(eventKey);
+		if (!cpuControlled && !paused && key > -1)
+		{
+			var spr:StrumNote = playerStrums.members[key];
+			if (spr != null)
+			{
+				spr.playAnim('static');
+				spr.resetAnim = 0;
+			}
+			callOnLuas('onKeyRelease', [key]);
+		}
+		// trace('released: ' + controlArray);
+	}
+
+	private function getKeyFromEvent(key:FlxKey):Int
+	{
+		if (key != NONE)
+		{
+			for (i in 0...keysArray.length)
+			{
+				for (j in 0...keysArray[i].length)
+				{
+					if (key == keysArray[i][j])
+					{
+						return i;
+					}
+				}
+			}
+		}
+		return -1;
+	}
+
+	// Hold notes
 	private function keyShit():Void
 	{
 		// HOLDING
@@ -4555,17 +4529,11 @@ public function startVideo(name:String)
 		}
 	}
 
-	function noteMiss(daNote:Note):Void
-	{ // You didn't hit the key and let it go offscreen, also used by Hurt Notes
-		// Dupe note remove
-		notes.forEachAlive(function(note:Note)
-		{
-			if (daNote != note
-				&& daNote.mustPress
-				&& daNote.noteData == note.noteData
-				&& daNote.isSustainNote == note.isSustainNote
-				&& Math.abs(daNote.strumTime - note.strumTime) < 1)
-			{
+	function noteMiss(daNote:Note):Void { //You didn't hit the key and let it go offscreen, also used by Hurt Notes
+		//Dupe note remove
+		healthbarshake(1.0);
+		notes.forEachAlive(function(note:Note) {		
+			if (daNote != note && daNote.mustPress && daNote.noteData == note.noteData && daNote.isSustainNote == note.isSustainNote && Math.abs(daNote.strumTime - note.strumTime) < 1) {
 				note.kill();
 				notes.remove(note, true);
 				note.destroy();
@@ -4573,60 +4541,73 @@ public function startVideo(name:String)
 		});
 		combo = 0;
 
+		
+	if (mania == 4 && daNote.noteData == 2)
+		{
+			trace("BRO WHYYY");
+			GameOverSubstate.deathSoundName = 'bfgetshotanddies';
+			GameOverSubstate.endSoundName = 'gameOverEnd';
+			GameOverSubstate.characterName = 'bf-fucking-dies';
+			GameOverSubstate.loopSoundName = 'cheeseballs-death_dance';
+
+			vocals.volume = 0;
+			health -= 69; 
+			doDeathCheck(true);
+		}
+		
 		health -= daNote.missHealth * healthLoss;
-		if (instakillOnMiss)
+		if(instakillOnMiss)
 		{
 			vocals.volume = 0;
 			doDeathCheck(true);
 		}
 
-		// For testing purposes
-		// trace(daNote.missHealth);
+	
+		//For testing purposes
+		//trace(daNote.missHealth);
 		songMisses++;
 		vocals.volume = 0;
-		if (!practiceMode)
-			songScore -= 10;
-
+		if(!practiceMode) songScore -= 10;
+		
 		totalPlayed++;
 		RecalculateRating();
 
 		var char:Character = boyfriend;
-		if (daNote.gfNote)
-		{
+		if(daNote.gfNote) {
 			char = gf;
 		}
 
-		if (char.hasMissAnimations)
+		if(char.hasMissAnimations)
 		{
 			var daAlt = '';
-			if (daNote.noteType == 'Alt Animation')
-				daAlt = '-alt';
+			if(daNote.noteType == 'Alt Animation') daAlt = '-alt';
 
-			var animToPlay:String = singAnimations[Std.int(Math.abs(daNote.noteData))] + 'miss' + daAlt;
+			var animToPlay:String = 'sing' + Note.keysShit.get(mania).get('anims')[daNote.noteData] + 'miss' + daAlt;
+
 			char.playAnim(animToPlay, true);
 		}
 
-		callOnLuas('noteMiss', [
-			notes.members.indexOf(daNote),
-			daNote.noteData,
-			daNote.noteType,
-			daNote.isSustainNote
-		]);
+		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
 	}
 
-	function noteMissPress(direction:Int = 1):Void // You pressed a key when there was no notes to press for this key
+	function noteMissPress(direction:Int = 1):Void //You pressed a key when there was no notes to press for this key
 	{
-		if (!boyfriend.stunned)
+		var cannotHIT = false;
+
+		if (mania == 4 && direction == 2)
+			cannotHIT = true; 
+
+		if (!boyfriend.stunned && !cannotHIT)
 		{
+			healthbarshake(1.0);
 			health -= 0.05 * healthLoss;
-			if (instakillOnMiss)
+			if(instakillOnMiss)
 			{
 				vocals.volume = 0;
 				doDeathCheck(true);
 			}
 
-			if (ClientPrefs.ghostTapping)
-				return;
+			if(ClientPrefs.ghostTapping) return;
 
 			if (combo > 5 && gf.animOffsets.exists('sad'))
 			{
@@ -4634,30 +4615,18 @@ public function startVideo(name:String)
 			}
 			combo = 0;
 
-			if (!practiceMode)
-				songScore -= 10;
-			if (!endingSong)
-			{
+			if(!practiceMode) songScore -= 10;
+			if(!endingSong) {
 				songMisses++;
 			}
 			totalPlayed++;
 			RecalculateRating();
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
-			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
-			// FlxG.log.add('played imss note');
 
-			/*boyfriend.stunned = true;
-		
-					// get stunned for 1/60 of a second, makes you able to
-					new FlxTimer().start(1 / 60, function(tmr:FlxTimer)
-					{
-						boyfriend.stunned = false;
-				});*/
-
-			if (boyfriend.hasMissAnimations)
-			{
-				boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction))] + 'miss', true);
+			if(boyfriend.hasMissAnimations) {
+	
+					boyfriend.playAnim('sing' + Note.keysShit.get(mania).get('anims')[direction] + 'miss', true);
 			}
 			vocals.volume = 0;
 		}
@@ -5053,7 +5022,7 @@ public function startVideo(name:String)
 		luaArray = [];
 
 	
-		if (!ClientPrefs.controllerMode)
+	if (!ClientPrefs.controllerMode)
 		{
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 			FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
@@ -5242,7 +5211,7 @@ public function startVideo(name:String)
 		// 		camGame.zoom = 0.86;
 		// 	}
 
-		if (curBeat == 322 && curSong.toLowerCase() == 'cray-cray')
+		if (curBeat == 322 && curSong.toLowerCase() == 'cray cray')
 			{
 				FlxTween.cancelTweensOf(camHUD);
 				//FlxG.sound.play(Paths.sound('vine-boom'));
