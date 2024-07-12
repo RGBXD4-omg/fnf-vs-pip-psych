@@ -4485,7 +4485,7 @@ public function startVideo(name:String)
 		var right = controls.NOTE_RIGHT;
 		var down = controls.NOTE_DOWN;
 		var left = controls.NOTE_LEFT;
-		var controlHoldArray:Array<Bool> = [left, down, up, right];
+		var controlHoldArray:Array<Bool> = [left, down, up, righ];
 		
 		// TO DO: Find a better way to handle controller inputs, this should work for now
 		if (ClientPrefs.controllerMode)
@@ -4512,7 +4512,7 @@ public function startVideo(name:String)
 				notes.forEachAlive(function(daNote:Note)
 				{
 					
-							if (daNote.isSustainNote && controlHoldArray(daNote.noteData)
+							if (daNote.isSustainNote && controlHoldArray[daNote.noteData]
 							&& daNote.canBeHit && daNote.mustPress && !daNote.tooLate 
 							&& !daNote.wasGoodHit) {
 								goodNoteHit(daNote);
