@@ -4343,7 +4343,7 @@ public function startVideo(name:String)
 			var key:Int = getKeyFromEvent(eventKey);
 			//trace('Pressed: ' + eventKey);
 	
-			if (!cpuControlled && !paused && key > -1 && FlxG.keys.checkStatus(eventKey, JUST_PRESSED || ClientPrefs.controllerMode))
+			if (!cpuControlled && !paused && key > -1 && FlxG.keys.checkStatus(eventKey, JUST_PRESSED) || ClientPrefs.controllerMode)
 			{
 				if(!boyfriend.stunned && generatedMusic && !endingSong)
 				{
