@@ -4523,6 +4523,7 @@ public function startVideo(name:String)
 				} else if (boyfriend.holdTimer > Conductor.stepCrochet * 0.001 * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing')
 				&& !boyfriend.animation.curAnim.name.endsWith('miss') && !boyfriend.animation.curAnim.name.contains('dodge'))
 					boyfriend.dance();
+				}
 					
 					// TO DO: Find a better way to handle controller inputs, this should work for now
 		if (ClientPrefs.controllerMode)
