@@ -28,7 +28,7 @@ class ClientPrefs {
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
 	public static var healthBarAlpha:Float = 1;
-	public static var controllerMode:Bool = true;
+	public static var controllerMode:Bool = #if android true #else false #end;
 	public static var hitboxalpha:Float = 0.2;
 	public static var hitboxmode:String = 'New';
 	public static var gameplaySettings:Map<String, Dynamic> = [
