@@ -25,6 +25,7 @@ class PauseSubState extends MusicBeatSubstate
 
 	var pauseMusic:FlxSound;
 	var practiceText:FlxText;
+	var test:Bool = true;
 	//var botplayText:FlxText;
 
 	public function new(x:Float, y:Float)
@@ -134,6 +135,8 @@ class PauseSubState extends MusicBeatSubstate
 
 		super.update(elapsed);
 
+		if (test){
+			
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
@@ -198,6 +201,7 @@ class PauseSubState extends MusicBeatSubstate
 					regenMenu();
 			}
 		}
+			}
 	}
 
 	public static function restartSong(noTrans:Bool = false)
