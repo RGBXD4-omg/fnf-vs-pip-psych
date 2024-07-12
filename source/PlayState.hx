@@ -525,7 +525,7 @@ class PlayState extends MusicBeatState
 				vCutsce.screenCenter();
 			}
 
-			if (SONG.song.toLowerCase() == 'cray cray'){
+			if (SONG.song.toLowerCase() == 'cray-cray'){
 				blackScreenOfPip = new BGSprite('bgs/meWhen', -287.6, -51.95, 1, 1);
 				blackScreenOfPip.alpha = 0;
 				add(blackScreenOfPip);
@@ -666,7 +666,7 @@ class PlayState extends MusicBeatState
 		gfGroup.add(gf);
 		startCharacterLua(gf.curCharacter);
 		
-		if (SONG.song.toLowerCase() == 'cray cray') exDad = true;
+		if (SONG.song.toLowerCase() == 'cray-cray') exDad = true;
 
 		if (exDad){
 			dad2 = new Character(202.9, 395.55, "violet");
@@ -1663,7 +1663,7 @@ public function startVideo(name:String)
 			generateStaticArrows(1);
 			}
 
-			if (SONG.song.toLowerCase() == 'pip' ||SONG.song.toLowerCase() == 'cray cray')
+			if (SONG.song.toLowerCase() == 'pip' ||SONG.song.toLowerCase() == 'cray-cray')
 				FlxG.camera.zoom = .9;
 
 			for (i in 0...playerStrums.length) {
@@ -3566,7 +3566,7 @@ public function startVideo(name:String)
 	{
 		var finishCallback:Void->Void = endSong; //In case you want to change it in a specific song.
 
-		if (SONG.song.toLowerCase() == 'cray cray' && isStoryMode)
+		if (SONG.song.toLowerCase() == 'cray-cray' && isStoryMode)
 			{
 				finishCallback = pipDiesOfDeath; 
 			}
@@ -3886,7 +3886,7 @@ public function startVideo(name:String)
 			seenCutscene = false;
 			updateTime = false;
 	
-			if (curSong.toLowerCase() == 'cray cray'){
+			if (curSong.toLowerCase() == 'cray-cray'){
 					if (exDad)
 					dad2.visible = false;
 	
@@ -5211,7 +5211,7 @@ public function startVideo(name:String)
 		// 		camGame.zoom = 0.86;
 		// 	}
 
-		if (curBeat == 322 && curSong.toLowerCase() == 'cray cray')
+		if (curBeat == 322 && curSong.toLowerCase() == 'cray-cray')
 			{
 				FlxTween.cancelTweensOf(camHUD);
 				//FlxG.sound.play(Paths.sound('vine-boom'));
