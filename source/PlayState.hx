@@ -4485,8 +4485,7 @@ public function startVideo(name:String)
 		var right = controls.NOTE_RIGHT;
 		var down = controls.NOTE_DOWN;
 		var left = controls.NOTE_LEFT;
-		var dodge = controls.DODGE;
-		var controlHoldArray:Array<Bool> = [left, down, up, right, dodge];
+		var controlHoldArray:Array<Bool> = [left, down, up, right];
 		
 		// TO DO: Find a better way to handle controller inputs, this should work for now
 		if (ClientPrefs.controllerMode)
