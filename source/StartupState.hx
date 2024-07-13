@@ -29,6 +29,8 @@ class StartupState extends FlxState
 
 		FlxG.cameras.add(camHUD);
 
+	    startVideo('Newgrounds');
+
 	    super.create();
     }
 
@@ -70,14 +72,6 @@ class StartupState extends FlxState
 		FlxG.switchState(new TitleState());
 		return;
 		#end
-     }
-	
-     override public function update(elapsed:Float)
-     {
-		startVideo('Newgrounds');
-	     
-	     super.update(elapsed);
-     }
-
+    }
 
 }
