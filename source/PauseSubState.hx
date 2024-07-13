@@ -225,7 +225,6 @@ class PauseSubState extends MusicBeatSubstate
 		super.destroy();
 	}
 
-	function changeSelection(change:Int = 0):Bool
 	function changeSelection(change:Int = 0):Void
 	{
 		curSelected += change;
