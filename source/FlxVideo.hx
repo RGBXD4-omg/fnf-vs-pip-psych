@@ -22,7 +22,7 @@ class FlxVideo extends FlxBasic
 			if (finishCallback != null)
 				finishCallback();
 		}
-		video.playVideo(Generic.returnPath() + path, false, false);
+		video.playVideo(Paths.video(name));
 		#else
 		if (finishCallback != null)
 			finishCallback();
