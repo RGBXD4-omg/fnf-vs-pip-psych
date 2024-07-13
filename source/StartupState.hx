@@ -8,6 +8,9 @@ import sys.FileSystem;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxG;
+#if VIDEOS_ALLOWED
+import VideoHandler;
+#end
 
 class StartupState extends FlxState
 {
@@ -28,26 +31,16 @@ class StartupState extends FlxState
 
     function startDaVideo(name:String):Void {
             #if VIDEOS_ALLOWED
-            var foundFile:Bool = false;
-            var fileName:String = "Newgrounds";
-            #if sys
-            if(FileSystem.exists(fileName)) {
-                foundFile = true;
-            }
-            #end
-    
-            if(!foundFile) {
-                fileName = Paths.video(name);
+            var foundFile:Bool = true;
+               var fileName = Paths.video(name);
+	    
                 #if sys
-                if(FileSystem.exists(fileName)) {
+                if(FileSystem.exists(fileName)){
                 #else
-                if(OpenFlAssets.exists(fileName)) {
+                if(OpenFlAssets.exists(fileName)){
                 #end
-                    foundFile = true;
-                }
-            }
-    
-            if(foundFile) {
+		}
+			
                 bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
                 bg.scrollFactor.set();
                 bg.cameras = [camHUD];
@@ -59,8 +52,10 @@ class StartupState extends FlxState
                 skipText.borderSize = 1.25;
                 skipText.y = FlxG.height * 0.89 + 36;
                 skipText.visible = false;
+
+		var doge:videoHandler = new VideoHandler();
     
-                (new FlxVideo(fileName)).finishCallback = function() {
+                doge.finishCallback = function() {
                     remove(bg);
                     remove(skipText);
                     FlxG.switchState(new TitleState());
