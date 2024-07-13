@@ -30,7 +30,7 @@ class StartupState extends FlxState
 		FlxG.cameras.add(camHUD);
 
 
-    public function startVideo(name:String)
+        function startVideo(name:String)
 	{
 		#if VIDEOS_ALLOWED
 		inCutscene = true;
