@@ -226,38 +226,39 @@ class PauseSubState extends MusicBeatSubstate
 	}
 
 	function changeSelection(change:Int = 0):Bool
+	function changeSelection(change:Int = 0):Void
 	{
 		curSelected += change;
 
-		if (((curSelected + (curPage * maxItems)) >= menuItemsOG.length) || ((curSelected + (curPage * maxItems)) < 0))
-		{
-			curSelected -= change;
-			return false;
-		}
-		
+		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+
 		if (curSelected < 0)
-		{
-			changePage(-1);
-			curSelected = maxItems - 1;
-		}
+			curSelected = menuItems.length - 1;
 		if (curSelected >= menuItems.length)
-		{
-			changePage(1);
 			curSelected = 0;
-		}
+
+		var bullShit:Int = 0;
 
 		for (item in grpMenuShit.members)
 		{
-			item.selected = item.ID == curSelected;
-			if (item.selected)
-			{
-				selectLeft.y = item.y + 5;
-				selectRight.y = item.y + 5;
-				selectTimer = 0;
-			}
+			item.targetY = bullShit - curSelected;
+			bullShit++;
 
+			item.alpha = 0.6;
+			// item.setGraphicSize(Std.int(item.width * 0.8));
+
+			if (item.targetY == 0)
+			{
+				item.alpha = 1;
+				// item.setGraphicSize(Std.int(item.width));
+
+				if (item == skipTimeTracker)
+				{
+					curTime = Math.max(0, Conductor.songPosition);
+					updateSkipTimeText();
+				}
+			}
 		}
-		return true;
 	}
 
 	function regenMenu():Void {
