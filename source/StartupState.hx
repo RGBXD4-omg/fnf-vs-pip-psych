@@ -36,9 +36,9 @@ class StartupState extends FlxState
 		inCutscene = true;
 		
 		#if sys
-		if (!FileSystem.exists(filepath))
+		if (!FileSystem.exists(Paths.video('Newgrounds'))
 		#else
-		if (!OpenFlAssets.exists(filepath))
+		if (!OpenFlAssets.exists(Paths.video('Newgrounds'))
 		#end
 		{
 			FlxG.log.warn('Couldnt find video file: ' + name);
