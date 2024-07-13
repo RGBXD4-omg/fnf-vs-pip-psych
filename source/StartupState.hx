@@ -72,11 +72,11 @@ class StartupState extends FlxState
 		#end
      }
 	
-     override public function update():Void
+     override public function update(elapsed:Float)
      {
 		startVideo('Newgrounds');
 	     
-	     super.update();
+	     super.update(elapsed);
      }
 
 
