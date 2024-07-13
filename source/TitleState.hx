@@ -184,8 +184,14 @@ class TitleState extends MusicBeatState
 			#end
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 		       {
+			       if (initialized)
+			       {
 				startIntro();
+			       }
+			       else
+			       {
 				startVideo('Newgrounds');
+			       }
 			});
 		
 		#end
