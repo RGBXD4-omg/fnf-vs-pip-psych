@@ -53,7 +53,7 @@ class StartupState extends FlxState
                 skipText.y = FlxG.height * 0.89 + 36;
                 skipText.visible = false;
 
-		var doge:videoHandler = new VideoHandler();
+		var doge:VideoHandler = new VideoHandler();
     
                 doge.finishCallback = function() {
                     remove(bg);
