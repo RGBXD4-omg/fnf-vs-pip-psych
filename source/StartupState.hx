@@ -8,6 +8,7 @@ import sys.FileSystem;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxG;
+import lime.utils.Assets as OpenFlAssets;
 #if VIDEOS_ALLOWED
 import VideoHandler;
 #end
