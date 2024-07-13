@@ -592,6 +592,8 @@ class TitleState extends MusicBeatState
 			skippedIntro = true;
 		}
 	}
+	var canPressEnter:Bool = false;
+
 	public function startVideo(name:String)
 	{
 		#if VIDEOS_ALLOWED
@@ -599,13 +601,12 @@ class TitleState extends MusicBeatState
 
 		var filepath:String = Paths.video(name);
 		#if sys
-		if (!FileSystem.exists(filepath))
+		if(!FileSystem.exists(filepath))
 		#else
-		if (!OpenFlAssets.exists(filepath))
+		if(!OpenFlAssets.exists(filepath))
 		#end
 		{
 			FlxG.log.warn('Couldnt find video file: ' + name);
-			
 			return;
 		}
 
@@ -613,12 +614,12 @@ class TitleState extends MusicBeatState
 		video.playVideo(filepath);
 		video.finishCallback = function()
 		{
-			
+			startIntro();
+			canPressEnter = true;
 			return;
 		}
 		#else
 		FlxG.log.warn('Platform not supported!');
-		
 		return;
 		#end
 	}
