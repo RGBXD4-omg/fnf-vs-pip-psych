@@ -140,10 +140,13 @@ class PauseSubState extends MusicBeatSubstate
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
 
-		if (upP)
+		if (upP){
 			changeSelection(-1);
-		if (downP)
+		}
+
+		if (downP){
 			changeSelection(1);
+		}
 
 		if (accepted)
 		{
@@ -222,33 +225,39 @@ class PauseSubState extends MusicBeatSubstate
 		super.destroy();
 	}
 
-	function changeSelection(change:Int = 0):Void
+	function changeSelection(change:Int = 0):Bool
 	{
 		curSelected += change;
 
-		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
-
+		if (((curSelected + (curPage * maxItems)) >= menuItemsOG.length) || ((curSelected + (curPage * maxItems)) < 0))
+		{
+			curSelected -= change;
+			return false;
+		}
+		
 		if (curSelected < 0)
-			curSelected = menuItems.length - 1;
+		{
+			changePage(-1);
+			curSelected = maxItems - 1;
+		}
 		if (curSelected >= menuItems.length)
+		{
+			changePage(1);
 			curSelected = 0;
-
-		var bullShit:Int = 0;
+		}
 
 		for (item in grpMenuShit.members)
 		{
-			item.targetY = bullShit - curSelected;
-			bullShit++;
-
-			item.alpha = 0.6;
-			// item.setGraphicSize(Std.int(item.width * 0.8));
-
-			if (item.targetY == 0)
+			item.selected = item.ID == curSelected;
+			if (item.selected)
 			{
-				item.alpha = 1;
-				// item.setGraphicSize(Std.int(item.width));
+				selectLeft.y = item.y + 5;
+				selectRight.y = item.y + 5;
+				selectTimer = 0;
 			}
+
 		}
+		return true;
 	}
 
 	function regenMenu():Void {
