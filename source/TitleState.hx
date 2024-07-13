@@ -36,6 +36,9 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
+#if VIDEOS_ALLOWED
+import VideoHandler;
+#end
 
 using StringTools;
 typedef TitleData =
@@ -65,7 +68,7 @@ class TitleState extends MusicBeatState
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
 	var sparkStudios:FlxSprite;
-
+	public var inCutscene:Bool = false;
 	
 
 	var curWacky:Array<String> = [];
@@ -181,7 +184,14 @@ class TitleState extends MusicBeatState
 			#end
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
+				if (initialized)
+				{
 				startIntro();
+				}
+				else
+				{
+				startVideo('Newground');
+				}
 			});
 		
 		#end
@@ -587,5 +597,35 @@ class TitleState extends MusicBeatState
 			remove(credGroup);
 			skippedIntro = true;
 		}
+	}
+	public function startVideo(name:String)
+	{
+		#if VIDEOS_ALLOWED
+		inCutscene = true;
+
+		var filepath:String = Paths.video(name);
+		#if sys
+		if (!FileSystem.exists(filepath))
+		#else
+		if (!OpenFlAssets.exists(filepath))
+		#end
+		{
+			FlxG.log.warn('Couldnt find video file: ' + name);
+			
+			return;
+		}
+
+		var video:VideoHandler = new VideoHandler();
+		video.playVideo(filepath);
+		video.finishCallback = function()
+		{
+			
+			return;
+		}
+		#else
+		FlxG.log.warn('Platform not supported!');
+		
+		return;
+		#end
 	}
 }
