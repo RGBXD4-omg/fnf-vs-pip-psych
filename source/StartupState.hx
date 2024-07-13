@@ -55,7 +55,7 @@ class StartupState extends FlxState
                 add(skipText);
 
 		var video:VideoHandler = new VideoHandler();
-		video.playVideo(Paths.video('Newgrounds');
+		video.playVideo(Paths.video('Newgrounds'));
 		video.finishCallback = function()
 		{
 			FlxG.switchState(new TitleState());
