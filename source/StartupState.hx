@@ -29,9 +29,12 @@ class StartupState extends FlxState
 
 		FlxG.cameras.add(camHUD);
 
+	    super.create();
+    }
 
-    public function startVideo(name:String)
-	{
+
+   public function startVideo(name:String)
+    {
 		#if VIDEOS_ALLOWED
 		inCutscene = true;
 
@@ -53,15 +56,25 @@ class StartupState extends FlxState
 			FlxG.switchState(new TitleState());
 			return;
 		}
+			
+                var skipText = new FlxText(0, 0, FlxG.width, "PRESS SPACE OR BACK TO SKIP", 20);
+                skipText.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+                skipText.scrollFactor.set();
+                skipText.borderSize = 1.25;
+                skipText.y = FlxG.height * 0.89 + 36;
+                skipText.visible = false;
+	    
 		#else
 		FlxG.log.warn('Platform not supported!');
 		FlxG.switchState(new TitleState());
 		return;
 		#end
-	}
-	    
-        startVideo("Newgrounds");
+     }
+	
+     override public function update():Void
+     {
+		startVideo('Newgrounds');
+     }
 
-        super.create();
-    }
+
 }
