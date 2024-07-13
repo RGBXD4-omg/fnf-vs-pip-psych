@@ -39,9 +39,9 @@ class StartupState extends FlxState
 		var filepath:String = Paths.video('Newgrounds');
 		
 		#if sys
-		if (!FileSystem.exists(filepath)
+		if (!FileSystem.exists(filepath))
 		#else
-		if (!OpenFlAssets.exists(filepath)
+		if (!OpenFlAssets.exists(filepath))
 		#end
 		{
 			FlxG.log.warn('Couldnt find video file: ' + name);
