@@ -75,6 +75,8 @@ class StartupState extends FlxState
      override public function update():Void
      {
 		startVideo('Newgrounds');
+	     
+	     super.update();
      }
 
 
