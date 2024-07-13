@@ -64,7 +64,7 @@ class StartupState extends FlxState
 
                 return;
 
-            else
+            #else
             {
                 FlxG.log.warn('Couldnt find video file: ' + fileName);
                 FlxG.switchState(new TitleState());
