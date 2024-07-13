@@ -78,7 +78,7 @@ class StartupState extends FlxState
             #end
             FlxG.switchState(new TitleState());
         }
-        startDaVideo("Newgrounds");
+        startDaVideo('Newgrounds');
 
         super.create();
     }
