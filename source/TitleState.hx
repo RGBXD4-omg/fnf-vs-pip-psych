@@ -73,6 +73,8 @@ class TitleState extends MusicBeatState
 
 	var curWacky:Array<String> = [];
 
+	var skipText:FlxText; //otto
+
 	var wackyImage:FlxSprite;
 
 	var easterEggEnabled:Bool = true; //Disable this to hide the easter egg
@@ -616,11 +618,20 @@ class TitleState extends MusicBeatState
 			return;
 		}
 
+		skipText = new FlxText(0, 0, FlxG.width, "PRESS SPACE TO SKIP", 20);
+                skipText.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+                skipText.scrollFactor.set();
+                skipText.borderSize = 1.25;
+                skipText.y = FlxG.height * 0.89 + 36;
+                skipText.visible = false;
+                add(skipText);
+
 		var video:VideoHandler = new VideoHandler();
 		video.playVideo(filepath);
 		video.finishCallback = function()
 		{
 			startIntro();
+			remove(skipText);
 			canPressEnter = true;
 			return;
 		}
