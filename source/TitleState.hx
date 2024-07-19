@@ -632,7 +632,7 @@ class TitleState extends MusicBeatState
 		{
 			startIntro();
 			remove(skipText);
-			canPressEnter = true;
+			canPressEnter = false;
 			return;
 		}
 		#else
